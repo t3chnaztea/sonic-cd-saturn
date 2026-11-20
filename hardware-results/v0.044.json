@@ -1,0 +1,20 @@
+{
+  "version": "0.044",
+  "report_date": "2026-09-19",
+  "disc_sha256": "fd18db44c07bc9c296f675049dcc9bbd2e543fac5620231cd5ce918f6129c55c",
+  "platform": "User's Sega Saturn/SAROO",
+  "source_candidate": "build/hardware-candidate-v0.044-01",
+  "deployment_record": "build/card-deployment-v044.json",
+  "hardware_tested": true,
+  "user_report": "That was extraordinary. You did a really great job. Hugely improved. I only noticed a handful of graphical glitches and so far nothing that affects gameplay.",
+  "reported_defects": [
+    {"id": "PPZ-GFX-003", "observation": "Vertical lines in title clouds in the top third of the screen."},
+    {"id": "PPZ-GFX-004", "observation": "Power-up TVs function but appear black; contents are not visible."},
+    {"id": "PPZ-GFX-005", "observation": "Small brick platforms are invisible unless Sonic stands on them."},
+    {"id": "PPZ-GFX-006", "observation": "Sometimes sprites seem to float slightly during vertical screen movement."}
+  ],
+  "audio": "No new audio failure reported. V0.040 remains the explicit hardware sound confirmation; this report does not separately certify each V0.044 track/event.",
+  "full_qa_release": false,
+  "limits": "Positive qualitative playtest, not exhaustive zone acceptance or measured console timing. Act/era/coordinates, clips, video mode and repeated cold-boot results were not supplied. Do not require those before investigating.",
+  "historical_manifests": "Packaging/deployment manifests remain immutable pre-test evidence. This later report supersedes their pending-test status without rewriting them."
+}

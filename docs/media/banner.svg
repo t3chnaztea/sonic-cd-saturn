@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-labelledby="t d">
+  <title id="t">Sonic CD for Sega Saturn: unofficial fan port</title>
+  <desc id="d">Original abstract banner: a compact disc wrapped in a tilted planetary ring, clock ticks around it, and warp streaks on a dark retro background. Contains no SEGA artwork or logos.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0f2e"/>
+      <stop offset=".55" stop-color="#1b1048"/>
+      <stop offset="1" stop-color="#330b4f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="1040" cy="160" r="260" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5b4bff" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#5b4bff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="disc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f6ff"/>
+      <stop offset=".45" stop-color="#aeb7d6"/>
+      <stop offset="1" stop-color="#e6e9f7"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffd23f"/>
+      <stop offset=".5" stop-color="#ff7a1a"/>
+      <stop offset="1" stop-color="#ff3e9a"/>
+    </linearGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="1"/>
+    </linearGradient>
+    <mask id="streakfade" maskUnits="userSpaceOnUse" x="520" y="0" width="420" height="320">
+      <rect x="520" y="0" width="420" height="320" fill="url(#fade)"/>
+    </mask>
+    <clipPath id="front"><rect x="-260" y="0" width="520" height="80"/></clipPath>
+    <clipPath id="card"><rect width="1280" height="320" rx="20"/></clipPath>
+    <pattern id="grid" width="48" height="16" patternUnits="userSpaceOnUse">
+      <path d="M0 .5H48M.5 0V16" stroke="#ff3e9a" stroke-opacity=".22" fill="none"/>
+    </pattern>
+  </defs>
+
+  <rect width="1280" height="320" rx="20" fill="url(#bg)"/>
+  <rect x="0" y="256" width="1280" height="64" fill="url(#grid)" clip-path="url(#card)"/>
+  <rect width="1280" height="320" rx="20" fill="url(#glow)"/>
+
+  <g fill="#fff">
+    <circle cx="610" cy="44" r="1.5" opacity=".8"/><circle cx="742" cy="70" r="1" opacity=".6"/>
+    <circle cx="880" cy="34" r="1.5" opacity=".7"/><circle cx="1210" cy="52" r="1.2" opacity=".7"/>
+    <circle cx="1180" cy="270" r="1.5" opacity=".5"/><circle cx="560" cy="282" r="1" opacity=".6"/>
+    <circle cx="470" cy="38" r="1.2" opacity=".5"/><circle cx="1250" cy="160" r="1" opacity=".6"/>
+    <circle cx="820" cy="250" r="1.2" opacity=".5"/><circle cx="960" cy="22" r="1" opacity=".6"/>
+  </g>
+
+  <g mask="url(#streakfade)" stroke-linecap="round" stroke-width="6">
+    <path d="M560 98H900" stroke="#00d1c1"/>
+    <path d="M610 124H912" stroke="#ffd23f"/>
+    <path d="M540 150H918" stroke="#ff3e9a"/>
+    <path d="M600 176H916" stroke="#6b5bff"/>
+    <path d="M650 202H908" stroke="#ff7a1a"/>
+    <path d="M700 228H896" stroke="#00d1c1" stroke-width="4"/>
+  </g>
+
+  <g transform="translate(1040 160)">
+    <g stroke="#00d1c1" stroke-width="3" stroke-linecap="round">
+      <path d="M0-150V-136M0 150V136M-150 0H-136M150 0H136" stroke-width="5"/>
+      <path d="M75-129.9l-6 10.4M129.9-75l-10.4 6M129.9 75l-10.4-6M75 129.9l-6-10.4M-75 129.9l6-10.4M-129.9 75l10.4-6M-129.9-75l10.4 6M-75-129.9l6 10.4"/>
+    </g>
+    <g transform="rotate(-18)">
+      <ellipse rx="228" ry="50" fill="none" stroke="url(#ring)" stroke-width="10" opacity=".9"/>
+    </g>
+    <circle r="118" fill="url(#disc)"/>
+    <path d="M0 0L-60-102A118 118 0 0 1 32-114Z" fill="#00d1c1" opacity=".35"/>
+    <path d="M0 0L32-114A118 118 0 0 1 104-56Z" fill="#ffd23f" opacity=".3"/>
+    <path d="M0 0L60 102A118 118 0 0 1-32 114Z" fill="#ff3e9a" opacity=".3"/>
+    <path d="M0 0L-32 114A118 118 0 0 1-104 56Z" fill="#6b5bff" opacity=".3"/>
+    <circle r="110" fill="none" stroke="#fff" stroke-opacity=".5"/>
+    <circle r="40" fill="#cfd5ea"/>
+    <circle r="40" fill="none" stroke="#8790b3" stroke-width="2"/>
+    <circle r="15" fill="#1b1048"/>
+    <g transform="rotate(-18)">
+      <ellipse rx="228" ry="50" fill="none" stroke="url(#ring)" stroke-width="10" clip-path="url(#front)"/>
+    </g>
+  </g>
+
+  <g font-family="'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', sans-serif">
+    <text x="64" y="148" font-size="62" font-weight="800" fill="#ffffff" letter-spacing="-1">Sonic CD</text>
+    <text x="64" y="204" font-size="40" font-weight="700" fill="#ffd23f">for Sega Saturn</text>
+    <text x="66" y="250" font-size="20" fill="#b7c3ea" letter-spacing="1">UNOFFICIAL FAN PORT · NATIVE SH-2 CODE</text>
+  </g>
+</svg>

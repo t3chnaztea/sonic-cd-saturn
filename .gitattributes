@@ -1,0 +1,13 @@
+# Internal session and QA records. `git archive` (tools/export-public.py) leaves them out.
+/NEXT-SESSION.md export-ignore
+/CLAUDE.md export-ignore
+/QA-SCHEDULE.json export-ignore
+/docs/archive/NEXT-SESSION-HISTORY.md export-ignore
+/docs/archive/QA-CAMPAIGN-PLAN-HISTORY.md export-ignore
+/docs/QA-CAMPAIGN-REPORT.md export-ignore
+/docs/RELEASE-HANDOFF-V0.082.md export-ignore
+/docs/BACKLOG.md export-ignore
+/AGENTS.md export-ignore
+/docs/INDEX.md export-ignore
+/docs/QA-CAMPAIGN-PLAN.md export-ignore
+/docs/QA-RESUME.md export-ignore

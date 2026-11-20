@@ -1,0 +1,183 @@
+# Asset-free checks. This workflow has no SEGA data, no BIOS, no disc images
+# and no Yaul toolchain, so it cannot build the disc or run the emulator gates.
+# Those gates run locally: `python3 tools/qa-loop.py fast|full` and
+# `bash tools/test-player.sh` (see CONTRIBUTING.md).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Asset-free checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node for browser patch contracts
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Browser patch engine contracts (synthetic data only)
+        run: node tools/test-browser-patch.cjs
+
+      - name: No game data, disc images, BIOS or build output tracked
+        run: |
+          python3 - <<'EOF'
+          import re, subprocess, sys
+          files = subprocess.run(['git', 'ls-files', '-z'], check=True,
+                                 capture_output=True).stdout.decode().split('\0')
+          files = [f for f in files if f]
+          # Disc images, ROMs, BIOS dumps, game data, audio, video, archives
+          # and compiled output. Mirrors the patterns in .gitignore.
+          banned = re.compile(r'\.(bin|cue|iso|chd|rom|img|mdf|mds|ccd|sub|nrg'
+                              r'|smd|gen|sms|gg|mmd|nem|kos|raw|pcm|wav|mp3|ogg'
+                              r'|flac|aiff|adx|ppm|mp4|mov|zip|7z|tar|gz|xz|o|a'
+                              r'|so|dylib|dll|elf|exe|state|smpc|scsp)$', re.I)
+          # Images are allowed only as original README media in docs/media/.
+          image = re.compile(r'\.(png|jpe?g|gif|webp|bmp|tga)$', re.I)
+          banned_dirs = ('assets/', 'build/', 'dist/', 'cd/', 'audio-tracks/',
+                         '.deps/', '.toolchain/', 'roms/', 'bios/', 'extracted/')
+          eol = subprocess.run(['git', 'ls-files', '--eol', '-z'], check=True,
+                               capture_output=True).stdout.decode().split('\0')
+          binary = {line.split('\t', 1)[1] for line in eol
+                    if line and line.split()[0] == 'i/-text'}
+          errors = []
+          for f in files:
+              media = f.startswith('docs/media/') and image.search(f)
+              if banned.search(f):
+                  errors.append(f'{f}: banned file type')
+              elif image.search(f) and not media:
+                  errors.append(f'{f}: images belong in docs/media/ only')
+              elif f.startswith(banned_dirs):
+                  errors.append(f'{f}: generated or private directory')
+              elif f in binary and not media:
+                  errors.append(f'{f}: binary content')
+          for f in errors:
+              print(f'::error file={f.split(":")[0]}::{f}')
+          print(f'{len(files)} tracked files, {len(errors)} violations')
+          sys.exit(1 if errors else 0)
+          EOF
+
+      - name: No private paths, LAN addresses or agent trailers
+        run: |
+          # Generic rules only. tools/export-public.py applies the owner's
+          # private term list and leak gate before anything is published.
+          python3 - <<'EOF'
+          import re, subprocess, sys
+          names = subprocess.run(['git', 'ls-files'], check=True, capture_output=True,
+                                 text=True).stdout.splitlines()
+          attrs = subprocess.run(['git', 'check-attr', '--stdin', 'export-ignore'],
+                                 input='\n'.join(names), check=True,
+                                 capture_output=True, text=True).stdout.splitlines()
+          internal = {a.split(': ')[0] for a in attrs if a.endswith(': set')}
+          rule = re.compile(
+              r'/Users/[A-Za-z0-9._-]+|/home/[a-z][a-z0-9_-]+/'
+              r'|/Volumes/(?!Untitled\b|NO NAME\b)[A-Za-z0-9._-]+'
+              r'|\b(?:10\.\d{1,3}|192\.168|172\.(?:1[6-9]|2\d|3[01]))\.\d{1,3}\.\d{1,3}\b'
+              r'|\b[A-Za-z0-9-]+\.(?:local|lan|home\.arpa)\b'
+              r'|\b[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}\b'
+              r'|(?im:^\s*(?:co-authored-by|claude-session):)')
+          errors = 0
+          for name in names:
+              if name in internal:
+                  continue
+              try:
+                  text = open(name, encoding='utf-8').read()
+              except (UnicodeDecodeError, OSError):
+                  continue
+              for m in rule.finditer(text):
+                  line = text.count('\n', 0, m.start()) + 1
+                  print(f'::error file={name},line={line}::private reference')
+                  errors += 1
+          print(f'{len(names) - len(internal)} public files, {errors} findings')
+          sys.exit(1 if errors else 0)
+          EOF
+
+      - name: No oversized files
+        run: |
+          # 1 MiB per file; 10 MiB for README media in docs/media/.
+          rc=0
+          while IFS= read -r -d '' f; do
+            [ -f "$f" ] || continue
+            size=$(wc -c < "$f" | tr -d ' ')
+            limit=1048576
+            case "$f" in docs/media/*) limit=10485760 ;; esac
+            if [ "$size" -gt "$limit" ]; then
+              echo "::error file=$f::$f is $size bytes (limit $limit)"
+              rc=1
+            fi
+          done < <(git ls-files -z)
+          exit $rc
+
+      - name: Whitespace errors in changed lines
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          if [ "$EVENT" = pull_request ]; then
+            base=$(git merge-base "$BASE_SHA" HEAD)
+          elif [ -n "$BEFORE_SHA" ] && [ "$BEFORE_SHA" != 0000000000000000000000000000000000000000 ] \
+               && git cat-file -e "$BEFORE_SHA^{commit}" 2>/dev/null; then
+            base=$BEFORE_SHA
+          else
+            base=$(git rev-parse HEAD^ 2>/dev/null || git hash-object -t tree /dev/null)
+          fi
+          echo "git diff --check $base HEAD"
+          git diff --check "$base" HEAD
+
+      - name: Python syntax (all tracked .py files)
+        run: |
+          git ls-files -z '*.py' | xargs -0 python3 -m py_compile
+          echo "py_compile: $(git ls-files '*.py' | wc -l) files OK"
+
+      - name: Shell syntax (all tracked .sh files)
+        run: |
+          git ls-files -z '*.sh' | xargs -0 -n1 bash -n
+          echo "bash -n: $(git ls-files '*.sh' | wc -l) files OK"
+
+      - name: Host unit tests that need no disc data
+        run: |
+          # Each test below passes in a clean export of the repository with no
+          # .deps/, build/, assets/ or toolchain. Other tools/test_*.py files
+          # need extracted game data, scddisasm or emulator output.
+          set -e
+          for t in \
+            test_act_pacing \
+            test_candidate_identity \
+            test_install_zone_packs \
+            test_qq_switch_margin \
+            test_release \
+            test_sequence_replay \
+            test_special_progress \
+            test_sprite_priority \
+            test_ss_campaign_evidence \
+            test_title_cycles \
+            test_zone_release_evidence
+          do
+            echo "::group::$t"
+            python3 "tools/$t.py"
+            echo "::endgroup::"
+          done

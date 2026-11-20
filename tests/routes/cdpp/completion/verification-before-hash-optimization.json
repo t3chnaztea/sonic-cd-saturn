@@ -1,0 +1,67 @@
+{
+  "status": "partial_passed",
+  "passed": false,
+  "coverage_complete": false,
+  "hardware_tested": false,
+  "disc_sha256": "de8d288eacdfa5bca63672f1f00a0c415dd61c4bd6ac89c81a3b2f88a7936895",
+  "source_commit": "d0f1c850b819afce95406ef2162076452ff1921e",
+  "verified_cases": {
+    "ss3C": {
+      "report": "build/cdpp-completion/20261027-215636-031590/report.json",
+      "report_sha256": "91f4d5a142f5feb1f36a63a1193e5456a8b5b3d974939dfdf6ea60ebdc3ec7e6",
+      "matched_positions": 9650,
+      "recording_sha256": "5662b8ff522d742909a7056f6926c5fa26b31d2ca725964c598a61e21f2ab001"
+    },
+    "ss3D": {
+      "report": "build/cdpp-completion/20261027-215636-031590/report.json",
+      "report_sha256": "91f4d5a142f5feb1f36a63a1193e5456a8b5b3d974939dfdf6ea60ebdc3ec7e6",
+      "matched_positions": 8545,
+      "recording_sha256": "5fe87ad480630363a394c768f18f26d01fea0770e94e6e5122b3f186234453cd"
+    },
+    "ww3D": {
+      "report": "build/cdpp-completion/20261027-220930-535924/report.json",
+      "report_sha256": "4858dc67e61461c4d06e28c5a06becdd04d11792be29c3712fbef5c0ae36a5ad",
+      "matched_positions": 6017,
+      "recording_sha256": "fb432c7c395fd1322c8f5998e21e294e96537ce91a20f76bc7a269dba13b5816"
+    }
+  },
+  "missing_cases": [],
+  "unverified_cases": [
+    "ppz1A",
+    "ppz3C",
+    "ppz3D",
+    "cc1A",
+    "cc3C",
+    "cc3D",
+    "tt1A",
+    "tt3C",
+    "tt3D",
+    "qq1A",
+    "qq3C",
+    "qq3D",
+    "ww1A",
+    "ww3C",
+    "ss1A",
+    "mm1A"
+  ],
+  "failed_cases": {
+    "mm3C": {
+      "report": "build/cdpp-completion/20261027-223505-500003/report.json",
+      "report_sha256": "447895c6b90a7769d636cef53aa658d5b99a652dc8ffb982ad83237662d57f67",
+      "late_gameplay_intervals": [
+        1406,
+        1422
+      ]
+    },
+    "mm3D": {
+      "report": "build/cdpp-completion/20261027-223505-500022/report.json",
+      "report_sha256": "0a70eaddc25329a80db512ce7125e04563ea31393f71bf85783d1231d990b9ad",
+      "late_gameplay_intervals": [
+        1406,
+        1422
+      ]
+    }
+  },
+  "historical_verification": "tests/routes/cdpp/completion/verification-before-ss-cache.json",
+  "note": "Current SS-cache BIN: SS3C/D and WW3D pass; MM3C/D fail pacing. Remaining 16 cases need current-BIN verification. Earlier 17-case index is historical."
+}

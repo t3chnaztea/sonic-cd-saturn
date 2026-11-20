@@ -1,0 +1,40 @@
+{
+  "ELF": {
+    "expected_historical_e_entry": 1032
+  },
+  "workspace": {
+    "communication_address": 49160,
+    "text_address": 1032,
+    "required_symbols": [
+      "vecTable",
+      "lead_function",
+      "_start",
+      "driver_data_init",
+      "pcm_control_loop",
+      "sh2Com",
+      "csr",
+      "pcmCtrlData",
+      "__bss_start",
+      "__bss_end",
+      "_end",
+      "__end"
+    ],
+    "required_array_symbol_sizes": {
+      "pcmCtrlData": 1920,
+      "ICSR_Busy": 64,
+      "loopingPCMs": 186,
+      "volatilePCMs": 186,
+      "adxPCMs": 186,
+      "dataTimers": 128,
+      "adx": 138,
+      "coef_tbl_1": 8192,
+      "coef_tbl_2": 8192,
+      "adx_work_buf": 20480,
+      "adx_dummy": 6
+    }
+  },
+  "communication": {
+    "sh2Com_pointer_data_expected": 49160,
+    "csr_pointer_data_expected": 1048576
+  }
+}

@@ -1,0 +1,266 @@
+{
+  "flags": 31,
+  "scope": "Controller recordings with CD++ flags 31. verification.json records current verification; this file records recording origins.",
+  "recordings": {
+    "ppz1A": {
+      "recording": "tests/routes/cdpp/completion/ppz1A.txt",
+      "sha256": "27121e528fb3aafef8d37fad50248c5784b401f522ef8c8b010a79b267ff2eb1",
+      "origin": {
+        "kind": "existing recording replayed with CD++ flags 31"
+      },
+      "source_commit": "d0f1c850b819afce95406ef2162076452ff1921e",
+      "disc_sha256": "2ebb18e286a6238e16da41074fa18263672a7471a0c40ef26d63d808d176a9d0",
+      "evidence": "build/cdpp-completion-baseline/ppz1A/saturn/report.json",
+      "evidence_sha256": "6e6297b26527ed80773e086f202bd691147102f8b75b356a2747e47ff925e616",
+      "matched_positions": 11649,
+      "hardware_tested": false
+    },
+    "ppz3C": {
+      "recording": "tests/routes/cdpp/completion/ppz3C.txt",
+      "sha256": "4ddcade6d42f91bc846e2823cc29f3aa35575dd66413ed52d6e05fe5e6926040",
+      "origin": {
+        "kind": "search",
+        "seed": 5,
+        "max_iterations": 100000,
+        "found_iteration": 1719,
+        "mode": "p2:C"
+      },
+      "source_commit": "d0f1c850b819afce95406ef2162076452ff1921e",
+      "disc_sha256": "2ebb18e286a6238e16da41074fa18263672a7471a0c40ef26d63d808d176a9d0",
+      "evidence": "build/cdpp-completion-baseline/ppz3C/saturn/report.json",
+      "evidence_sha256": "353b5047d5b17607bfbd05aa2817eed0f1bb25964599744e10bd6d3570ea9b61",
+      "matched_positions": 2756,
+      "hardware_tested": false
+    },
+    "ppz3D": {
+      "recording": "tests/routes/cdpp/completion/ppz3D.txt",
+      "sha256": "4592af052fb027594c14107293751da45145e9d6b1689a667cec1aa6f98e8fc7",
+      "origin": {
+        "kind": "ring-aware search",
+        "seed": 1,
+        "max_iterations": 20000,
+        "found_iteration": 769,
+        "mode": "p2:D",
+        "patch": "tests/routes/cdpp/completion/search-ring-key.patch",
+        "patch_sha256": "df5e2257c228c6c4e787b6f72ab6dcdf557ab80c12d08f72a534f7ec7534932c"
+      },
+      "source_commit": "d0f1c850b819afce95406ef2162076452ff1921e",
+      "disc_sha256": "2ebb18e286a6238e16da41074fa18263672a7471a0c40ef26d63d808d176a9d0",
+      "evidence": "build/cdpp-completion-baseline/ppz3D/saturn/report.json",
+      "evidence_sha256": "b30f5b112f65bef3430b808c0c0833cd767cd260b4665132b09bd351bd9e86c2",
+      "matched_positions": 3203,
+      "hardware_tested": false
+    },
+    "cc1A": {
+      "recording": "tests/routes/cdpp/completion/cc1A.txt",
+      "sha256": "06b6628626311fe316ee5e3b43647a7ff058c88f7a41387cfbcfeb84ce85ebe2",
+      "origin": {
+        "kind": "search",
+        "seed": 41,
+        "max_iterations": 60000,
+        "found_iteration": 605
+      },
+      "hardware_tested": false
+    },
+    "cc3C": {
+      "recording": "tests/routes/cdpp/completion/cc3C.txt",
+      "sha256": "c1d305e746aee416090c11dabd922dead916e347faa7fe8587a362f1d43146e6",
+      "origin": {
+        "kind": "search",
+        "seed": 1,
+        "max_iterations": 200000,
+        "found_iteration": 677
+      },
+      "hardware_tested": false
+    },
+    "cc3D": {
+      "recording": "tests/routes/cdpp/completion/cc3D.txt",
+      "sha256": "d6eb5eebf3240003d5faf60b54af170c804ef50756899c6c5363fc572993d4fd",
+      "origin": {
+        "kind": "search",
+        "seed": 1,
+        "max_iterations": 200000,
+        "found_iteration": 631
+      },
+      "hardware_tested": false
+    },
+    "tt1A": {
+      "recording": "tests/routes/cdpp/completion/tt1A.txt",
+      "sha256": "c851b688691be0456047dac65cdeb33760251a1954f0052a6e6cdf90508024ea",
+      "origin": {
+        "kind": "search",
+        "seed": 41,
+        "max_iterations": 200000,
+        "found_iteration": 2101
+      },
+      "hardware_tested": false
+    },
+    "tt3C": {
+      "recording": "tests/routes/cdpp/completion/tt3C.txt",
+      "sha256": "51ad7e37512f0aed0427b09dc059704cc3187e2a582ba045f304c18303766fae",
+      "origin": {
+        "kind": "search",
+        "seed": 41,
+        "max_iterations": 200000,
+        "found_iteration": 4227
+      },
+      "hardware_tested": false
+    },
+    "tt3D": {
+      "recording": "tests/routes/cdpp/completion/tt3D.txt",
+      "sha256": "50e51b45304e251670f146ffd9c50fc0e3a90f4acf83140d46cff09330f37517",
+      "origin": {
+        "kind": "search",
+        "seed": 41,
+        "max_iterations": 200000,
+        "found_iteration": 1266
+      },
+      "hardware_tested": false
+    },
+    "qq1A": {
+      "recording": "tests/routes/cdpp/completion/qq1A.txt",
+      "sha256": "325b77465e253dec8d027845a934742e4fd088d01f84d338d1433c4bf60f9279",
+      "origin": {
+        "kind": "search",
+        "seed": 51,
+        "max_iterations": 200000,
+        "found_iteration": 301
+      },
+      "hardware_tested": false
+    },
+    "qq3C": {
+      "recording": "tests/routes/cdpp/completion/qq3C.txt",
+      "sha256": "78eec59fab34b4411b2e4b6c931cbca9cb73ebc46cd39ba4736f25b5d3b1a9c3",
+      "origin": {
+        "kind": "search",
+        "seed": 51,
+        "max_iterations": 200000,
+        "found_iteration": 747
+      },
+      "hardware_tested": false
+    },
+    "qq3D": {
+      "recording": "tests/routes/cdpp/completion/qq3D.txt",
+      "sha256": "44d43ef2abd4a3b7e5d0d3e16d2caacb350fc276a599635f1b6c13ca406ad46d",
+      "origin": {
+        "kind": "search",
+        "seed": 51,
+        "max_iterations": 200000,
+        "found_iteration": 1537
+      },
+      "hardware_tested": false
+    },
+    "ss1A": {
+      "recording": "tests/routes/cdpp/completion/ss1A.txt",
+      "sha256": "592583f45d6c0dd7f2ab5187745340911187a8105d9fb8b730b3f549b19b302c",
+      "origin": {
+        "kind": "search",
+        "seed": 51,
+        "max_iterations": 200000,
+        "found_iteration": 224
+      },
+      "hardware_tested": false
+    },
+    "ss3C": {
+      "recording": "tests/routes/cdpp/completion/ss3C.txt",
+      "sha256": "5662b8ff522d742909a7056f6926c5fa26b31d2ca725964c598a61e21f2ab001",
+      "origin": {
+        "kind": "search",
+        "seed": 51,
+        "max_iterations": 200000,
+        "found_iteration": 262
+      },
+      "hardware_tested": false
+    },
+    "ss3D": {
+      "recording": "tests/routes/cdpp/completion/ss3D.txt",
+      "sha256": "5fe87ad480630363a394c768f18f26d01fea0770e94e6e5122b3f186234453cd",
+      "origin": {
+        "kind": "search",
+        "seed": 51,
+        "max_iterations": 200000,
+        "found_iteration": 219
+      },
+      "hardware_tested": false
+    },
+    "ww1A": {
+      "recording": "tests/routes/cdpp/completion/ww1A.txt",
+      "sha256": "edabff64459c8d253192b6dfa86198d5069bbc5a0b12aab62e4f296bd19d4660",
+      "origin": {
+        "kind": "search",
+        "seed": 51,
+        "max_iterations": 200000,
+        "found_iteration": 580
+      },
+      "hardware_tested": false
+    },
+    "mm1A": {
+      "recording": "tests/routes/cdpp/completion/mm1A.txt",
+      "sha256": "f550baf9433832ad03a36a265bcfab12a4688d9cced08c9eb5b23e5d232dce0a",
+      "origin": {
+        "kind": "search",
+        "seed": 51,
+        "max_iterations": 200000,
+        "found_iteration": 5187
+      },
+      "hardware_tested": false
+    },
+    "mm3C": {
+      "recording": "tests/routes/cdpp/completion/mm3C.txt",
+      "sha256": "caa08fef98448eba1d7acdb881cfdf1a118a6f7b6a291f7e50a39ad5c5b8f7ae",
+      "origin": {
+        "kind": "search",
+        "seed": 51,
+        "max_iterations": 200000,
+        "found_iteration": 1247
+      },
+      "hardware_tested": false
+    },
+    "mm3D": {
+      "recording": "tests/routes/cdpp/completion/mm3D.txt",
+      "sha256": "4317fd1b28a0fbf0df9a5ec943ae46bf7966b9937b8762af006288b5f7c093c7",
+      "origin": {
+        "kind": "search",
+        "seed": 51,
+        "max_iterations": 200000,
+        "found_iteration": 1721
+      },
+      "hardware_tested": false
+    },
+    "ww3C": {
+      "recording": "tests/routes/cdpp/completion/ww3C.txt",
+      "sha256": "a6412733b75b2ae28c56bc2de898f41e54f59b9a5ebbbd2e6d192a114274821f",
+      "origin": {
+        "kind": "search",
+        "seed": 51,
+        "max_iterations": 200000,
+        "found_iteration": 145863
+      },
+      "hardware_tested": false
+    },
+    "ww3D": {
+      "recording": "tests/routes/cdpp/completion/ww3D.txt",
+      "sha256": "fb432c7c395fd1322c8f5998e21e294e96537ce91a20f76bc7a269dba13b5816",
+      "origin": {
+        "kind": "prefix search",
+        "seed": 52,
+        "max_iterations": 50000,
+        "found_iteration": 9544,
+        "updates": 6017,
+        "prefix_sha256": "ba1449248ab0435d1a6215e0f0ed03c86ebb5c3267a1584fa8806d449b76a1d4",
+        "parent_seed": 51,
+        "parent_iterations": 200000,
+        "host_sha256": "7eba57e8d348d64094593375655cd5e00f4f431b32a5f381a4c1d04c0f2a4b53",
+        "report": "build/cdpp-completion-baseline/ww3D/20261027-220703-017739/report.json",
+        "report_sha256": "f0032a0440cd61f9e7901860e23fce4695056725a3f9344cf8e5e57c9540829f"
+      },
+      "hardware_tested": false,
+      "verification": {
+        "status": "passed",
+        "disc_sha256": "de8d288eacdfa5bca63672f1f00a0c415dd61c4bd6ac89c81a3b2f88a7936895",
+        "report": "build/cdpp-completion/20261027-220930-535924/report.json",
+        "report_sha256": "4858dc67e61461c4d06e28c5a06becdd04d11792be29c3712fbef5c0ae36a5ad"
+      }
+    }
+  }
+}

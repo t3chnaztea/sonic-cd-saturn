@@ -1,0 +1,2600 @@
+{
+ "about": "Where each scddisasm data file the build reads lies on the retail disc (build/retail/sonic.iso). Written by tools/retail_src.py locate. Offsets and hashes only.",
+ "iso_sha256": "32c2ec9d9e755f87fa98aa791dd127fe567fb7d3fa0b8d6b671cd2a166c83183",
+ "coverage": {
+  "manifest_files": 466,
+  "binary": 353,
+  "located": 353,
+  "binary_not_located": 0,
+  "non_binary": 113
+ },
+ "not_located": [],
+ "non_binary": [
+  "src/Level/Palmtree Panic/Object Index (Act 1 Bad Future).asm",
+  "src/Level/Palmtree Panic/Object Index (Act 1 Good Future).asm",
+  "src/Level/Palmtree Panic/Object Index (Act 1 Past).asm",
+  "src/Level/Palmtree Panic/Object Index (Act 1 Present).asm",
+  "src/Level/Palmtree Panic/Objects/3D Ramp/Data/Mappings (Booster).asm",
+  "src/Level/Palmtree Panic/Objects/3D Ramp/Data/Mappings (Plant).asm",
+  "src/Level/Palmtree Panic/Objects/Amy Rose/Data/Animations.asm",
+  "src/Level/Palmtree Panic/Objects/Amy Rose/Data/Mappings.asm",
+  "src/Level/Palmtree Panic/Objects/Animal/Data/Animations (Flying).asm",
+  "src/Level/Palmtree Panic/Objects/Animal/Data/Animations (Ground).asm",
+  "src/Level/Palmtree Panic/Objects/Animal/Data/Mappings (Flying).asm",
+  "src/Level/Palmtree Panic/Objects/Animal/Data/Mappings (Ground).asm",
+  "src/Level/Palmtree Panic/Objects/Anton/Data/Mappings.asm",
+  "src/Level/Palmtree Panic/Objects/Breakable Wall/Data/Mappings.asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data (Future).asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data (Past).asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data (Present).asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data/Mappings (Future).asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data/Mappings (Ledge, Future).asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data/Mappings (Ledge, Past).asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data/Mappings (Ledge, Present).asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data/Mappings (Past).asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data/Mappings (Pieces 1, Future).asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data/Mappings (Pieces 1, Past).asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data/Mappings (Pieces 1, Present).asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data/Mappings (Pieces 2, Future).asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data/Mappings (Pieces 2, Past).asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data/Mappings (Pieces 2, Present).asm",
+  "src/Level/Palmtree Panic/Objects/Collapsing Platform/Data/Mappings (Present).asm",
+  "src/Level/Palmtree Panic/Objects/Flower/Data/Mappings.asm",
+  "src/Level/Palmtree Panic/Objects/Log Shadow/Data/Mappings.asm",
+  "src/Level/Palmtree Panic/Objects/Mosqui/Data/Mappings (Damaged).asm",
+  "src/Level/Palmtree Panic/Objects/Mosqui/Data/Mappings (Normal).asm",
+  "src/Level/Palmtree Panic/Objects/Pata-Bata/Data/Mappings (Damaged).asm",
+  "src/Level/Palmtree Panic/Objects/Pata-Bata/Data/Mappings (Normal).asm",
+  "src/Level/Palmtree Panic/Objects/Platform/Data/Mappings (Platform 1).asm",
+  "src/Level/Palmtree Panic/Objects/Projector/Data/Animations.asm",
+  "src/Level/Palmtree Panic/Objects/Projector/Data/Mappings.asm",
+  "src/Level/Palmtree Panic/Objects/Projector/Main.asm",
+  "src/Level/Palmtree Panic/Objects/Scenery/Data/Mappings.asm",
+  "src/Level/Palmtree Panic/Objects/Spinning Disc/Data/Mappings.asm",
+  "src/Level/Palmtree Panic/Objects/Springboard/Data/Mappings.asm",
+  "src/Level/Palmtree Panic/Objects/Taga-Taga/Data/Mappings.asm",
+  "src/Level/Palmtree Panic/Objects/Tamabboh/Data/Mappings (Missile).asm",
+  "src/Level/Palmtree Panic/Objects/Tamabboh/Data/Mappings.asm",
+  "src/Level/Palmtree Panic/Objects/Title Card/Mappings.asm",
+  "src/Level/Palmtree Panic/Objects/Tunnel Door/Data/Mappings.asm",
+  "src/Level/Palmtree Panic/Objects/Tunnel Path/Data/Mappings (Hole).asm",
+  "src/Level/Palmtree Panic/Objects/Tunnel Path/Main.asm",
+  "src/Level/Palmtree Panic/Palette Cycle (Bad Future).asm",
+  "src/Level/Palmtree Panic/Palette Cycle (Good Future).asm",
+  "src/Level/Palmtree Panic/Palette Cycle (Past).asm",
+  "src/Level/Palmtree Panic/Palette Cycle (Present).asm",
+  "src/Level/Palmtree Panic/Scroll (Act 1 Bad Future).asm",
+  "src/Level/Palmtree Panic/Scroll (Act 1 Good Future).asm",
+  "src/Level/Palmtree Panic/Scroll (Act 1 Past).asm",
+  "src/Level/Palmtree Panic/Scroll (Act 1 Present).asm",
+  "src/Level/_Definitions.inc",
+  "src/Level/_Objects/Boulder/Data/Mappings.asm",
+  "src/Level/_Objects/Checkpoint/Data/Mappings.asm",
+  "src/Level/_Objects/Explosion/Data/Mappings.asm",
+  "src/Level/_Objects/Floating Block/Data/Mappings.asm",
+  "src/Level/_Objects/HUD and Points/Data/Mappings (HUD).asm",
+  "src/Level/_Objects/HUD and Points/Data/Mappings (Points).asm",
+  "src/Level/_Objects/Level End/Data/Mappings (Big Ring Flash).asm",
+  "src/Level/_Objects/Level End/Data/Mappings (Big Ring).asm",
+  "src/Level/_Objects/Level End/Data/Mappings (Flower Capsule).asm",
+  "src/Level/_Objects/Level End/Data/Mappings (Post).asm",
+  "src/Level/_Objects/Monitor and Time Post/Data/Mappings.asm",
+  "src/Level/_Objects/Powerup/Data/Animations.asm",
+  "src/Level/_Objects/Powerup/Data/Mappings.asm",
+  "src/Level/_Objects/Results/Data/Mappings.asm",
+  "src/Level/_Objects/Ring/Data/Mappings.asm",
+  "src/Level/_Objects/Robot Generator/Data/Mappings.asm",
+  "src/Level/_Objects/Sonic/Data/Animations.asm",
+  "src/Level/_Objects/Sonic/Data/DPLCs.asm",
+  "src/Level/_Objects/Sonic/Data/Mappings.asm",
+  "src/Level/_Objects/Spikes/Data/Mappings.asm",
+  "src/Level/_Objects/Spin Tunnel/Data/Mappings (Door).asm",
+  "src/Level/_Objects/Spring/Data/Mappings (Wheel).asm",
+  "src/Level/_Objects/Spring/Data/Mappings.asm",
+  "src/Special Stage/Main.asm",
+  "src/Special Stage/Objects/Dust/Data/Mappings.asm",
+  "src/Special Stage/Objects/Explosion/Data/Mappings.asm",
+  "src/Special Stage/Objects/Item/Data/Mappings.asm",
+  "src/Special Stage/Objects/Shadow/Data/Mappings.asm",
+  "src/Special Stage/Objects/Sonic/Data/Mappings.asm",
+  "src/Special Stage/Objects/Sonic/Main.asm",
+  "src/Special Stage/Objects/Splash/Data/Mappings.asm",
+  "src/Special Stage/Objects/Time Stone/Data/Mappings.asm",
+  "src/Special Stage/Objects/Title Card/Data/Mappings (Bar).asm",
+  "src/Special Stage/Objects/Title Card/Data/Mappings (Text).asm",
+  "src/Special Stage/Objects/UFO/Data/Mappings (Rings).asm",
+  "src/Special Stage/Objects/UFO/Data/Mappings (Speed Shoes).asm",
+  "src/Special Stage/Stage Data.asm",
+  "src/Special Stage/Sub.asm",
+  "src/Special Stage/_Common.inc",
+  "src/Time Warp Cutscene/Objects/Sonic/Data/Mappings.asm",
+  "src/Title Screen/Main.asm",
+  "src/Title Screen/Objects/Banner/Data/Mappings.asm",
+  "src/Title Screen/Objects/Copyright/Data/Mappings (Copyright, USA).asm",
+  "src/Title Screen/Objects/Copyright/Data/Mappings (TM).asm",
+  "src/Title Screen/Objects/Menu/Data/Mappings (Arrow).asm",
+  "src/Title Screen/Objects/Menu/Data/Mappings (Menu).asm",
+  "src/Title Screen/Objects/Menu/Main.asm",
+  "src/Title Screen/Objects/Planet/Data/Mappings.asm",
+  "src/Title Screen/Objects/Planet/Main.asm",
+  "src/Title Screen/Objects/Sonic/Data/Mappings.asm",
+  "src/Title Screen/Objects/Sonic/Main.asm",
+  "src/Title Screen/Secrets/Special Stage 8 Credits.asm",
+  "src/Title Screen/Sub.asm",
+  "src/_Include/Main CPU Variables.inc",
+  "src/_Include/System.inc"
+ ],
+ "files": {
+  "src/Level/Palmtree Panic/Data/Background (Act 1 Bad Future).bin": {
+   "disc": "R11C__.MMD",
+   "offset": 243334,
+   "length": 30,
+   "zero_pad": 0,
+   "sha256": "e48723c91a870112e7f43966a0cc2df9e66b4ea5edd017872d83f6585481fbb9"
+  },
+  "src/Level/Palmtree Panic/Data/Background (Act 1 Good Future).bin": {
+   "disc": "R11C__.MMD",
+   "offset": 243334,
+   "length": 30,
+   "zero_pad": 0,
+   "sha256": "e48723c91a870112e7f43966a0cc2df9e66b4ea5edd017872d83f6585481fbb9"
+  },
+  "src/Level/Palmtree Panic/Data/Background (Act 1 Past).bin": {
+   "disc": "R11B__.MMD",
+   "offset": 243334,
+   "length": 22,
+   "zero_pad": 0,
+   "sha256": "117166a3f48d7116f098af950ff923311c4062bc004c6ae33165f2edd75e6963"
+  },
+  "src/Level/Palmtree Panic/Data/Background (Act 1 Present).bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 240598,
+   "length": 50,
+   "zero_pad": 0,
+   "sha256": "7ad81ea4d76cce3e506fc629c14c1ef78596b39be2390d43f395aaae52f0cff3"
+  },
+  "src/Level/Palmtree Panic/Data/Blocks (Act 1 Bad Future).nem": {
+   "disc": "R11D__.MMD",
+   "offset": 239938,
+   "length": 4708,
+   "zero_pad": 0,
+   "sha256": "8ae80fbad2b8bd72d72d1fcf42866b11ba19a6314a0b0b4b3b66283bdea6697d"
+  },
+  "src/Level/Palmtree Panic/Data/Blocks (Act 1 Good Future).nem": {
+   "disc": "R11C__.MMD",
+   "offset": 243950,
+   "length": 4590,
+   "zero_pad": 0,
+   "sha256": "c1ce18924e7d817a5d62c3e6591bd73ca9704a786d4e1fb2693743381fd37c21"
+  },
+  "src/Level/Palmtree Panic/Data/Blocks (Act 1 Past).nem": {
+   "disc": "R11B__.MMD",
+   "offset": 244282,
+   "length": 4228,
+   "zero_pad": 0,
+   "sha256": "74c580b819c07f7bf1e79df5f11afe99b99579767d552478e8574a0688a9f928"
+  },
+  "src/Level/Palmtree Panic/Data/Blocks (Act 1 Present).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 241832,
+   "length": 5190,
+   "zero_pad": 0,
+   "sha256": "514290305a202208d9b2593716f0e1f8346cccfe61a7b6b3d73fdac46fa0e585"
+  },
+  "src/Level/Palmtree Panic/Data/Chunks (Act 1 Bad Future).bin": {
+   "disc": "R11D__.MMD",
+   "offset": 65536,
+   "length": 55296,
+   "zero_pad": 0,
+   "sha256": "f389602210ae8c90c9bd93dd30f3f88ce482129bccf1367662f11eca7524a63b"
+  },
+  "src/Level/Palmtree Panic/Data/Chunks (Act 1 Good Future).bin": {
+   "disc": "R11C__.MMD",
+   "offset": 65536,
+   "length": 55296,
+   "zero_pad": 0,
+   "sha256": "aa6f7ede74ce6d55347158794715b6028eee4434d3d6fa3cccef49fe4a2ecc1c"
+  },
+  "src/Level/Palmtree Panic/Data/Chunks (Act 1 Past).bin": {
+   "disc": "R11B__.MMD",
+   "offset": 65536,
+   "length": 54272,
+   "zero_pad": 0,
+   "sha256": "75a5361ed9b0766746faa65cbb2eac63cf2bcebb5f66f619a3e9f45c31b9252a"
+  },
+  "src/Level/Palmtree Panic/Data/Chunks (Act 1 Present).bin": {
+   "disc": "R11A__.MMD",
+   "offset": 65536,
+   "length": 61952,
+   "zero_pad": 0,
+   "sha256": "21b88131a146e60ddff48e1bfc424ab7d744fbd924718f40e8aa99158e772af5"
+  },
+  "src/Level/Palmtree Panic/Data/Collision (Act 1 Bad Future).bin": {
+   "disc": "R11D__.MMD",
+   "offset": 238280,
+   "length": 800,
+   "zero_pad": 0,
+   "sha256": "1a6cbaa3e356bdb1d2de8a521e0b13f511fea96179a350972b14845849c8d350"
+  },
+  "src/Level/Palmtree Panic/Data/Collision (Act 1 Good Future).bin": {
+   "disc": "R11C__.MMD",
+   "offset": 242292,
+   "length": 800,
+   "zero_pad": 0,
+   "sha256": "896639005896f936c8d6e6f2cc246c2985d7112e2ee4ce8879947853172f4844"
+  },
+  "src/Level/Palmtree Panic/Data/Collision (Act 1 Past).bin": {
+   "disc": "R11B__.MMD",
+   "offset": 242292,
+   "length": 800,
+   "zero_pad": 0,
+   "sha256": "619ddf334652ab2f8c5d1519ff7bebc5f35378b4883c3fcf12903b249ac6467d"
+  },
+  "src/Level/Palmtree Panic/Data/Collision (Act 1 Present).bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 239288,
+   "length": 900,
+   "zero_pad": 0,
+   "sha256": "9800ffd4666deba622d912247e943dd7fcf7d6c044672064e5e817c7779ca574"
+  },
+  "src/Level/Palmtree Panic/Data/Foreground (Act 1 Bad Future).bin": {
+   "disc": "R11C__.MMD",
+   "offset": 243164,
+   "length": 170,
+   "zero_pad": 0,
+   "sha256": "26108684e6074fb3e5597e7c0677cdf979444452ca90dd1395e01e9189c1775b"
+  },
+  "src/Level/Palmtree Panic/Data/Foreground (Act 1 Good Future).bin": {
+   "disc": "R11C__.MMD",
+   "offset": 243164,
+   "length": 170,
+   "zero_pad": 0,
+   "sha256": "26108684e6074fb3e5597e7c0677cdf979444452ca90dd1395e01e9189c1775b"
+  },
+  "src/Level/Palmtree Panic/Data/Foreground (Act 1 Past).bin": {
+   "disc": "R11B__.MMD",
+   "offset": 243164,
+   "length": 170,
+   "zero_pad": 0,
+   "sha256": "c1d0ab43d6a16690c46c627775f883cecbdc4544f3c7a850eaedb8ab7d163cab"
+  },
+  "src/Level/Palmtree Panic/Data/Foreground (Act 1 Present).bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 240260,
+   "length": 338,
+   "zero_pad": 0,
+   "sha256": "24d5fa632cce39d485a4c856fdec6848bbcc098c379ee172574aab9a249e8fdd"
+  },
+  "src/Level/Palmtree Panic/Data/Objects (Act 1).bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 31034,
+   "length": 3984,
+   "zero_pad": 0,
+   "sha256": "c5441a5a61b8c17cbac91d85a830f1560ca1c4e101df72e10326f0c7d9d71791"
+  },
+  "src/Level/Palmtree Panic/Data/Palette (Bad Future).bin": {
+   "disc": "R11D__.MMD",
+   "offset": 1704,
+   "length": 96,
+   "zero_pad": 0,
+   "sha256": "7a34893db95e1d9c0e4ab5acf2a492857d7b660f3e34263b60bd889fb8d03cb2"
+  },
+  "src/Level/Palmtree Panic/Data/Palette (Good Future).bin": {
+   "disc": "R11C__.MMD",
+   "offset": 1596,
+   "length": 96,
+   "zero_pad": 0,
+   "sha256": "29d86b702295ed28d6d6c4fe4e829333036d0bb2b3c69f4ddb71e38b71a8e8cd"
+  },
+  "src/Level/Palmtree Panic/Data/Palette (Past).bin": {
+   "disc": "R11B__.MMD",
+   "offset": 1808,
+   "length": 96,
+   "zero_pad": 0,
+   "sha256": "6ba4727e35858ac2701d5942ac4e733d169ac607a46fe778fbe0dde3fb42d993"
+  },
+  "src/Level/Palmtree Panic/Data/Palette (Present).bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 1780,
+   "length": 96,
+   "zero_pad": 0,
+   "sha256": "436a0046a269e03d256e48ea8d5ad4965bae9127e9ba4ba1fef3df29b2f155b0"
+  },
+  "src/Level/Palmtree Panic/Data/Start Position (Act 1 Bad Future).bin": {
+   "disc": "R11B__.MMD",
+   "offset": 10708,
+   "length": 4,
+   "zero_pad": 0,
+   "sha256": "16e8b5f89f778488cf83e444f35153670972d982c8c1424f8f5c1249129b0580"
+  },
+  "src/Level/Palmtree Panic/Data/Start Position (Act 1 Good Future).bin": {
+   "disc": "R11B__.MMD",
+   "offset": 10708,
+   "length": 4,
+   "zero_pad": 0,
+   "sha256": "16e8b5f89f778488cf83e444f35153670972d982c8c1424f8f5c1249129b0580"
+  },
+  "src/Level/Palmtree Panic/Data/Start Position (Act 1 Past).bin": {
+   "disc": "R11B__.MMD",
+   "offset": 10708,
+   "length": 4,
+   "zero_pad": 0,
+   "sha256": "16e8b5f89f778488cf83e444f35153670972d982c8c1424f8f5c1249129b0580"
+  },
+  "src/Level/Palmtree Panic/Data/Start Position (Act 1 Present).bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 10814,
+   "length": 4,
+   "zero_pad": 0,
+   "sha256": "7883f3ad03e5d2a3effa9f8bef604caddb11085266b5f4ca6dff442fc7f9a37e"
+  },
+  "src/Level/Palmtree Panic/Data/Tiles (Act 1 Bad Future).nem": {
+   "disc": "R11D__.MMD",
+   "offset": 244646,
+   "length": 14954,
+   "zero_pad": 0,
+   "sha256": "75f8ff243350ea57504721d6b54fcfa2ddcf6a23e19b9f1c1caa609135931f77"
+  },
+  "src/Level/Palmtree Panic/Data/Tiles (Act 1 Good Future).nem": {
+   "disc": "R11C__.MMD",
+   "offset": 248540,
+   "length": 11060,
+   "zero_pad": 0,
+   "sha256": "c3f1c925c1ba4b3c0b7dfe1ddf59bffb3c734e1db3bdd217f583b9e8c6e6d6cc"
+  },
+  "src/Level/Palmtree Panic/Data/Tiles (Act 1 Past).nem": {
+   "disc": "R11B__.MMD",
+   "offset": 248510,
+   "length": 10222,
+   "zero_pad": 0,
+   "sha256": "7470e75276fb99ff7bb90840dee1e670e3bb45df9e69423b71930f30743ae206"
+  },
+  "src/Level/Palmtree Panic/Data/Tiles (Act 1 Present).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 247022,
+   "length": 10374,
+   "zero_pad": 0,
+   "sha256": "538487cc7a6f05836fcce880fe23512d3538a4048a79a7c744a8d864d1250a0b"
+  },
+  "src/Level/Palmtree Panic/Objects/3D Ramp/Data/Art (Booster).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 241154,
+   "length": 678,
+   "zero_pad": 0,
+   "sha256": "1fbee908474abae3f81f527d437fa6479a2c91902e0f65df78108de39e4a57c0"
+  },
+  "src/Level/Palmtree Panic/Objects/3D Ramp/Data/Art (Plant).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 240762,
+   "length": 392,
+   "zero_pad": 0,
+   "sha256": "a8fa99c79f800a90652ee82c20d96a0389cc48da733cb10021c91d1bf3adce96"
+  },
+  "src/Level/Palmtree Panic/Objects/Amy Rose/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 258726,
+   "length": 2678,
+   "zero_pad": 0,
+   "sha256": "e9c243569648fcc21381e2517a088cf2e7bb11728b33d5e4a9381afea01d3d5a"
+  },
+  "src/Level/Palmtree Panic/Objects/Amy Rose/Data/Palette.bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 61134,
+   "length": 32,
+   "zero_pad": 0,
+   "sha256": "81dbdcc220921b5af9732c786743af92dcb0b8b4e9c12370c9f35cd61db030da"
+  },
+  "src/Level/Palmtree Panic/Objects/Animal/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 229824,
+   "length": 446,
+   "zero_pad": 0,
+   "sha256": "63ae88feb8fcd2bb07d896715dc6a0974d289947114ab25064d43fea1e7b52ab"
+  },
+  "src/Level/Palmtree Panic/Objects/Anton/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 224838,
+   "length": 484,
+   "zero_pad": 0,
+   "sha256": "d51cfb7ef7c2bf4d6fe52da4042f09eae26130838ed503c3e64956607cce3d2a"
+  },
+  "src/Level/Palmtree Panic/Objects/Flower/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 221006,
+   "length": 646,
+   "zero_pad": 0,
+   "sha256": "baae7501cf372a57007db352ffcfe404cc8d2066a9cc639e64d1f2796cfe9af1"
+  },
+  "src/Level/Palmtree Panic/Objects/Log Shadow/Data/Art (Withered).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 220826,
+   "length": 38,
+   "zero_pad": 0,
+   "sha256": "57ffe405d78fe36dc6e507ae0a412795bea0f260a8b130be58d2d4513e35505c"
+  },
+  "src/Level/Palmtree Panic/Objects/Log Shadow/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 220864,
+   "length": 24,
+   "zero_pad": 0,
+   "sha256": "025a909ae3b46a5005c04784773e032147799851c0fe4a105a9c0ee9e3279b19"
+  },
+  "src/Level/Palmtree Panic/Objects/Mosqui/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 225322,
+   "length": 846,
+   "zero_pad": 0,
+   "sha256": "b4ab1cf236c3fc6b4a1c44b7d5f2a04a3c4d9d200f50d08ad3f051a408966892"
+  },
+  "src/Level/Palmtree Panic/Objects/Pata-Bata/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 226168,
+   "length": 714,
+   "zero_pad": 0,
+   "sha256": "e492d968000f8097ed65ddaaf3734c11dce4d389ea74488610defa87f923f34f"
+  },
+  "src/Level/Palmtree Panic/Objects/Platform/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 221950,
+   "length": 452,
+   "zero_pad": 0,
+   "sha256": "0d6cb948568e1e1c82c94d57b3bf089175026ed05b21d9b477603c5a7725928d"
+  },
+  "src/Level/Palmtree Panic/Objects/Projector/Data/Art (Animals).nem": {
+   "disc": "R11B__.MMD",
+   "offset": 259166,
+   "length": 434,
+   "zero_pad": 0,
+   "sha256": "61295f839e825617673137b4861d791d0361d7a6b3e465b1ad4545497b3edfef"
+  },
+  "src/Level/Palmtree Panic/Objects/Projector/Data/Art.nem": {
+   "disc": "R11B__.MMD",
+   "offset": 259600,
+   "length": 1024,
+   "zero_pad": 0,
+   "sha256": "1df8b669f556ef15e4c3c687bc890f5e037c90e5366097db036aff136a6c45e5"
+  },
+  "src/Level/Palmtree Panic/Objects/Scenery/Data/Art (Future).nem": {
+   "disc": "R11C__.MMD",
+   "offset": 243870,
+   "length": 80,
+   "zero_pad": 0,
+   "sha256": "350dfa08a1af6533ec8e5d5136f1abb7569fa231a43d7d2c5c388b1bf91ac80f"
+  },
+  "src/Level/Palmtree Panic/Objects/Scenery/Data/Art (Past).nem": {
+   "disc": "R11B__.MMD",
+   "offset": 243976,
+   "length": 306,
+   "zero_pad": 0,
+   "sha256": "f1334c4d9219fb54413cde041362fc19e1873eb93b824ddb7218008d209189db"
+  },
+  "src/Level/Palmtree Panic/Objects/Spinning Disc/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 223084,
+   "length": 166,
+   "zero_pad": 0,
+   "sha256": "a2bb54013b05cf8b26ae95194cdab0532c8d24530e89259069bf37e5588b9022"
+  },
+  "src/Level/Palmtree Panic/Objects/Springboard/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 228806,
+   "length": 312,
+   "zero_pad": 0,
+   "sha256": "ba93dcc624f5f68fb44a75c64efe6e25d9bf2723abc547061b899d59b6e40bdc"
+  },
+  "src/Level/Palmtree Panic/Objects/Taga-Taga/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 226882,
+   "length": 782,
+   "zero_pad": 0,
+   "sha256": "66a8d8eff846c3f0a3b8ce1d4f5e8d648714d53cfdf36a062b0f4ded115c3732"
+  },
+  "src/Level/Palmtree Panic/Objects/Tamabboh/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 227664,
+   "length": 1142,
+   "zero_pad": 0,
+   "sha256": "39b42a53ad2a2b1e50c73d2f0abdb918304fd8987499af1a4d8773b9239c309f"
+  },
+  "src/Level/Palmtree Panic/Objects/Title Card/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 221652,
+   "length": 298,
+   "zero_pad": 0,
+   "sha256": "39ec1617bda91d34562b315729f003e09c907ec95da5bffb31333b2c4dead3e5"
+  },
+  "src/Level/Palmtree Panic/Objects/Tunnel Door/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 223998,
+   "length": 154,
+   "zero_pad": 0,
+   "sha256": "cbbd577ac9af46007b2618fd0481753435aae38e0f68fe0ae7ed17df74b0cb7b"
+  },
+  "src/Level/Palmtree Panic/Objects/Tunnel Path/Data/Art (Hole).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 240648,
+   "length": 114,
+   "zero_pad": 0,
+   "sha256": "97622d18562de1a4b39b7d676a914fd7c266f11b9578b31cf91fa8fbecbe5c53"
+  },
+  "src/Level/_Data/Collision Angles.bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 230840,
+   "length": 256,
+   "zero_pad": 0,
+   "sha256": "c05a6e177730d577d6743c1740f636565c3c0061cf0526aaaaf46ac4961ae9fd"
+  },
+  "src/Level/_Data/Collision Height Map.bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 231096,
+   "length": 4096,
+   "zero_pad": 0,
+   "sha256": "103655cfc0a8919807a8a0741a0600771fa7b86838d5eb00f4faaadc42996d9d"
+  },
+  "src/Level/_Data/Collision Width Map.bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 235192,
+   "length": 4096,
+   "zero_pad": 0,
+   "sha256": "90f660b66816de8018412c97a47ebd151801493dff92ae6a67dea86711530cc4"
+  },
+  "src/Level/_Objects/Boulder/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 222402,
+   "length": 270,
+   "zero_pad": 0,
+   "sha256": "6335b858cc043dcce7de3f716a506c5d393342298729c04739673331f0e4e55f"
+  },
+  "src/Level/_Objects/Checkpoint/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 220614,
+   "length": 212,
+   "zero_pad": 0,
+   "sha256": "e6af441ac5e051484bcd2993ad2736262b9c8f9a379bc714711e045f3f83e7bf"
+  },
+  "src/Level/_Objects/Explosion/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 217406,
+   "length": 1256,
+   "zero_pad": 0,
+   "sha256": "1f642f6b44332f7ffa63d84970ff1abbacd72bbbd400417c5b3800215d7ec5c1"
+  },
+  "src/Level/_Objects/Floating Block/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 222672,
+   "length": 230,
+   "zero_pad": 0,
+   "sha256": "8ccc2959a0cbebd2fc24ed2f4cc08fd1baaafbf971f13df254784cc65b7c5e76"
+  },
+  "src/Level/_Objects/HUD and Points/Data/Art (HUD).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 220314,
+   "length": 300,
+   "zero_pad": 0,
+   "sha256": "d3df1675439d1bb043f747ba8d3a975b31af8d423a09df30da9a9cae22084deb"
+  },
+  "src/Level/_Objects/HUD and Points/Data/Art (Life Icon).bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 218906,
+   "length": 384,
+   "zero_pad": 0,
+   "sha256": "0c66185fd6da132daf7e47d85311a4f8d067272f34a11431acdd3f5273e4629a"
+  },
+  "src/Level/_Objects/HUD and Points/Data/Art (Numbers).bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 219290,
+   "length": 1024,
+   "zero_pad": 0,
+   "sha256": "843a1129a5ea39faa84ac2962429474d90801778a4c37f102ed3d45d2091fa42"
+  },
+  "src/Level/_Objects/HUD and Points/Data/Art (Points).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 202180,
+   "length": 100,
+   "zero_pad": 0,
+   "sha256": "6923bd2ac955ac11b88bb75b036d2fbd24f02fe523cd401e30bb1520426ad363"
+  },
+  "src/Level/_Objects/Level End/Data/Art (Big Ring Flash).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 56176,
+   "length": 384,
+   "zero_pad": 0,
+   "sha256": "6106d2692b34f73a6d928e651c9547e5dfe2dc00bdb0b4136dc42e603ce0efa7"
+  },
+  "src/Level/_Objects/Level End/Data/Art (Big Ring).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 203984,
+   "length": 1034,
+   "zero_pad": 0,
+   "sha256": "5bfa84d7d4335e190e3287337f1595b3808fd1d3592615bfbc684d9a2bbdebf6"
+  },
+  "src/Level/_Objects/Level End/Data/Art (Flower Capsule).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 202280,
+   "length": 1704,
+   "zero_pad": 0,
+   "sha256": "da055a9f3c79f60b0bf6a784e89785bdc65eb37c7a598d95cf6a8f5fdc9ab808"
+  },
+  "src/Level/_Objects/Level End/Data/Art (Goal Post).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 205018,
+   "length": 448,
+   "zero_pad": 0,
+   "sha256": "24aac969ce8508df0f412a0ad98d87102adc2029b3ae1f28b972eb7b6646979f"
+  },
+  "src/Level/_Objects/Level End/Data/Art (Signpost).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 205466,
+   "length": 1500,
+   "zero_pad": 0,
+   "sha256": "2fb00eeee801d1f46cc06eae234fb15fa3dd984f325315c430f13d1e0d3fac67"
+  },
+  "src/Level/_Objects/Level End/Data/Palette (Flower Capsule).bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 55716,
+   "length": 32,
+   "zero_pad": 0,
+   "sha256": "d190639ece42d9fb7cfb15093f8c512e483155efd04a382dc5028cb975f80e9d"
+  },
+  "src/Level/_Objects/Monitor and Time Post/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 215866,
+   "length": 1540,
+   "zero_pad": 0,
+   "sha256": "ee98713d147c62128c7af02e250a6bf733c49c2c86a90332ecc4d77be29ed05a"
+  },
+  "src/Level/_Objects/Powerup/Data/Art (Invincibility Stars).bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 212396,
+   "length": 1152,
+   "zero_pad": 0,
+   "sha256": "486c2b711a084aad4b784fc4530b3f2ebf36e8c455091e145666268e19ea3d75"
+  },
+  "src/Level/_Objects/Powerup/Data/Art (Shield).bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 211244,
+   "length": 1152,
+   "zero_pad": 0,
+   "sha256": "43f5e17251643e11e8b40657c1b5382649040af22c19c9f144b7fa98b6805e8e"
+  },
+  "src/Level/_Objects/Powerup/Data/Art (Time Warp Stars).bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 213548,
+   "length": 992,
+   "zero_pad": 0,
+   "sha256": "1c71ded6bf1df0fd59db83dfd03541dcbc70335344bddf87b6f18f63fb0903fa"
+  },
+  "src/Level/_Objects/Results/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 206966,
+   "length": 1354,
+   "zero_pad": 0,
+   "sha256": "c88b40a5d2d17ddd96fb2b28dbdbdbe5f1a67f7b02671c6410f7d64a306c3c40"
+  },
+  "src/Level/_Objects/Ring/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 218662,
+   "length": 244,
+   "zero_pad": 0,
+   "sha256": "530877e432ceab7df543eaae5d3a6f705137526f54cdae8251b7fec288119ea2"
+  },
+  "src/Level/_Objects/Robot Generator/Data/Art (Withered).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 230508,
+   "length": 332,
+   "zero_pad": 0,
+   "sha256": "26fb61222365ec1dc3a6c442401cdbc52e5eaf7e2a77903cb93570c7d325fcda"
+  },
+  "src/Level/_Objects/Robot Generator/Data/Art.nem": {
+   "disc": "DEMO82A.MMD",
+   "offset": 244208,
+   "length": 434,
+   "zero_pad": 0,
+   "sha256": "4e655639807a4b3203e9b5e723e484bd95a38f832babb3f82ba44215d7d27806"
+  },
+  "src/Level/_Objects/Sonic/Data/Art.bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 131072,
+   "length": 69471,
+   "zero_pad": 0,
+   "sha256": "5160ff8ea26ed050cd3f41aaf1689d4e05a58cf15f090c0ca910932e7f629955"
+  },
+  "src/Level/_Objects/Sonic/Data/Palette.bin": {
+   "disc": "DEMO11A.MMD",
+   "offset": 1748,
+   "length": 32,
+   "zero_pad": 0,
+   "sha256": "8391d8af82c19043c89e32abf87bdd057dbe2a845c58a3a58761edceaeeb9f8a"
+  },
+  "src/Level/_Objects/Spikes/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 229400,
+   "length": 86,
+   "zero_pad": 0,
+   "sha256": "4d6ff2ea465d6436ca113d8305d91ea8bca8f699b7621410d1d257679e3923ea"
+  },
+  "src/Level/_Objects/Spring/Data/Art (Diagonal).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 214540,
+   "length": 780,
+   "zero_pad": 0,
+   "sha256": "3cf30cb03a63f3d160c0b2dbbd0cf1f7803871f860125a5b44bf0a1cc0dc362a"
+  },
+  "src/Level/_Objects/Spring/Data/Art (Normal).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 215320,
+   "length": 546,
+   "zero_pad": 0,
+   "sha256": "19212b9e7b64237a58a6bfa64566338930fd82a71555dbfab61e9bc45e165831"
+  },
+  "src/Level/_Objects/Spring/Data/Art (Wheel).nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 222902,
+   "length": 182,
+   "zero_pad": 0,
+   "sha256": "b308180df8365237f56f7a1a8fdd1137d381f517b1de5745ae5074ce46208eee"
+  },
+  "src/Level/_Objects/Title Card/Data/Art.nem": {
+   "disc": "DEMO11A.MMD",
+   "offset": 210304,
+   "length": 940,
+   "zero_pad": 0,
+   "sha256": "8d70c7bedf08d9d0c4a4d01290fb78032820933ab43d1636262e16e601347bc8"
+  },
+  "src/Special Stage/Data/Extra Players Text Art.nem": {
+   "disc": "SPMM__.MMD",
+   "offset": 7654,
+   "length": 312,
+   "zero_pad": 0,
+   "sha256": "35d1e2c05bb8cd7629b5d96fc92a0a9e2eb4ffadb5f34c2c55f2c977b46924aa"
+  },
+  "src/Special Stage/Data/HUD Art.nem": {
+   "disc": "SPMM__.MMD",
+   "offset": 18770,
+   "length": 536,
+   "zero_pad": 0,
+   "sha256": "568ad311392a5019c271278adb1799fb276cc5cff509951329c96c8b4780b068"
+  },
+  "src/Special Stage/Data/Palette (Results).bin": {
+   "disc": "SPMM__.MMD",
+   "offset": 1958,
+   "length": 128,
+   "zero_pad": 0,
+   "sha256": "a64a1bbf4bc0e3acf5af29ada2b01f14e4a27269cb0d1d4069aa7151be9997a9"
+  },
+  "src/Special Stage/Data/Palette.bin": {
+   "disc": "SPMM__.MMD",
+   "offset": 1830,
+   "length": 128,
+   "zero_pad": 0,
+   "sha256": "c0b02d056be4e17f779db004f593f5ca47be07550981c099d1c90b71ec15b6a1"
+  },
+  "src/Special Stage/Data/Results Art.nem": {
+   "disc": "SPMM__.MMD",
+   "offset": 13366,
+   "length": 3718,
+   "zero_pad": 0,
+   "sha256": "c8a9ded221b759928dcd00d028b2bc6c611fe51841afc2660f7fbc3fac0e816b"
+  },
+  "src/Special Stage/Data/Results Background Map.kos": {
+   "disc": "SPMM__.MMD",
+   "offset": 12904,
+   "length": 144,
+   "zero_pad": 0,
+   "sha256": "252fdee3a3142ab230cd84115bd8c7395471384e2185c657737108c110efe044"
+  },
+  "src/Special Stage/Data/Stage 1/Animations (Fan).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 2462,
+   "length": 64,
+   "zero_pad": 0,
+   "sha256": "02d3355b383bf8b7f0b8788ee85bb94e14d9150f1c07a3120f6d2c39fbc531aa"
+  },
+  "src/Special Stage/Data/Stage 1/Animations (Hazard).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 2342,
+   "length": 120,
+   "zero_pad": 0,
+   "sha256": "fd7d6cb5c1804e5f767d5581426f4a4e51c2e7628092c014e2cb75079109fb6e"
+  },
+  "src/Special Stage/Data/Stage 1/Background Art.nem": {
+   "disc": "SPSS__.BIN",
+   "offset": 32880,
+   "length": 4664,
+   "zero_pad": 0,
+   "sha256": "39a5ec1f8ebe5bd9006326a4351a14be8414611dae36db6bc1b7d76b7a015324"
+  },
+  "src/Special Stage/Data/Stage 1/Background Chunk A1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 37546,
+   "length": 272,
+   "zero_pad": 0,
+   "sha256": "a5f6c850627c6ba163d9161feecbf93a9b2cc51ac272f405ce498933cc35fd1e"
+  },
+  "src/Special Stage/Data/Stage 1/Background Chunk A3.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 37998,
+   "length": 160,
+   "zero_pad": 0,
+   "sha256": "565be0759a41413e4595ac175383e966b68aaba6a5b06d4177fbd10c45c4bca8"
+  },
+  "src/Special Stage/Data/Stage 1/Background Chunk B1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 38354,
+   "length": 624,
+   "zero_pad": 0,
+   "sha256": "7209e37da541170f1a3093d7b1955e58f7be4dd6552d70e254a682d6f5544b3e"
+  },
+  "src/Special Stage/Data/Stage 1/Background Chunk B2.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 38980,
+   "length": 32,
+   "zero_pad": 0,
+   "sha256": "2c18397f9b2c717b958e43354a0e7f2656db758b28d428f544a52cf6fa3f7a48"
+  },
+  "src/Special Stage/Data/Stage 1/Demo (NTSC).kos": {
+   "disc": "SPMM__.MMD",
+   "offset": 24658,
+   "length": 144,
+   "zero_pad": 0,
+   "sha256": "7683574af37c93f21dc866077d473dad77f9910fb0a5f577d5758cf7c94d36dc"
+  },
+  "src/Special Stage/Data/Stage 1/Palette.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 32816,
+   "length": 64,
+   "zero_pad": 0,
+   "sha256": "f73c072f8b6ccb4832bb707fe8cbc3c006132303bb9707938c9ac9cab057b2a8"
+  },
+  "src/Special Stage/Data/Stage 1/Stamp Map.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 281184,
+   "length": 2064,
+   "zero_pad": 0,
+   "sha256": "75dd82921886ba9d009a350d8b7f54f592f79dbb52cba0806e784c4bf1ddab62"
+  },
+  "src/Special Stage/Data/Stage 1/Stamp Types.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 4382,
+   "length": 96,
+   "zero_pad": 0,
+   "sha256": "d4d3724fe49e029af2d73ca5ac849ceb465c447b1bf9db5569576aa875943be1"
+  },
+  "src/Special Stage/Data/Stage 1/Stamps.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 196608,
+   "length": 12944,
+   "zero_pad": 0,
+   "sha256": "f7ce3ab6ce272fbeae42e586fce4cffbb0fb36b9b5ce50b74f054d07a9079644"
+  },
+  "src/Special Stage/Data/Stage 1/Start Position.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 13590,
+   "length": 6,
+   "zero_pad": 0,
+   "sha256": "eaae5ac844a3e9e1598c9a514617eb4ef311b422ea783986ec6c96ac2b9af831"
+  },
+  "src/Special Stage/Data/Stage 1/UFO 1.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7312,
+   "length": 24,
+   "zero_pad": 0,
+   "sha256": "6bdef1658d547c06779e455f2a55f2d9ccd8e6ed1bc7582d8c2a6432281ffd4b"
+  },
+  "src/Special Stage/Data/Stage 1/UFO 2.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7336,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "6f3d21817fa3a066bbee5918857f94673d7fa33511f4f003698dd375f62a9d4b"
+  },
+  "src/Special Stage/Data/Stage 1/UFO 3.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7370,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "c43bc344ca8519e7d383b8f41bf32ae11381a0c1cfe480f80afb26ee58efc065"
+  },
+  "src/Special Stage/Data/Stage 1/UFO 4.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7404,
+   "length": 24,
+   "zero_pad": 0,
+   "sha256": "5a4f68431e18c8a4b90cfeb4649cb0f48a6cc6308d27d9cd4bf7c935cc41f9f0"
+  },
+  "src/Special Stage/Data/Stage 1/UFO 5.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7428,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "eea3f81eb400eac58e17c2870fb27b281b03deeb14db5320d629c21d5565adaa"
+  },
+  "src/Special Stage/Data/Stage 1/UFO 6.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7472,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "b445f050d620657a6e1095cac290fd19aaf8fab6f60b4d46ac9011c3c73a20dc"
+  },
+  "src/Special Stage/Data/Stage 2/Animations (Fan).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 2626,
+   "length": 64,
+   "zero_pad": 0,
+   "sha256": "49196fde3586e5a82fcba851d13d679166a56dab4c0d22c6094a938701dfd856"
+  },
+  "src/Special Stage/Data/Stage 2/Animations (Hazard).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 2526,
+   "length": 100,
+   "zero_pad": 0,
+   "sha256": "7f98391a2d6604a438505fa38b87286ddfba281dc22bd419ccb5bc0f5e569eb9"
+  },
+  "src/Special Stage/Data/Stage 2/Background Art.nem": {
+   "disc": "SPSS__.BIN",
+   "offset": 39076,
+   "length": 4536,
+   "zero_pad": 0,
+   "sha256": "b8a308b15fcfcd8476d098f3b944547f12cc658149360a9e2b29f3c82029e109"
+  },
+  "src/Special Stage/Data/Stage 2/Background Chunk A1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 43614,
+   "length": 128,
+   "zero_pad": 0,
+   "sha256": "35d8bd1743d8b870d3a26fca8c5b8fa3c06f64a62f9a81a9a2f20f538b1fb776"
+  },
+  "src/Special Stage/Data/Stage 2/Background Chunk A2.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 43744,
+   "length": 112,
+   "zero_pad": 0,
+   "sha256": "ea304a037fd24e24567ee5c714c058e6720464e0806eba83d60b2121d9e52b46"
+  },
+  "src/Special Stage/Data/Stage 2/Background Chunk B1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 44038,
+   "length": 448,
+   "zero_pad": 0,
+   "sha256": "ce9ac3abc9a466519120cf811d76e97aea9d671a8a71ab383af267a7d491f218"
+  },
+  "src/Special Stage/Data/Stage 2/Background Chunk B2.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 44488,
+   "length": 336,
+   "zero_pad": 0,
+   "sha256": "94d0e5a562cf6090a57fd2ed047bfdfa99799ca74e76e99d087bc3116dbd109a"
+  },
+  "src/Special Stage/Data/Stage 2/Background Chunk B3.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 44826,
+   "length": 32,
+   "zero_pad": 0,
+   "sha256": "a69c03c81b6b51a6bde2271adde8112e3944dd3a5fcbb39acf209a20ff531657"
+  },
+  "src/Special Stage/Data/Stage 2/Palette.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 39012,
+   "length": 64,
+   "zero_pad": 0,
+   "sha256": "6c6e484e655b436903d36c2b01407893169741f845729b689d5736f1788a8390"
+  },
+  "src/Special Stage/Data/Stage 2/Stamp Map.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 283248,
+   "length": 1888,
+   "zero_pad": 0,
+   "sha256": "396a6ff8572dabd4546a799956290d6c4658b81bb11cc932d7bf6e2a452bf0e7"
+  },
+  "src/Special Stage/Data/Stage 2/Stamp Types.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 4478,
+   "length": 112,
+   "zero_pad": 0,
+   "sha256": "f3791278b6dcd2cb8a61c45c532190b12d263a40232b2e5184d636280dc023cf"
+  },
+  "src/Special Stage/Data/Stage 2/Stamps.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 209552,
+   "length": 8880,
+   "zero_pad": 0,
+   "sha256": "6e30a7bad26fe287a47a51a5b7dcaa4a46443396d23b5a473520c51b2d632f5a"
+  },
+  "src/Special Stage/Data/Stage 2/Start Position.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 13596,
+   "length": 6,
+   "zero_pad": 0,
+   "sha256": "51ba724f83e2c8d1477e33224629636d9588e9b2fe5217e78b4762a7f237b451"
+  },
+  "src/Special Stage/Data/Stage 2/UFO 1.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7506,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "3564acbf2594b3705ce7d2563d88bb19cdc61ab0d6249d199529906bf5d87f1f"
+  },
+  "src/Special Stage/Data/Stage 2/UFO 2.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7550,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "cd8ec3815114e3b57c92fa1fdf6fb33529763853bfc8d6a9989b2fe03d35151a"
+  },
+  "src/Special Stage/Data/Stage 2/UFO 3.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7584,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "0e26aacc27a0778dbbebed0b28bc8ce47f8a88c079c8286440caf2ec55172259"
+  },
+  "src/Special Stage/Data/Stage 2/UFO 4.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7628,
+   "length": 24,
+   "zero_pad": 0,
+   "sha256": "5956bb5e42df90a548a97edb11f567ac177aaa9d5e8ec42f1ab628dd946dc986"
+  },
+  "src/Special Stage/Data/Stage 2/UFO 5.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7652,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "2054cb37cf01fa5b166a4b586680fc31387575124cc3c92b440ec7ed1750ac26"
+  },
+  "src/Special Stage/Data/Stage 2/UFO 6.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7686,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "c2343b138ccd45b6279f7d55ccbd2ce39712b208d92f678e971ecff6eda9d395"
+  },
+  "src/Special Stage/Data/Stage 3/Animations (Fan).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 2770,
+   "length": 96,
+   "zero_pad": 0,
+   "sha256": "1502633a91b1a799d4774856139120f4f21e2af1a64237d1c159eaab6d3a2811"
+  },
+  "src/Special Stage/Data/Stage 3/Animations (Hazard).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 2690,
+   "length": 80,
+   "zero_pad": 0,
+   "sha256": "7ed700b93ecd5b18731f14645e7b96a9ad20a239bfe6124adf45d859c4198220"
+  },
+  "src/Special Stage/Data/Stage 3/Background Art.nem": {
+   "disc": "SPSS__.BIN",
+   "offset": 44922,
+   "length": 3504,
+   "zero_pad": 0,
+   "sha256": "3c8230ad774cf603d8a77a70d7ef400e11e77d96a1d504dc81c36f7364cb6f04"
+  },
+  "src/Special Stage/Data/Stage 3/Background Chunk A1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 48428,
+   "length": 240,
+   "zero_pad": 0,
+   "sha256": "52cbd32636bb3a89f1eae0676c62c74413566c3313f034121d22089d8e348a78"
+  },
+  "src/Special Stage/Data/Stage 3/Background Chunk A2.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 48670,
+   "length": 240,
+   "zero_pad": 0,
+   "sha256": "e37f90a33684d4a02b5090de813c431632d7b9eec5a0a1aede2bea66bda8fb85"
+  },
+  "src/Special Stage/Data/Stage 3/Background Chunk B1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 49364,
+   "length": 368,
+   "zero_pad": 0,
+   "sha256": "58222e9201344b9322420f9e6a195575adb5c5b27b4be3b5bc756991a94e8e91"
+  },
+  "src/Special Stage/Data/Stage 3/Background Chunk B2.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 49734,
+   "length": 128,
+   "zero_pad": 0,
+   "sha256": "4a748f7856aec508a1e8a7735ee6c09fbe8759eb8166203d029cb709b7617e9e"
+  },
+  "src/Special Stage/Data/Stage 3/Background Chunk B3.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 49864,
+   "length": 368,
+   "zero_pad": 0,
+   "sha256": "bcf5a1b44727116112f8c7bb9859bae161a8e3bd69eba6b6b2206b531a9bf1b8"
+  },
+  "src/Special Stage/Data/Stage 3/Background Chunk B4.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 50234,
+   "length": 128,
+   "zero_pad": 0,
+   "sha256": "5c82595b29217fb6e05cf8057215289bbf150d602d32a991d147a0d1b714fcbb"
+  },
+  "src/Special Stage/Data/Stage 3/Background Chunk B5.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 50364,
+   "length": 32,
+   "zero_pad": 0,
+   "sha256": "ab66a2c26d1e0ac54f6b31f119f527e656bf8e177cb8e0f6bafa64464a8a60d5"
+  },
+  "src/Special Stage/Data/Stage 3/Palette.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 44858,
+   "length": 64,
+   "zero_pad": 0,
+   "sha256": "e7e78fe29e0e61f28d449bc6bbebafaf70bdf85d636552faca888f328b89cd54"
+  },
+  "src/Special Stage/Data/Stage 3/Stamp Map.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 285136,
+   "length": 2560,
+   "zero_pad": 0,
+   "sha256": "cb2aa4035b9fa1abaf37028e3ae2dcc212f6fa2c2090c8f3168f21dfed712ecd"
+  },
+  "src/Special Stage/Data/Stage 3/Stamp Types.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 4590,
+   "length": 144,
+   "zero_pad": 0,
+   "sha256": "25fda9e86a31929f4bbdc3b79c8be0fe165b0d7076bc7e65b3346d7915726b72"
+  },
+  "src/Special Stage/Data/Stage 3/Stamps 1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 218432,
+   "length": 8352,
+   "zero_pad": 0,
+   "sha256": "94b01c3b283d92cbb70e6030677774c8b4316519c6732937be261f0387dd7170"
+  },
+  "src/Special Stage/Data/Stage 3/Stamps 2.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 226784,
+   "length": 336,
+   "zero_pad": 0,
+   "sha256": "5a31cc237a53c2881b747cfd07faf23b93d1336f6826da76f76b7c8d440f0914"
+  },
+  "src/Special Stage/Data/Stage 3/Start Position.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 13596,
+   "length": 6,
+   "zero_pad": 0,
+   "sha256": "51ba724f83e2c8d1477e33224629636d9588e9b2fe5217e78b4762a7f237b451"
+  },
+  "src/Special Stage/Data/Stage 3/UFO 1.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7720,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "7d479065eb40d8062ab6507361ea3756cb68b452a509ce993cd29ff5fcdb5a06"
+  },
+  "src/Special Stage/Data/Stage 3/UFO 2.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7764,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "a30f6a6a4c0088eba43be912bf58837952793ce378136fa69de68260f16f18a3"
+  },
+  "src/Special Stage/Data/Stage 3/UFO 3.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7798,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "4fe7e144eeac13165696850587865fa483810912dfe6463b5f0a3c0886a03fb9"
+  },
+  "src/Special Stage/Data/Stage 3/UFO 4.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7842,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "4f404ed4247b7aa7b1ae7ddacc2e9edb3c56c957915c8ea2dfa75388064afffd"
+  },
+  "src/Special Stage/Data/Stage 3/UFO 5.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7876,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "9e2e9417f1eba6a61690f03e84e7eaeb5a079c67822a578e4003e8e00df9cc0a"
+  },
+  "src/Special Stage/Data/Stage 3/UFO 6.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7920,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "498b9401e3f375c4b464b3248bb19f5f0e5eca91933d9cf0a66a7b93dee1262e"
+  },
+  "src/Special Stage/Data/Stage 4/Animations (Fan).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 3226,
+   "length": 128,
+   "zero_pad": 0,
+   "sha256": "9f149829eb8e41ccaba586148774f41d241ffe451186d5c64a69eb2806f2d9ef"
+  },
+  "src/Special Stage/Data/Stage 4/Animations (Hazard).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 2866,
+   "length": 360,
+   "zero_pad": 0,
+   "sha256": "388c2150c5ac4ee4cdbcb242286ee92bf8c01fdbdc79c12631c48cba19605847"
+  },
+  "src/Special Stage/Data/Stage 4/Background Art.nem": {
+   "disc": "SPSS__.BIN",
+   "offset": 50460,
+   "length": 6378,
+   "zero_pad": 0,
+   "sha256": "13efa080bd8c58c47722f5f67b9bfee8afc2c8ee87aef702e7295d11cdc2c20e"
+  },
+  "src/Special Stage/Data/Stage 4/Background Chunk A1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 56840,
+   "length": 512,
+   "zero_pad": 0,
+   "sha256": "91bc83dcc7b7936211c856d945213eddc2d737256b37ae4f053d84ea9c39599b"
+  },
+  "src/Special Stage/Data/Stage 4/Background Chunk A2.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 57354,
+   "length": 160,
+   "zero_pad": 0,
+   "sha256": "0aa876c92b808151db55dab6438a2aa1e6ae329ed1860d5cd54854bc8877dc22"
+  },
+  "src/Special Stage/Data/Stage 4/Background Chunk B1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 57516,
+   "length": 96,
+   "zero_pad": 0,
+   "sha256": "85ca9f0a7f3c126d70db9f040648466a56d940c80284294698df3a8f1ede2738"
+  },
+  "src/Special Stage/Data/Stage 4/Background Chunk B2.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 57614,
+   "length": 320,
+   "zero_pad": 0,
+   "sha256": "284269f3b884561f791a4f625cd0275d55e95eb6669cef4ca6e0a9a86544b7a3"
+  },
+  "src/Special Stage/Data/Stage 4/Background Chunk B3.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 57936,
+   "length": 64,
+   "zero_pad": 0,
+   "sha256": "38340eaaa9818a91e293fdb1b173d488c05bbd5389a1c04eccc42777e81cea14"
+  },
+  "src/Special Stage/Data/Stage 4/Background Chunk B4.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 58002,
+   "length": 320,
+   "zero_pad": 0,
+   "sha256": "d3218083d8f5119fe472ccd609d7678d34019efa9da69d5e044a4646b74cf089"
+  },
+  "src/Special Stage/Data/Stage 4/Palette.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 50396,
+   "length": 64,
+   "zero_pad": 0,
+   "sha256": "f244d77a1c6e3e23ada65e6961ef9e0a6a4e24b9b79137c9ec3b866bbb1114b5"
+  },
+  "src/Special Stage/Data/Stage 4/Stamp Map.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 287696,
+   "length": 5216,
+   "zero_pad": 0,
+   "sha256": "1db70340c9b2d50f81947636a95c266b2c3ac14a91c493e5989d4cf13368163e"
+  },
+  "src/Special Stage/Data/Stage 4/Stamp Types.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 4734,
+   "length": 128,
+   "zero_pad": 0,
+   "sha256": "1bf49a408ee1f967ccbe0ca6ab2ca86bf6d13782d38c80cf9d56641c231f5bd1"
+  },
+  "src/Special Stage/Data/Stage 4/Stamps.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 227120,
+   "length": 9200,
+   "zero_pad": 0,
+   "sha256": "283a613e37ce017718e17309766ac50cb670aca7df579d69f8112f963da033fd"
+  },
+  "src/Special Stage/Data/Stage 4/Start Position.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 13596,
+   "length": 6,
+   "zero_pad": 0,
+   "sha256": "51ba724f83e2c8d1477e33224629636d9588e9b2fe5217e78b4762a7f237b451"
+  },
+  "src/Special Stage/Data/Stage 4/UFO 1.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7964,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "0052eeec967154bf6b6cd487ea3f96ba2cb10cfa804a999224e8dd10a85e644a"
+  },
+  "src/Special Stage/Data/Stage 4/UFO 2.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7998,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "8fd16b99cad7f7db93e304ef66085e8b177439ed089538e8c893a326eaa5a039"
+  },
+  "src/Special Stage/Data/Stage 4/UFO 3.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8042,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "243c65b8557c8ceb9779e3349baa791f865cc29c949b16b73ce099f3a3406fb0"
+  },
+  "src/Special Stage/Data/Stage 4/UFO 4.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8086,
+   "length": 24,
+   "zero_pad": 0,
+   "sha256": "589b88187c9e42cf39ee33183b3b55450f363dd354199f70dfeec32cdeb29492"
+  },
+  "src/Special Stage/Data/Stage 4/UFO 5.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8110,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "d9d12a1eb2cdbdeccaee41dc827c0615b359b3b541a3008056adb09d29147646"
+  },
+  "src/Special Stage/Data/Stage 4/UFO 6.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8144,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "e5322e760b32e4a12cb9b00a1239b04e1dcebff81f5cf988a10e8d7dd44f6c04"
+  },
+  "src/Special Stage/Data/Stage 5/Animations (Fan).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 3464,
+   "length": 96,
+   "zero_pad": 0,
+   "sha256": "92a34295b0802f3c2579f4e2ff2f4506d5acf1f091871c6fc40482b1d87f5748"
+  },
+  "src/Special Stage/Data/Stage 5/Animations (Hazard).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 3354,
+   "length": 110,
+   "zero_pad": 0,
+   "sha256": "1af76c3c7d4e51b4c1c21685c006f4c426871f973bbcf26faf3c583a2930bdf5"
+  },
+  "src/Special Stage/Data/Stage 5/Background Art.nem": {
+   "disc": "SPSS__.BIN",
+   "offset": 59226,
+   "length": 4820,
+   "zero_pad": 0,
+   "sha256": "d71c51d3dd630bfe825aae15d693a5ec751e2b67371c3e4fe749ac2906c0ac17"
+  },
+  "src/Special Stage/Data/Stage 5/Background Chunk A1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 64048,
+   "length": 432,
+   "zero_pad": 0,
+   "sha256": "eba68cbf24fab6c79293d231c73b38b2919990eedfcaab468a084b11c78c2ccd"
+  },
+  "src/Special Stage/Data/Stage 5/Background Chunk A2.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 64482,
+   "length": 288,
+   "zero_pad": 0,
+   "sha256": "540a8500739c8fba804b160b9597a4528ec1a1287bf2f352d270cb7e65c41d01"
+  },
+  "src/Special Stage/Data/Stage 5/Background Chunk B1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 65240,
+   "length": 416,
+   "zero_pad": 0,
+   "sha256": "56f3afbe710ddf29f849c8e3c0a29a88c9f4012721c44de0223b4ecb12b9d77f"
+  },
+  "src/Special Stage/Data/Stage 5/Background Chunk B2.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 65658,
+   "length": 432,
+   "zero_pad": 0,
+   "sha256": "6e169f2c0d179f3243471bf9e30ad46e214343d8dc1740a74606318b6786fd72"
+  },
+  "src/Special Stage/Data/Stage 5/Background Chunk B3.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 66092,
+   "length": 32,
+   "zero_pad": 0,
+   "sha256": "13bff448a19207e7caf43a8929bc3a0c4f0fe5f1cacc64a826d8c08e2058bbb9"
+  },
+  "src/Special Stage/Data/Stage 5/Palette.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 59162,
+   "length": 64,
+   "zero_pad": 0,
+   "sha256": "1523822f9b5e1045f454c5e81ab43549f767bd97b84848b143047b2051fe090c"
+  },
+  "src/Special Stage/Data/Stage 5/Stamp Map.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 292912,
+   "length": 2832,
+   "zero_pad": 0,
+   "sha256": "66728255d7656525d5523beaa540fea7a71dd04bdfc59a635bffc42c10748642"
+  },
+  "src/Special Stage/Data/Stage 5/Stamp Types.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 4862,
+   "length": 112,
+   "zero_pad": 0,
+   "sha256": "767ffb87603eca573cc287a54c058b7da3cd5a7921612e0607286afa456f71cd"
+  },
+  "src/Special Stage/Data/Stage 5/Stamps.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 236320,
+   "length": 11616,
+   "zero_pad": 0,
+   "sha256": "310cda8698c39ffaf885ef8123baf89cc370367b7f22de72bf1c168982dacdaa"
+  },
+  "src/Special Stage/Data/Stage 5/Start Position.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 13596,
+   "length": 6,
+   "zero_pad": 0,
+   "sha256": "51ba724f83e2c8d1477e33224629636d9588e9b2fe5217e78b4762a7f237b451"
+  },
+  "src/Special Stage/Data/Stage 5/UFO 1.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8178,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "4cfefda08f68902b038f1c7d7397207514894ec8cac5b5c69bbfb91aad659d69"
+  },
+  "src/Special Stage/Data/Stage 5/UFO 2.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8222,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "f7b9d3fd9e2d7f38bb26ec0bb9b280fe75fde5d4aad642dae7bc0b24db7d2087"
+  },
+  "src/Special Stage/Data/Stage 5/UFO 3.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8266,
+   "length": 24,
+   "zero_pad": 0,
+   "sha256": "55972ff42c89d045d9866f23212e750112f216a6c21fe8e1d94d4d5fe7343107"
+  },
+  "src/Special Stage/Data/Stage 5/UFO 4.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8290,
+   "length": 54,
+   "zero_pad": 0,
+   "sha256": "a0d2240b86582282935f2d2fb4ca7d65046488a4b18db5a1b60906d0ff24a191"
+  },
+  "src/Special Stage/Data/Stage 5/UFO 5.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8344,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "afcaf43dfc97eb7523751e402d5e65d899bf6a7e429be5a8529fb1cdd4c4a4a8"
+  },
+  "src/Special Stage/Data/Stage 5/UFO 6.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8388,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "d3b6340423e7ee39c24b8f032c9a69e336c3a4bd336e956fc135c01a4ac1e31d"
+  },
+  "src/Special Stage/Data/Stage 6/Animations (Fan).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 3670,
+   "length": 128,
+   "zero_pad": 0,
+   "sha256": "1c52742667d26e848abd225ef63998dff7c0759a959ff7eba63aff64c78b061c"
+  },
+  "src/Special Stage/Data/Stage 6/Animations (Hazard).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 3560,
+   "length": 110,
+   "zero_pad": 0,
+   "sha256": "e91d856b0fcc1ffcfe2ab24990772160107ae5ab590a1989f0a560ccb72bca9c"
+  },
+  "src/Special Stage/Data/Stage 6/Background Art (Main).nem": {
+   "disc": "SPSS__.BIN",
+   "offset": 66188,
+   "length": 3610,
+   "zero_pad": 0,
+   "sha256": "bb0b27a01b9c1d94ef03b0e8114a65c2ab2a16ac7ab2879d50b702026822ff3b"
+  },
+  "src/Special Stage/Data/Stage 6/Background Art (Water).nem": {
+   "disc": "SPMM__.MMD",
+   "offset": 24946,
+   "length": 36,
+   "zero_pad": 0,
+   "sha256": "2605aa6fefeb56107f7f9cbafb7e834acb53073c73fdbf9ab6dddac868643a26"
+  },
+  "src/Special Stage/Data/Stage 6/Background Chunk A1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 69800,
+   "length": 128,
+   "zero_pad": 0,
+   "sha256": "a08b715289638d4ad473251ab9e0f64d602583403acdab94e3a7c7aab38c9d69"
+  },
+  "src/Special Stage/Data/Stage 6/Background Chunk A2.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 69930,
+   "length": 112,
+   "zero_pad": 0,
+   "sha256": "dde095ce07283ce7ffea958bdfd668b3871f5d34534b968ed9c6e9d1bf91853c"
+  },
+  "src/Special Stage/Data/Stage 6/Background Chunk B1.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 70240,
+   "length": 1024,
+   "zero_pad": 0,
+   "sha256": "d546110d7f5018849033e42067e4933c3f8efc19e9b37f1ad66f385f918dfa36"
+  },
+  "src/Special Stage/Data/Stage 6/Background Chunk B2.kos": {
+   "disc": "SPMM__.MMD",
+   "offset": 24984,
+   "length": 32,
+   "zero_pad": 0,
+   "sha256": "9b517792c5bbc0c0871effd96d8fba78a82b20ca38ba41c2528dd37d27d6929b"
+  },
+  "src/Special Stage/Data/Stage 6/Demo (NTSC).kos": {
+   "disc": "SPMM__.MMD",
+   "offset": 24802,
+   "length": 144,
+   "zero_pad": 0,
+   "sha256": "386c6e82231b908fa8206325fc5b21c87320606c496b993343eadef9c94fe344"
+  },
+  "src/Special Stage/Data/Stage 6/Palette.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 66124,
+   "length": 64,
+   "zero_pad": 0,
+   "sha256": "91e757ea6ea38e0247e2e7869b9aa9e6616fddd8d51edcd9391c01097cfde91c"
+  },
+  "src/Special Stage/Data/Stage 6/Stamp Map.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 295744,
+   "length": 2496,
+   "zero_pad": 0,
+   "sha256": "91c14f174c78cc6d0de23d94f894887061530990da8191e3c366a9a03ab3c9e9"
+  },
+  "src/Special Stage/Data/Stage 6/Stamp Types.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 4974,
+   "length": 96,
+   "zero_pad": 0,
+   "sha256": "84fbe7925cdf109839c2055014b2dd6085029728da1e4bcce5768e23d617b27a"
+  },
+  "src/Special Stage/Data/Stage 6/Stamps.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 247936,
+   "length": 8992,
+   "zero_pad": 0,
+   "sha256": "f1a27b78d6095601db8fbf0129d2e51af57e708879a5e5b7769b06b01ae234d1"
+  },
+  "src/Special Stage/Data/Stage 6/Start Position.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 13620,
+   "length": 6,
+   "zero_pad": 0,
+   "sha256": "c715f4222466097d2039703050f77641e1405da850f3ac8fb2b438b5f6884c08"
+  },
+  "src/Special Stage/Data/Stage 6/UFO 1.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8422,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "80ea5484b208aeb61f3342abe5abd53db3880c9da14aa29080ca066d71dd5d3f"
+  },
+  "src/Special Stage/Data/Stage 6/UFO 2.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8466,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "2aa589512715817f4fcaa534f3b99d5c9a4d01140f99edabf4218c43dc9b6ce0"
+  },
+  "src/Special Stage/Data/Stage 6/UFO 3.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8500,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "596b02641e8ef95815f5f2a6f4b1d9d29c435175e4cb22e3a95f6c5179da6875"
+  },
+  "src/Special Stage/Data/Stage 6/UFO 4.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8544,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "46f0a5e707bb82a32dcb7fb6cbd60744ce4a57b2c3fdbd081ee9dcd63fdee361"
+  },
+  "src/Special Stage/Data/Stage 6/UFO 5.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8578,
+   "length": 24,
+   "zero_pad": 0,
+   "sha256": "e56bb1bcbb44a84bb98ec6a7fab437c70a7d054da637f97a0d1317d71d38e4c9"
+  },
+  "src/Special Stage/Data/Stage 6/UFO 6.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8602,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "b041d14b8864000b5234c10f6651c01626c71292a6ef6902cf5c6019574f1b69"
+  },
+  "src/Special Stage/Data/Stage 7/Animations (Fan).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 3838,
+   "length": 32,
+   "zero_pad": 0,
+   "sha256": "2c593497f646036f42a010284eeb736623c5f0f0f4ffb47dd35766a7058e8659"
+  },
+  "src/Special Stage/Data/Stage 7/Animations (Hazard).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 3798,
+   "length": 40,
+   "zero_pad": 0,
+   "sha256": "c9ddc79dd3b83041933a71107347e908dd4c0df6996848df19c79a377b9e06db"
+  },
+  "src/Special Stage/Data/Stage 7/Background Art.nem": {
+   "disc": "SPSS__.BIN",
+   "offset": 71328,
+   "length": 4928,
+   "zero_pad": 0,
+   "sha256": "3618470591d9fc098f6e9b539e770503009be8ab2278bd0719e2fb4b6ed8d648"
+  },
+  "src/Special Stage/Data/Stage 7/Background Chunk A1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 76258,
+   "length": 256,
+   "zero_pad": 0,
+   "sha256": "e674b8f42c99b0bde769c12fa82f8571ddd4cc2e06eb842fb66c25abc6f8c074"
+  },
+  "src/Special Stage/Data/Stage 7/Background Chunk A3.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 76774,
+   "length": 304,
+   "zero_pad": 0,
+   "sha256": "7f7706b5e25c9bcadb9dbfa3f064bdbde122a0255bedc4ed11ed23efa610a9a4"
+  },
+  "src/Special Stage/Data/Stage 7/Background Chunk B1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 77322,
+   "length": 336,
+   "zero_pad": 0,
+   "sha256": "1ce5845799f16dcb7a7d2b9491b164aa59b5bf933fa3fb1c94718844349fb2d0"
+  },
+  "src/Special Stage/Data/Stage 7/Background Chunk B2.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 77660,
+   "length": 256,
+   "zero_pad": 0,
+   "sha256": "299526dacf533f7598c26d54b73b55df13f1f1056ededc85772abeceae14ae41"
+  },
+  "src/Special Stage/Data/Stage 7/Background Chunk B3.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 77918,
+   "length": 176,
+   "zero_pad": 0,
+   "sha256": "04d6c523e29bf415f950353c8be98c964161cd80d75e2fcf9e3f0f603685d07c"
+  },
+  "src/Special Stage/Data/Stage 7/Background Chunk B4.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 78096,
+   "length": 256,
+   "zero_pad": 0,
+   "sha256": "d9e534335a0ddf9fec75330704c4238d21720cedb6192f98e4f3eda26bd158e7"
+  },
+  "src/Special Stage/Data/Stage 7/Background Chunk B9.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 79210,
+   "length": 32,
+   "zero_pad": 0,
+   "sha256": "be06151547d311be0ceedc568d00e1488450d2458a11159d01174354fc756545"
+  },
+  "src/Special Stage/Data/Stage 7/Palette.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 71264,
+   "length": 64,
+   "zero_pad": 0,
+   "sha256": "79fc0a96ca312d97d7c68faacd5752ae8d500031eef49e0569936361b174f5aa"
+  },
+  "src/Special Stage/Data/Stage 7/Stamp Map.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 298240,
+   "length": 2928,
+   "zero_pad": 0,
+   "sha256": "77614e71f7e6f02c4357ced1f5cbc632e6fd57800d0fa275b1d03f136ee2ec33"
+  },
+  "src/Special Stage/Data/Stage 7/Stamp Types.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 5070,
+   "length": 112,
+   "zero_pad": 0,
+   "sha256": "c93465cefe59f5ae700f98bbd837aa82631b8ec5225ab658ab8cc3d7af947b74"
+  },
+  "src/Special Stage/Data/Stage 7/Stamps.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 256928,
+   "length": 11312,
+   "zero_pad": 0,
+   "sha256": "0173081751c62540d387525d6b2ea6b212ce9c1fd38059469dd290160ea73d0f"
+  },
+  "src/Special Stage/Data/Stage 7/Start Position.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 13596,
+   "length": 6,
+   "zero_pad": 0,
+   "sha256": "51ba724f83e2c8d1477e33224629636d9588e9b2fe5217e78b4762a7f237b451"
+  },
+  "src/Special Stage/Data/Stage 7/UFO 1.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8636,
+   "length": 64,
+   "zero_pad": 0,
+   "sha256": "50b928dcad3660575626dff10dcf94f22e5506d1cc4496a22bc7b8e91a9825a2"
+  },
+  "src/Special Stage/Data/Stage 7/UFO 2.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8700,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "bfe7a48237f62bf24818ea0210fb8d21431dfc3badac4fec86d78d8d0c0aebec"
+  },
+  "src/Special Stage/Data/Stage 7/UFO 3.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8744,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "9bc802a23751bdffb63d2a056437282f47dcadb5f21f18009c92162a2ae38e26"
+  },
+  "src/Special Stage/Data/Stage 7/UFO 4.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8788,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "56f84b4cdaa21c06050154feba8b970696f1d670cc01adb4de5cee9730a862c7"
+  },
+  "src/Special Stage/Data/Stage 7/UFO 5.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8832,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "3065f9c57c9992df5df626e9b010de0afd763b29d4487748fecbfa150ea300ea"
+  },
+  "src/Special Stage/Data/Stage 7/UFO 6.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8866,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "25a37542f6663e8adac9324f3d0652f5961e6fbe44d4fb399d5178fa599a185b"
+  },
+  "src/Special Stage/Data/Stage 8/Animations (Fan).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 3970,
+   "length": 96,
+   "zero_pad": 0,
+   "sha256": "cc0850dcb1af1dac007c8742017418da6b63711e09013474a1b7c59e8e858acb"
+  },
+  "src/Special Stage/Data/Stage 8/Animations (Hazard).bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 3870,
+   "length": 100,
+   "zero_pad": 0,
+   "sha256": "2eaa0527665641e2711f264ba577b09d2a16395e9f245ee4e11d89c0e352376a"
+  },
+  "src/Special Stage/Data/Stage 8/Background Art.nem": {
+   "disc": "SPSS__.BIN",
+   "offset": 79306,
+   "length": 1198,
+   "zero_pad": 0,
+   "sha256": "4ad17432b4f11a81a19aa54e4353d420401762bd1ba1e60d5dd359f6ff3631e4"
+  },
+  "src/Special Stage/Data/Stage 8/Background Chunk B1.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 80506,
+   "length": 432,
+   "zero_pad": 0,
+   "sha256": "07be4323ab8c05df01c4940a96f03f0e3cd108cca7709d5d7fd8f687c6b1a595"
+  },
+  "src/Special Stage/Data/Stage 8/Background Chunk B2.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 80940,
+   "length": 32,
+   "zero_pad": 0,
+   "sha256": "3a973a2cbfc2425022b1d038bb16c7f035e870fd57c3fb1d5e0d18beced9c17a"
+  },
+  "src/Special Stage/Data/Stage 8/Palette.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 79242,
+   "length": 64,
+   "zero_pad": 0,
+   "sha256": "2214ecfabb2fd2faf29ad42040ae17a9428db1b971615965ff20f4df5a3655ef"
+  },
+  "src/Special Stage/Data/Stage 8/Stamp Map.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 301168,
+   "length": 2640,
+   "zero_pad": 0,
+   "sha256": "8d81e32d1c90a076905c3852c613f48683cf517e99241fd28b7e338b88fda66f"
+  },
+  "src/Special Stage/Data/Stage 8/Stamp Types.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 5182,
+   "length": 144,
+   "zero_pad": 0,
+   "sha256": "a849560b39927c946276afd6f7340649b225ef7e2058fc94de987a2225da4aab"
+  },
+  "src/Special Stage/Data/Stage 8/Stamps.kos": {
+   "disc": "SPSS__.BIN",
+   "offset": 196608,
+   "length": 12944,
+   "zero_pad": 0,
+   "sha256": "f7ce3ab6ce272fbeae42e586fce4cffbb0fb36b9b5ce50b74f054d07a9079644"
+  },
+  "src/Special Stage/Data/Stage 8/Start Position.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 13632,
+   "length": 6,
+   "zero_pad": 0,
+   "sha256": "28f6d8ee766b1f06fdd8a907778a148ba4abcd77ad1fb35d396c9075fe510a44"
+  },
+  "src/Special Stage/Data/Stage 8/UFO 1.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8900,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "84c70ccce78db302886226f6b0600d439a56760fe97d5fb0337d7759bc31458d"
+  },
+  "src/Special Stage/Data/Stage 8/UFO 2.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8934,
+   "length": 34,
+   "zero_pad": 0,
+   "sha256": "8cc7b0c3fa0fe44611de796aeb87cbed3c96c57aa6c5317955654767d1e26aaf"
+  },
+  "src/Special Stage/Data/Stage 8/UFO 3.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 8968,
+   "length": 104,
+   "zero_pad": 0,
+   "sha256": "4c6fc323f4329d78e7007b2b711a602c61390ebe440c47f6e5094a9e25c6bbf1"
+  },
+  "src/Special Stage/Data/Stage 8/UFO 4.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 9072,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "8b3d62d60bc7864c78f0ad48856531982af36b816875947c748404ab7080ed30"
+  },
+  "src/Special Stage/Data/Stage 8/UFO 5.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 9116,
+   "length": 44,
+   "zero_pad": 0,
+   "sha256": "eb606936c3acf1803758ebff2b94491bcab3fb723865c0eb8d64e111d23358a1"
+  },
+  "src/Special Stage/Data/Stage 8/UFO 6.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 9160,
+   "length": 24,
+   "zero_pad": 0,
+   "sha256": "84c6d4142f034bb2b3ffcbeda6be755eae80851b60540f2037415e301eef3d84"
+  },
+  "src/Special Stage/Data/Time UFO Path.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 7020,
+   "length": 84,
+   "zero_pad": 0,
+   "sha256": "9f4177d6f200ec620575ed68f54db687bdab7598f50c15178d2f446a4095eb07"
+  },
+  "src/Special Stage/Objects/Explosion/Data/Art.nem": {
+   "disc": "SPMM__.MMD",
+   "offset": 18038,
+   "length": 732,
+   "zero_pad": 0,
+   "sha256": "a35b5ad8df1fe76ed3b000b4aa0587978951531e9ab714b29b219eba124a4a94"
+  },
+  "src/Special Stage/Objects/Item/Data/Art.nem": {
+   "disc": "SPMM__.MMD",
+   "offset": 17528,
+   "length": 510,
+   "zero_pad": 0,
+   "sha256": "775cc2cdccc4b115c6f9cdf23c1d538fa68e9c451279f8260b87b28bba79218b"
+  },
+  "src/Special Stage/Objects/Shadow/Data/Art.nem": {
+   "disc": "SPMM__.MMD",
+   "offset": 20946,
+   "length": 142,
+   "zero_pad": 0,
+   "sha256": "8a49eafba851c28ecc7df1685b20c75ea3d073451bb4f8f23ed0decc3cbde15c"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/0.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 131352,
+   "length": 576,
+   "zero_pad": 0,
+   "sha256": "4e751bbb2c5c54fdc03522fa9faaa4c1708b0e29ff2ad37d7bf58b4b096fb150"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/1.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 131928,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "223db83db916709ca0384893f161cab0fccf6b5230b556900fd571cbd7af06b2"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/10.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 137880,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "0973c4d367958c792ee85b299a25789dde6f441b425d344c1e709b5b2f7603a9"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/11.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 138520,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "bfb492754c2c0fcc9a53d56652d5dbf9c11fa0f6cf5a84890b31358f1dd94ba8"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/12.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 139160,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "c74523f47957bd4445862c8be1af7a1af5847fa9220606c51ff74ef9e54c8ade"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/13.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 139800,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "db7b0f5d8ed6a30a87cc87daaaacf6eb6b439c3999e00feabfa0d6a3aeb7c7bc"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/14.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 140440,
+   "length": 416,
+   "zero_pad": 0,
+   "sha256": "80305530c36cdad0ddd671abb2d5314605a65942bc0c24f9af6752d896cf20cb"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/15.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 140856,
+   "length": 288,
+   "zero_pad": 0,
+   "sha256": "2b0e83be066522908d081ede69872ec121a5117a71aa6dfd52429078581caeea"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/16.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 141144,
+   "length": 608,
+   "zero_pad": 0,
+   "sha256": "51fa4e51b2ab689095056a0130f1e5b95660fc9d0bcfcd370f7cc049651c068e"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/17.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 141752,
+   "length": 320,
+   "zero_pad": 0,
+   "sha256": "ede1a39e22a64c7e1d1551134f9e6412f594a049658a0ba6352fbb97a6f654c0"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/18.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 142072,
+   "length": 608,
+   "zero_pad": 0,
+   "sha256": "4a01c4f5f72f4da773996b591d992954b03789926e58ddb92427c7fd2961c0eb"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/19.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 142680,
+   "length": 608,
+   "zero_pad": 0,
+   "sha256": "515acd48b9f782374587a4936e415a89a3a8eb5306c640f000457f7f9d7d8da1"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/2.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 132568,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "c73c594119dfb6f30c52d8cab94455a52d00fe43e3af83c686e4994d4da6595d"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/20.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 143288,
+   "length": 352,
+   "zero_pad": 0,
+   "sha256": "5eef32f0083aa96efa569c6d75c02716a5d45cdaceaacfade6e2f786c4ce40ae"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/21.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 143640,
+   "length": 576,
+   "zero_pad": 0,
+   "sha256": "9aab8a7fef82dedfbfb416cc52056df54772cc6b5969213df0ecaf64f61c33b0"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/22.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 144216,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "52d86caa0e3299ce92361be5b718c303cdaf15863a184c5a0aab3b3f0a0fac2f"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/23.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 144856,
+   "length": 544,
+   "zero_pad": 0,
+   "sha256": "bf9e773e10cf2521f423dc5d11db64a7d4d906a49953a5a75b7182553b3aa6f3"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/24.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 145400,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "edd5dd0cfd26b20c26a8c8e6f8e20e9b3ce38072e86c187c64fa1609e3001071"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/25.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 146040,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "5be1c87980b66fc5bdcdf0cfd17c3b6ec7fb7b11d705d27c1751b1319f113552"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/26.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 146680,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "051de869b6d13a8b380fb6ce08b1025233ad002ca02f6d9e37231aaecda44a1f"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/27.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 147320,
+   "length": 672,
+   "zero_pad": 0,
+   "sha256": "169cd552e2bfa5c3356b5e82be5bd53aa6e8da71e61eb86d83206ac71e504fbf"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/28.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 147992,
+   "length": 320,
+   "zero_pad": 0,
+   "sha256": "60067eaf44aabd98297e4bf8a6ad8153aa173f2bda747482abcfc8e8587ca8ed"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/29.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 148312,
+   "length": 384,
+   "zero_pad": 0,
+   "sha256": "aa390aeef9fcc65a9ee0319ea9f48f35dd04c90e37408e14b3d20db4596a3884"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/3.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 133208,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "a4e840a812841c3593c52cfc9b0ac51acf286ca749f73c12093aeafbfe7f61db"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/30.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 148696,
+   "length": 384,
+   "zero_pad": 0,
+   "sha256": "1ac7d7ae27769cd9a4cbe7b6b6e001b32e6a51e3552438538fab3749f3003d06"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/31.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 149080,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "3375a0cd394814c1e7259db8101bdd8700b069cac210f31531cc6cdfaecdb2db"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/32.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 149720,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "731cfd0ee42462f106058dc2b5a721c83f300e74def6714b88b0755dc936772a"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/33.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 150360,
+   "length": 672,
+   "zero_pad": 0,
+   "sha256": "b3d8297e97c6bd65b16efa79518d22014edbe05bf2f2f3f1db70d9d138ec2733"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/34.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 151032,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "438629e6fa47650c085ee2654a9e0066512daf30eb8e6ecfecad60effbb70244"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/35.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 151672,
+   "length": 736,
+   "zero_pad": 0,
+   "sha256": "01e4f636381b8f37417076ed0bcc09407b82921daad5ff9d171e0e32da5e9591"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/36.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 152408,
+   "length": 608,
+   "zero_pad": 0,
+   "sha256": "34a8e5d9af3ee854d6c52e24d00a7a03e8116adfbe305205c722bd732352835e"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/37.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 153016,
+   "length": 608,
+   "zero_pad": 0,
+   "sha256": "dca71ea5ea623d8cd53aec5187afce160f97f68e259dc39cc5237b66dc6106c7"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/38.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 153624,
+   "length": 608,
+   "zero_pad": 0,
+   "sha256": "c95e56f4e55ba651d42954b723c1001f9e5d1c21d2dc2bef07718684cd63d945"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/39.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 154232,
+   "length": 736,
+   "zero_pad": 0,
+   "sha256": "a1bb1fe5ab78fb02bdb6c9688477b654909d10ffd4b504636f61552e3e705238"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/4.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 133848,
+   "length": 704,
+   "zero_pad": 0,
+   "sha256": "f232ce143b008b8064d3be8744ad413da70859a4124842c100d0565bf655373e"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/40.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 154968,
+   "length": 672,
+   "zero_pad": 0,
+   "sha256": "177f2cba5417f84b6f8876d34d9dbc16249f256c0046a4e8b74e53b546f777e6"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/41.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 155640,
+   "length": 672,
+   "zero_pad": 0,
+   "sha256": "74566032626087b13a66eddf21ce04ee4ff2081ff0cf74af48cf24fd57688f64"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/42.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 156312,
+   "length": 608,
+   "zero_pad": 0,
+   "sha256": "b73346b83ed8bb5476acd1339a119a6663c8f896045e55f93796ffba79dc6973"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/43.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 156920,
+   "length": 704,
+   "zero_pad": 0,
+   "sha256": "02e20a45e38fa049ebad63ea245dfa754dea826e8b446c1c71f1f84bb77b1542"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/44.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 157624,
+   "length": 704,
+   "zero_pad": 0,
+   "sha256": "acdfdd0f09f257bac2cf0707df64e7f023ee00561d74bac18c46968959df8662"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/45.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 158328,
+   "length": 704,
+   "zero_pad": 0,
+   "sha256": "4faf0724aa1b7dc42e7e66063ba7d64d75dca792cf5f21e2c7f37e931cfc50db"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/46.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 159032,
+   "length": 704,
+   "zero_pad": 0,
+   "sha256": "8be5b0c5f9bf6421b5638eacae4757841445aea39519fea5bdaddc32f80d3c58"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/47.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 159736,
+   "length": 704,
+   "zero_pad": 0,
+   "sha256": "0106282dfef16a0ea63b18fdc7ae4f088374fa243b91542e12c2da295bbab23e"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/48.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 160440,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "b66f781d5d7f04157913f3753f3163a29f13f764974698aa1b8c8dfe2314d131"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/49.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 161080,
+   "length": 512,
+   "zero_pad": 0,
+   "sha256": "5388ad74e937571142bcfcc5df99f91ef609e2104b7a9d4f5bb4bb2e8871793b"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/5.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 134552,
+   "length": 672,
+   "zero_pad": 0,
+   "sha256": "698ead763a2b269a4b39414a2126d8803ef95ee0d92068ffd78be7628de88a25"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/50.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 161592,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "8a249a3657b94a6ab2886ee48b8155fd345e6df21ef9e6d3fe626f182edc41c2"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/51.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 162232,
+   "length": 672,
+   "zero_pad": 0,
+   "sha256": "39e96411e529aa60e190fe809d8f29966a95401d5c26774788403b4446692ef7"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/52.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 162904,
+   "length": 704,
+   "zero_pad": 0,
+   "sha256": "e46c70aa1bda349e0fb964c709ca81d44238ef3fa29eb91ba25440099790d732"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/53.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 163608,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "f513d8ef14de3c48af3da1ae8274e2022c7f9b2ef86a010431f6e025d84b6a97"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/54.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 164248,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "d34c63cdfae3b15eea12ef634eee2d513fbc435c7d26623c6722826d64da6160"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/55.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 164888,
+   "length": 736,
+   "zero_pad": 0,
+   "sha256": "bb07bb93e8641de1d84bc1d8b677886db9f84427e8c7bb818afccfb1b05cf22e"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/56.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 165624,
+   "length": 672,
+   "zero_pad": 0,
+   "sha256": "e0ac865ec28a462db60dafd33e300a94f483cd167f54a880c4bca3e8806b1ca5"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/57.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 166296,
+   "length": 608,
+   "zero_pad": 0,
+   "sha256": "00da0d5653fe30a4ae83a7857658955c33c97d57e1549210dc37ab53181e6bd6"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/58.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 166904,
+   "length": 576,
+   "zero_pad": 0,
+   "sha256": "73e2597b3e24be49affaaf3a711deab4b3e4da79371bd6d6d1754cd8a12d68aa"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/59.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 167480,
+   "length": 608,
+   "zero_pad": 0,
+   "sha256": "92ece57cf6b3cdece82e9b6977d7d843013481f55fbb3b6b0440d5eb1aced177"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/6.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 135224,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "5b9b41ba1da154267b3287b5bf85cb73fa06f6006757023db3eaf49f187905aa"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/60.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 168088,
+   "length": 512,
+   "zero_pad": 0,
+   "sha256": "41505b7ac138a2cdf899815f2a05c7d038fa893d80a229d1fd8ddc587d1a51d7"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/61.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 168600,
+   "length": 576,
+   "zero_pad": 0,
+   "sha256": "534e89b9ccb9c192e1612163f948b51c0474788ff1c64015c0af87f703911688"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/62.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 169176,
+   "length": 576,
+   "zero_pad": 0,
+   "sha256": "e98f09eaecf3963ef7f07c6fb121dd1e63793d2dec5e5fc63f2c136b89cd7a15"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/63.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 169752,
+   "length": 576,
+   "zero_pad": 0,
+   "sha256": "29efbed8c607b0ee27b4cd6a097d7ee970b12a2e30160d58f75d9b8b9166caab"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/7.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 135864,
+   "length": 704,
+   "zero_pad": 0,
+   "sha256": "a2b1e3f55c099862051efa0ce60414938c86e644c45622ab3fa5c8f62285f68a"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/8.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 136568,
+   "length": 672,
+   "zero_pad": 0,
+   "sha256": "a46b2fd35dd04551c2829a698381d7eb633d6b7457f65f70909a0398f50f3ad0"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/9.bin": {
+   "disc": "SPSS__.BIN",
+   "offset": 137240,
+   "length": 640,
+   "zero_pad": 0,
+   "sha256": "8c72914c5fd21d7c69add5964a7e9f9a1cdf87b09ab8e008a339fadcc788b1ed"
+  },
+  "src/Special Stage/Objects/Sonic/Data/Frames/SPSS__.BIN": {
+   "disc": "SPSS__.BIN",
+   "offset": 0,
+   "length": 327680,
+   "zero_pad": 0,
+   "sha256": "eb3b498eed81a79da9132420fefe4622b5d7b30aa0e8b569982b7df6fa2642ca"
+  },
+  "src/Special Stage/Objects/Splash/Data/Art.nem": {
+   "disc": "SPMM__.MMD",
+   "offset": 20236,
+   "length": 710,
+   "zero_pad": 0,
+   "sha256": "570086f36b3b9c0276c40f4a298e28014f4ca7927e4125bdc8bcce4b0a38746e"
+  },
+  "src/Special Stage/Objects/Time Stone/Data/Art.nem": {
+   "disc": "SPMM__.MMD",
+   "offset": 17084,
+   "length": 444,
+   "zero_pad": 0,
+   "sha256": "85fe869b92dc37e0af095f9b1733dd3e86508a11c20a3f9abbb0530be5d90285"
+  },
+  "src/Special Stage/Objects/Title Card/Data/Art.nem": {
+   "disc": "SPMM__.MMD",
+   "offset": 19306,
+   "length": 930,
+   "zero_pad": 0,
+   "sha256": "649cbf9252f16767b40f08bcd389b781b7b4bb620a8438031c6c24582f56bfbe"
+  },
+  "src/Special Stage/Objects/UFO/Data/Art.nem": {
+   "disc": "SPMM__.MMD",
+   "offset": 21088,
+   "length": 3570,
+   "zero_pad": 0,
+   "sha256": "9c426657f2d8f73132fdb4a58787da8c7c9c1a255f50ff477b87e0d6913c87b5"
+  },
+  "src/Time Warp Cutscene/Data/Art.nem": {
+   "disc": "WARP__.MMD",
+   "offset": 1864,
+   "length": 1536,
+   "zero_pad": 0,
+   "sha256": "c4c472457c5d8ceb868fd30bc2371ea1fef7c4ac9259c134340594a50a5ca2f3"
+  },
+  "src/Time Warp Cutscene/Data/Background Mappings.bin": {
+   "disc": "WARP__.MMD",
+   "offset": 3400,
+   "length": 2240,
+   "zero_pad": 0,
+   "sha256": "2bd9c735f57a96d03e712dcf8f3b03def9cbbcacd18b9ae124ca7c744e2b385a"
+  },
+  "src/Time Warp Cutscene/Data/Palette.bin": {
+   "disc": "WARP__.MMD",
+   "offset": 1800,
+   "length": 64,
+   "zero_pad": 0,
+   "sha256": "4816a3bcc085395430481ff295e5c2543aff36bc393f8bed5145d3d15064d875"
+  },
+  "src/Title Screen/Data/Cloud Stamp Map.kos": {
+   "disc": "TITLES.BIN",
+   "offset": 7594,
+   "length": 496,
+   "zero_pad": 0,
+   "sha256": "8b593925b470f110b3e13a6b13cea59c62ae05941bc0c9cbede0caa63e6be56f"
+  },
+  "src/Title Screen/Data/Cloud Stamps.kos": {
+   "disc": "TITLES.BIN",
+   "offset": 1530,
+   "length": 6064,
+   "zero_pad": 0,
+   "sha256": "e2f6a9526e6e9f54f0b57f9e0f7e9b091d5d7d35b7b3bc9422ba92e66ace56bd"
+  },
+  "src/Title Screen/Data/Emblem Art.nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 10208,
+   "length": 3006,
+   "zero_pad": 0,
+   "sha256": "8bfeec5829e3e863897ae46e8ae3acb94b12be11bd57f760f007e78b2a021533"
+  },
+  "src/Title Screen/Data/Emblem Mappings.bin": {
+   "disc": "TITLEM.MMD",
+   "offset": 7580,
+   "length": 988,
+   "zero_pad": 0,
+   "sha256": "5a769de186c029006b2998843a9f7b5c926cb22a9ad36501bd3f15844b496e71"
+  },
+  "src/Title Screen/Data/Moutains Art.nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 8822,
+   "length": 1386,
+   "zero_pad": 0,
+   "sha256": "dbd8884c743415192b678d5b3285a5ad653ae397965539f7a13a809c56c39bad"
+  },
+  "src/Title Screen/Data/Moutains Mappings.bin": {
+   "disc": "TITLEM.MMD",
+   "offset": 7292,
+   "length": 288,
+   "zero_pad": 0,
+   "sha256": "003183a93933199b70f5b3374859353815372189916ccd96a2ae1cbfffd94dbf"
+  },
+  "src/Title Screen/Data/Palette (Initialization).bin": {
+   "disc": "TITLEM.MMD",
+   "offset": 2484,
+   "length": 128,
+   "zero_pad": 0,
+   "sha256": "042e7986f62c176fcea2a56b6308d89f187b87bb65af3ee71021be26b50f6bb4"
+  },
+  "src/Title Screen/Data/Palette.bin": {
+   "disc": "TITLEM.MMD",
+   "offset": 2612,
+   "length": 128,
+   "zero_pad": 0,
+   "sha256": "df20f81959209d479005091372d17dad8bd8d62b9b3346d2c89694ad80790c23"
+  },
+  "src/Title Screen/Data/Solid Color Art.nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 25742,
+   "length": 24,
+   "zero_pad": 0,
+   "sha256": "1c403d8c3e51c136cf37bc91b9b56f993ca610ed430954322a01fb24b5d567ae"
+  },
+  "src/Title Screen/Data/Water Art.nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 8568,
+   "length": 254,
+   "zero_pad": 0,
+   "sha256": "499a215fa50d64a3dfd8cef86b55d88c1b3fb4d3b896231ac3d6bb175701837b"
+  },
+  "src/Title Screen/Data/Water Mappings.bin": {
+   "disc": "TITLEM.MMD",
+   "offset": 7036,
+   "length": 256,
+   "zero_pad": 0,
+   "sha256": "d24b5a380514bc8494ee83f9e9fbabcda1b2b96505eeb9182a29533281ae7238"
+  },
+  "src/Title Screen/Objects/Banner/Data/Art.nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 13214,
+   "length": 1586,
+   "zero_pad": 0,
+   "sha256": "625cc9fd75272b693e84a7047de3bcf59c186139f253db3970d5112f91c94a6c"
+  },
+  "src/Title Screen/Objects/Copyright/Data/Art (Copyright, USA).nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 27322,
+   "length": 162,
+   "zero_pad": 0,
+   "sha256": "ffc1169730ef6aa099d516a968fd294d04e433bf7137016defe1cf69eef06a0c"
+  },
+  "src/Title Screen/Objects/Copyright/Data/Art (TM, USA).nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 27272,
+   "length": 50,
+   "zero_pad": 0,
+   "sha256": "d24de6b33b73cabae4272fa2483ebd66c5f6ab2c250e8009f2b28bfa44b848f1"
+  },
+  "src/Title Screen/Objects/Menu/Data/Art (Arrow).nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 27098,
+   "length": 46,
+   "zero_pad": 0,
+   "sha256": "aeddd0b7e398cacc720dc5c7070d3656cdaa60cd81395fa5a140587adb78affc"
+  },
+  "src/Title Screen/Objects/Menu/Data/Art (Text, Continue).nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 25960,
+   "length": 170,
+   "zero_pad": 0,
+   "sha256": "d20607c86109d658fbe506b4be3fc3141c6b313c423fdcf3898ea3b5e706e11f"
+  },
+  "src/Title Screen/Objects/Menu/Data/Art (Text, D.A. Garden).nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 26496,
+   "length": 206,
+   "zero_pad": 0,
+   "sha256": "8b89c136826ec659fac7e1885470ab4c76593fbc3fa60d19e777f792afd4631c"
+  },
+  "src/Title Screen/Objects/Menu/Data/Art (Text, New Game).nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 25766,
+   "length": 194,
+   "zero_pad": 0,
+   "sha256": "5a94e3fa4a8364d3509c667883699c16fcdac2e454bc38e28448423b05b882e2"
+  },
+  "src/Title Screen/Objects/Menu/Data/Art (Text, Press Start).nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 26924,
+   "length": 174,
+   "zero_pad": 0,
+   "sha256": "2f9987bf5645e329d347c381b9ff4ebf3f48c6225ecdd636778d1056547faeed"
+  },
+  "src/Title Screen/Objects/Menu/Data/Art (Text, RAM Data).nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 26332,
+   "length": 164,
+   "zero_pad": 0,
+   "sha256": "5034fe5a099d84f52ed9ab7706c958f32d4487193db898cd921cb9bbe1cafee7"
+  },
+  "src/Title Screen/Objects/Menu/Data/Art (Text, Time Attack).nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 26130,
+   "length": 202,
+   "zero_pad": 0,
+   "sha256": "8877c587a06cefda42e3187ac1990879cc0e2da6b106503b72b37ef7f39ddcc8"
+  },
+  "src/Title Screen/Objects/Menu/Data/Art (Text, Visual Mode).nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 26702,
+   "length": 222,
+   "zero_pad": 0,
+   "sha256": "7b49030f0962178f882c140f419536d21cdef20501a26d7c4c489dd89666f8ba"
+  },
+  "src/Title Screen/Objects/Planet/Data/Art.nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 14800,
+   "length": 2108,
+   "zero_pad": 0,
+   "sha256": "3b7242dd72a67171379bcbd6a7539a474402ec3a4276d4a79b81282c910bea6c"
+  },
+  "src/Title Screen/Objects/Sonic/Data/Art.nem": {
+   "disc": "TITLEM.MMD",
+   "offset": 16908,
+   "length": 8834,
+   "zero_pad": 0,
+   "sha256": "255f579b47cdbd95df209cbd6f6fc1d50ec0de79c6bf9729a15653834d96e25c"
+  },
+  "src/Title Screen/Secrets/Data/Art.nem": {
+   "disc": "DUMMY4.MMD",
+   "offset": 2092,
+   "length": 1492,
+   "zero_pad": 0,
+   "sha256": "ec0a44dd1307e5e1824d953d22116e39f8591be69a2516ece10c683d1acfb33d"
+  },
+  "src/Title Screen/Secrets/Data/Background Mappings (H40).bin": {
+   "disc": "DUMMY5.MMD",
+   "offset": 3330,
+   "length": 2240,
+   "zero_pad": 0,
+   "sha256": "45222b9685075d9b92bbca4574f89fbf07bb2faabf83ae57bf1f657d8114d486"
+  },
+  "src/Title Screen/Secrets/Data/Palette.bin": {
+   "disc": "DUMMY4.MMD",
+   "offset": 1964,
+   "length": 128,
+   "zero_pad": 0,
+   "sha256": "78ab9901d0cae6bc053d9307601e47dae0a194b54f5f9732e25ec480bfdbf178"
+  }
+ }
+}

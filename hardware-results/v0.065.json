@@ -1,0 +1,17 @@
+{
+  "version": "0.065",
+  "report_date": "2026-09-26",
+  "disc_sha256": "3cfec26970ff358a8eaf09ae45af112a7a034567c2dae3302a40b5870695e396",
+  "cue_sha256": "4bbb14f02228d17c802f6aaf6a4df774b2d0bed2a5adbb6cc23c331dacd11d07",
+  "platform": "User's Sega Saturn/SAROO",
+  "source_candidate": "build/hardware-v0.065",
+  "deployment_record": "build/card-deployment-v065.json",
+  "hardware_tested": true,
+  "user_report": "Works, no new defects",
+  "reported_defects": [],
+  "audio": "No audio failure reported. The report does not separately certify each V0.065 track or event.",
+  "full_qa_release": true,
+  "limits": "Short qualitative report from a multiple-choice prompt. Zones, act/era coverage, the power-cycle cold Continue, and video mode were not itemized. It does not close individual HARDWARE-ACCEPTANCE.md checklist items.",
+  "supersedes_last_known_working": "0.044",
+  "historical_manifests": "Packaging/deployment manifests remain immutable pre-test evidence. This later report supersedes their pending-test status without rewriting them."
+}

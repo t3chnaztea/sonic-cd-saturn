@@ -1,0 +1,13 @@
+{
+  "version": "0.040",
+  "disc_sha256": "32e461959d053be26661675c222169d3b558280a0c72aa1666d9242a9ea79fe8",
+  "platform": "User's Sega Saturn/SAROO",
+  "user_report": "IT WORKED!! SOUND WORKS PERFECTLY!!",
+  "hardware_sound_confirmed": true,
+  "evidence": "User confirmation after deployment of the verified v0.040 card image",
+  "source_candidate": "build/hardware-candidate-v0.040-01",
+  "deployment_record": "build/card-deployment-v040.json",
+  "full_qa_release": false,
+  "limits": "No separate observations supplied for every track, repeated cold boots, pause/resume, console frame timing or remaining graphical glitches. Keep those in the Palmtree Panic acceptance matrix.",
+  "historical_manifests": "Packaging/deployment manifests retain their truthful pre-test state; this record supplies the later hardware result."
+}

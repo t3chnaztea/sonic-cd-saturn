@@ -1,0 +1,137 @@
+name: Hardware test report
+description: Results from playing a build on a real Sega Saturn. Good results are as useful as bad ones.
+title: "[Hardware] <version>: <works / problems>"
+labels: ["hardware-test"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Real-hardware results decide acceptance for this project. Emulator results do not.
+        Report each separate bug in its own **Bug report** too, so it can be tracked.
+        **Do not attach or link disc images, BIOS files, built BIN/CUE/ISO files, save states or game data.**
+
+  - type: input
+    id: version
+    attributes:
+      label: Version (IP_VERSION)
+      description: The `IP_VERSION` line in `Makefile`. Add the commit hash if you built from an unreleased commit.
+      placeholder: "V0.078 (commit 4269266)"
+    validations:
+      required: true
+
+  - type: input
+    id: bin_sha256
+    attributes:
+      label: BIN SHA-256
+      description: The full 64-character hash of the `.bin` you copied to the console.
+    validations:
+      required: true
+
+  - type: input
+    id: model
+    attributes:
+      label: Saturn model
+      placeholder: "e.g. Model 1, Model 2, Hi-Saturn, V-Saturn (add the model number from the label)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: region
+    attributes:
+      label: Console region
+      options:
+        - Japan
+        - North America
+        - Europe / PAL
+        - Other (say below)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: video
+    attributes:
+      label: Video mode
+      options:
+        - NTSC 60 Hz
+        - PAL 50 Hz
+        - PAL 60 Hz
+    validations:
+      required: true
+
+  - type: input
+    id: video_out
+    attributes:
+      label: Video and audio connection, and display
+      placeholder: "e.g. RGB SCART into an OSSC, CRT over composite, S-Video"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: drive
+    attributes:
+      label: How was the game loaded?
+      options:
+        - SAROO
+        - Other ODE (name it below)
+        - Burned CD-R
+    validations:
+      required: true
+
+  - type: input
+    id: saroo_firmware
+    attributes:
+      label: SAROO (or other ODE) firmware version
+      placeholder: "version from the SAROO menu"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: boot
+    attributes:
+      label: Boot
+      options:
+        - label: Cold boot reaches the title screen.
+        - label: A second cold boot also works.
+        - label: Title and gameplay music play.
+
+  - type: textarea
+    id: tested
+    attributes:
+      label: What you played
+      description: Zones, acts and eras, special stages, saves and Continue, endings. List each one, even if it worked.
+      placeholder: |
+        - Palmtree Panic 1-3, Present and Past: works
+        - Collision Chaos 2 Bad Future: see problems
+        - Special stage 1 from PPZ1 big ring: works, stone saved
+    validations:
+      required: true
+
+  - type: textarea
+    id: problems
+    attributes:
+      label: Problems
+      description: For each one give zone, act, era, where Sonic was, what you pressed, and what you saw. Note slowdown, graphics errors, audio faults, crashes and freezes. Write "none" if it all worked.
+    validations:
+      required: true
+
+  - type: textarea
+    id: compare
+    attributes:
+      label: Compared with an earlier build
+      description: Anything better or worse than a version you tested before.
+
+  - type: textarea
+    id: media
+    attributes:
+      label: Photos or video
+      description: A phone photo of the screen helps. Keep clips short and to the point.
+
+  - type: checkboxes
+    id: no_assets
+    attributes:
+      label: Confirmation
+      options:
+        - label: I did not attach disc images, BIOS or game data.
+          required: true
+        - label: I ran this on a real Saturn, not an emulator.
+          required: true

@@ -1,0 +1,161 @@
+{
+  "status": "partial_passed",
+  "passed": false,
+  "coverage_complete": false,
+  "hardware_tested": false,
+  "disc_sha256": "2ebb18e286a6238e16da41074fa18263672a7471a0c40ef26d63d808d176a9d0",
+  "source_commit": "d0f1c850b819afce95406ef2162076452ff1921e",
+  "verified_cases": {
+    "ppz1A": {
+      "report": "build/cdpp-completion/20261026-223254-537819/report.json",
+      "report_sha256": "b152d5dd0bb3f1ca0c6f6b52009f43664d02898001fe865af5414335826b8fe6",
+      "matched_positions": 11649,
+      "recording_sha256": "27121e528fb3aafef8d37fad50248c5784b401f522ef8c8b010a79b267ff2eb1"
+    },
+    "ppz3C": {
+      "report": "build/cdpp-completion/20261026-223254-537819/report.json",
+      "report_sha256": "b152d5dd0bb3f1ca0c6f6b52009f43664d02898001fe865af5414335826b8fe6",
+      "matched_positions": 2756,
+      "recording_sha256": "4ddcade6d42f91bc846e2823cc29f3aa35575dd66413ed52d6e05fe5e6926040"
+    },
+    "ppz3D": {
+      "report": "build/cdpp-completion/20261026-223254-537819/report.json",
+      "report_sha256": "b152d5dd0bb3f1ca0c6f6b52009f43664d02898001fe865af5414335826b8fe6",
+      "matched_positions": 3203,
+      "recording_sha256": "4592af052fb027594c14107293751da45145e9d6b1689a667cec1aa6f98e8fc7"
+    },
+    "cc1A": {
+      "report": "build/cdpp-completion/20261026-223254-537819/report.json",
+      "report_sha256": "b152d5dd0bb3f1ca0c6f6b52009f43664d02898001fe865af5414335826b8fe6",
+      "matched_positions": 7805,
+      "recording_sha256": "06b6628626311fe316ee5e3b43647a7ff058c88f7a41387cfbcfeb84ce85ebe2"
+    },
+    "cc3C": {
+      "report": "build/cdpp-completion/20261026-223254-537819/report.json",
+      "report_sha256": "b152d5dd0bb3f1ca0c6f6b52009f43664d02898001fe865af5414335826b8fe6",
+      "matched_positions": 2666,
+      "recording_sha256": "c1d305e746aee416090c11dabd922dead916e347faa7fe8587a362f1d43146e6"
+    },
+    "cc3D": {
+      "report": "build/cdpp-completion/20261026-223853-529183/report.json",
+      "report_sha256": "08641593d829fcbf603a30ede6a5edf987a7ac375e70a754e28637ef95861f16",
+      "matched_positions": 3446,
+      "recording_sha256": "d6eb5eebf3240003d5faf60b54af170c804ef50756899c6c5363fc572993d4fd"
+    },
+    "tt1A": {
+      "report": "build/cdpp-completion/20261026-223853-529183/report.json",
+      "report_sha256": "08641593d829fcbf603a30ede6a5edf987a7ac375e70a754e28637ef95861f16",
+      "matched_positions": 4936,
+      "recording_sha256": "c851b688691be0456047dac65cdeb33760251a1954f0052a6e6cdf90508024ea"
+    },
+    "tt3C": {
+      "report": "build/cdpp-completion/20261026-223853-529183/report.json",
+      "report_sha256": "08641593d829fcbf603a30ede6a5edf987a7ac375e70a754e28637ef95861f16",
+      "matched_positions": 10321,
+      "recording_sha256": "51ad7e37512f0aed0427b09dc059704cc3187e2a582ba045f304c18303766fae"
+    },
+    "tt3D": {
+      "report": "build/cdpp-completion/20261026-225159-739586/report.json",
+      "report_sha256": "276a2d7a6ace85c17507bbc9136fd5febf98b451b7d6a169c8a21cc42d44d2a6",
+      "matched_positions": 7649,
+      "recording_sha256": "50e51b45304e251670f146ffd9c50fc0e3a90f4acf83140d46cff09330f37517",
+      "parent_status": "passed",
+      "snapshot_and_runtime_inputs_rechecked": true
+    },
+    "qq1A": {
+      "report": "build/cdpp-completion/20261026-225159-739586/report.json",
+      "report_sha256": "276a2d7a6ace85c17507bbc9136fd5febf98b451b7d6a169c8a21cc42d44d2a6",
+      "matched_positions": 5489,
+      "recording_sha256": "325b77465e253dec8d027845a934742e4fd088d01f84d338d1433c4bf60f9279",
+      "parent_status": "passed",
+      "snapshot_and_runtime_inputs_rechecked": true
+    },
+    "qq3C": {
+      "report": "build/cdpp-completion/20261026-225159-739586/report.json",
+      "report_sha256": "276a2d7a6ace85c17507bbc9136fd5febf98b451b7d6a169c8a21cc42d44d2a6",
+      "matched_positions": 5896,
+      "recording_sha256": "78eec59fab34b4411b2e4b6c931cbca9cb73ebc46cd39ba4736f25b5d3b1a9c3",
+      "parent_status": "passed",
+      "snapshot_and_runtime_inputs_rechecked": true
+    },
+    "qq3D": {
+      "report": "build/cdpp-completion/20261026-225159-739586/report.json",
+      "report_sha256": "276a2d7a6ace85c17507bbc9136fd5febf98b451b7d6a169c8a21cc42d44d2a6",
+      "matched_positions": 6868,
+      "recording_sha256": "44d43ef2abd4a3b7e5d0d3e16d2caacb350fc276a599635f1b6c13ca406ad46d",
+      "parent_status": "passed",
+      "snapshot_and_runtime_inputs_rechecked": true
+    },
+    "ss1A": {
+      "report": "build/cdpp-completion/20261026-225159-736791/report.json",
+      "report_sha256": "5b26b72144e0a82889ebfaa61f8fdbd3a7f100437bcba7f24b577c21ae3e9939",
+      "matched_positions": 5493,
+      "recording_sha256": "592583f45d6c0dd7f2ab5187745340911187a8105d9fb8b730b3f549b19b302c",
+      "parent_status": "passed",
+      "snapshot_and_runtime_inputs_rechecked": true
+    },
+    "ss3D": {
+      "report": "build/cdpp-completion/20261026-225159-736791/report.json",
+      "report_sha256": "5b26b72144e0a82889ebfaa61f8fdbd3a7f100437bcba7f24b577c21ae3e9939",
+      "matched_positions": 8545,
+      "recording_sha256": "5fe87ad480630363a394c768f18f26d01fea0770e94e6e5122b3f186234453cd",
+      "parent_status": "passed",
+      "snapshot_and_runtime_inputs_rechecked": true
+    },
+    "mm1A": {
+      "report": "build/cdpp-completion/20261026-225159-739390/report.json",
+      "report_sha256": "4239098d5542b03e40b1c2262d1b0be788c3ad74c003a0caddd1bc402ee699ac",
+      "matched_positions": 6514,
+      "recording_sha256": "f550baf9433832ad03a36a265bcfab12a4688d9cced08c9eb5b23e5d232dce0a",
+      "parent_status": "failed",
+      "snapshot_and_runtime_inputs_rechecked": true
+    },
+    "ww1A": {
+      "report": "build/cdpp-completion/20261026-225849-544486/report.json",
+      "report_sha256": "b1b239fd71e1239c7c7dd352195d4eac8581f03e4ae1f31f9709aeea5fc560b8",
+      "matched_positions": 6161,
+      "recording_sha256": "edabff64459c8d253192b6dfa86198d5069bbc5a0b12aab62e4f296bd19d4660",
+      "parent_status": "failed",
+      "snapshot_and_runtime_inputs_rechecked": true
+    },
+    "ww3C": {
+      "report": "build/cdpp-completion/20261026-230130-787159/report.json",
+      "report_sha256": "cff700677f3c2c3693c4d9d10f1a200843d66a8a56470cb125ab3e6f536f6f8a",
+      "matched_positions": 8601,
+      "recording_sha256": "a6412733b75b2ae28c56bc2de898f41e54f59b9a5ebbbd2e6d192a114274821f",
+      "parent_status": "passed",
+      "snapshot_and_runtime_inputs_rechecked": true
+    }
+  },
+  "missing_cases": [
+    "ww3D"
+  ],
+  "note": "Case-level proof includes failed-parent runs only after rechecking immutable BIN/CUE/ELF, every runtime input and recording hash. Three pacing failures and WW3D remain open.",
+  "failed_cases": {
+    "mm3C": {
+      "report": "build/cdpp-completion/20261026-225159-739390/report.json",
+      "report_sha256": "4239098d5542b03e40b1c2262d1b0be788c3ad74c003a0caddd1bc402ee699ac",
+      "late_gameplay_intervals": [
+        1422
+      ]
+    },
+    "mm3D": {
+      "report": "build/cdpp-completion/20261026-225849-544486/report.json",
+      "report_sha256": "b1b239fd71e1239c7c7dd352195d4eac8581f03e4ae1f31f9709aeea5fc560b8",
+      "late_gameplay_intervals": [
+        1422
+      ]
+    },
+    "ss3C": {
+      "report": "build/cdpp-completion/20261026-225159-739589/report.json",
+      "report_sha256": "a5f14dcafc80159207a534c2eb3438ceb744c894f815ec2062e29289beda3b5b",
+      "late_gameplay_intervals": [
+        3585,
+        3751,
+        3768,
+        3769,
+        3770
+      ]
+    }
+  }
+}

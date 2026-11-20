@@ -1,0 +1,413 @@
+{
+  "catalogue": {
+    "total_placements": 27286,
+    "distinct_types_all_zones": 177,
+    "already_implemented": 36,
+    "shared_across_zones": "I did not take the surveys' word for which types are shared. I parsed all 70 files in build/auto-extract myself, then parsed the 25 act_tbl arrays in build/audit/source/src/R*/ACT*.C and resolved every record through its own round-and-act table (ACTION.C:53 dispatches act_tbl[actno-1]). That turns 242 per-round id slots into 177 distinct retail routines, which is the real count of distinct object types across all seven zones. 60 is the count of distinct raw id values, and it is meaningless: ids are per-round.\n\nThirteen routines appear in 3 or more rounds. Counts are placements across all 70 programs, then the ids they wear per round:\n\nspring 3936, all 7 rounds, id 10 everywhere.\nring 3934, all 7 rounds, id 16 everywhere.\nitem 2120, all 7 rounds, id 25 everywhere.\nfriend (animals) 1836, all 7 rounds, SIX different ids: R1 36, R3 57, R4 47 (as friend4), R5 45, R6 41, R7 40, R8 50.\nball (spin/speed tag) 1236, 4 rounds: R1 52, R3 53, R6 30, R7 43.\nshooter (tube transport) 370, 4 rounds: R1, R5, R6, R8, id 7 everywhere.\nmarker 260, all 7 rounds, id 19.\nmosugu 84, all 7 rounds, id 22.\ngoal 72, all 7 rounds, id 23.\nbigring 64, all 7 rounds, id 20.\net (robot generator) 60, all 7 rounds, ids R1 45, R3 55, R4 81, R5 46, R6 46, R7 41, R8 67.\nmovie (projector) 48, 6 rounds, ids R1 46, R3 56, R4 82, R5 44, R6 47, R7 39. R8 has no projector at all - there is no MOVIE8.C and no movie entry in any ACT8*.C, so Metallic Madness buys its Good Future from et alone.\ngene (capsule) 10, 5 rounds, id 21. R7 and R8 Act 3 place no capsule.\n\nOnly three more routines reach even 2 rounds: bobin (286, R3 id 29 + R8 Act 3 id 29 - ACT83.C includes ../R3/BOBIN.H), dango (80, R7 42 + R8 45), togeball (44, R3 44 + R6 45). Everything else is single-round.\n\nThe number that decides build order: 23,224 placements live outside Palmtree Panic. 9,082 of them (39%) already sit on an id whose port handler is the right object. 9,886 sit on an id the port binds to a DIFFERENT object and would mis-spawn. 4,256 sit on an id the port does not know and would be dropped. 104 (round, id) pairs collide. Worst: R6 id 34 is dair6 (546 platforms) but the port spawns a badnik; R7 id 40 is friend (544) but the port spawns a springboard; R4 id 52 is wall1 (504 solids) but the port spawns a spin tag; R5 id 48 is dair5 (498 platforms) but the port spawns Amy's heart.",
+    "ranked": [
+      {
+        "rank": 1,
+        "type_id": 16,
+        "name": "ring (RING.C)",
+        "placements_unlocked": 3300,
+        "rounds": "all seven, id 16 in every act_tbl",
+        "effort": "small",
+        "rationale": "The one shared type I could prove needs zero behaviour work. RING.C:149-165 ringtbl is byte-for-byte the DELTAS list at tools/convert_objects.py:8, all 16 entries, and no round uses a high nibble above 11, so the port's run expander is already correct for every ring record on the disc. Counts per round: R3 582, R4 338, R5 542, R6 616, R7 650, R8 572. Two converter fixes needed, not object code: 38 R8 ring records carry a non-zero secondary byte and tools/convert_objects.py:18 raises on them."
+      },
+      {
+        "rank": 2,
+        "type_id": 10,
+        "name": "spring (SPRING.C)",
+        "placements_unlocked": 3222,
+        "rounds": "all seven, id 10 in every act_tbl",
+        "effort": "small",
+        "rationale": "Subtypes observed per round: R3 {0,2,4,6,8}, R4 {0,2,4,6}, R5 {0,2,4,8,10}, R6 {0,2,4,6}, R7 {0,2,4,6,8,10}, R8 {0,1,2,4,6,8,10}. Every one is inside the port's existing bit decode at src/objects.c:178-186 (bit1 weak, bit2 horizontal, bit3 diagonal). This type alone unseals one of the 18 sealed programs: the stall report's R82B lift is a spring at x=431 y=1112 sub 1 Past-masked, which I confirmed in objects82A.bin."
+      },
+      {
+        "rank": 3,
+        "type_id": 25,
+        "name": "item - monitor and time post (ITEM.C)",
+        "placements_unlocked": 1794,
+        "rounds": "all seven, id 25 in every act_tbl",
+        "effort": "small",
+        "rationale": "Every round uses subtypes 0-9 only, inside the port's sub>9 reject at src/objects.c:169. R4 402, R8 352, R6 314, R3 238, R7 264, R5 224. Without the time posts no zone can change era, so this is the type that makes the other six zones a Sonic CD rather than a Sonic 1. Same converter secondary-byte fix as ring: 8 R8 item records carry d=1."
+      },
+      {
+        "rank": 4,
+        "type_id": 36,
+        "name": "friend - the animals (FRIEND<n>.C)",
+        "placements_unlocked": 1566,
+        "rounds": "all seven; id 36 R1, 57 R3, 47 R4, 45 R5, 41 R6, 40 R7, 50 R8",
+        "effort": "small",
+        "rationale": "Highest placement count of any type that needs a real decision, and the decision is only which id. Subtypes are {0,1} in every single round, which matches the port's (sub&127)>1 reject at src/objects.c:158 exactly. R7 544, R5 308, R4 260, R3 216, R6 186, R8 52. R4 links FRIEND4.C and R8 splits sheep/hato rather than pocky/inco, so the art differs per round; the roam-and-ground-follow code transfers unchanged."
+      },
+      {
+        "rank": 5,
+        "type_id": 52,
+        "name": "ball - spin tunnel / speed tag (PLAYSUB.C)",
+        "placements_unlocked": 1126,
+        "rounds": "four; id 52 R1, 53 R3, 30 R6, 43 R7",
+        "effort": "small",
+        "rationale": "I read src/objects.c:678-697 and the port ALREADY implements all five subtypes including the ball_rd7 pad branch (2,3,4) that R1 never places. R7's 784 placements use exactly subtypes 0-4, R3's 274 and R6's 68 use 0 and 1. The only gap is one constant: PLAYSUB.C:873 raises the horizontal floor from 2560 to 3328 when stageno.b.h==5, which is Wacky Workbench, and the port hardcodes 2560. Note R7 id 43 is ball in Acts 1-2 and wall73 in Act 3, so the map has to be per-act, not per-round."
+      },
+      {
+        "rank": 6,
+        "type_id": 19,
+        "name": "marker - checkpoint star post (PLAYSUB.C)",
+        "placements_unlocked": 228,
+        "rounds": "all seven, id 19 in every act_tbl",
+        "effort": "small",
+        "rationale": "Subtype is the checkpoint ordinal and runs to 8 in R8, 6 in R5 and R7; the port passes it straight to scd_player_checkpoint() at src/objects.c:213, so no bound is violated. Present-only in every round, which I confirmed from the era masks rather than assuming. Small count but it is what makes a death in a new zone survivable."
+      },
+      {
+        "rank": 7,
+        "type_id": 52,
+        "name": "wall1 - static sized solid (R4/WALL1.C) - R4 ID SPACE",
+        "placements_unlocked": 504,
+        "rounds": "R4 only (collides with R1 id 52 = ball)",
+        "effort": "small",
+        "rationale": "Best value per line in the whole catalogue. build/audit/source/src/R4/WALL1.C is 138 lines and the entire object is: patno = subtype, sprhsize/sprvsize = tbl0[subtype*2..+1] over 7 sizes, then hitchk(pActwk,&actwk[0]) every frame. 504 placements, and the stall report proves R42A/B/C/D are sealed at x=661 without it - I confirmed the three stacked records in objects42A.bin at x=320 y=400 sub5, x=448 y=1040 sub5, x=384 y=1680 sub5, bridging a terrain column with no solid pixels. Four of the eighteen sealed programs for one tiny object."
+      },
+      {
+        "rank": 8,
+        "type_id": 36,
+        "name": "wall7 - static sized solid (R7/WALL7.C) - R7 ID SPACE",
+        "placements_unlocked": 460,
+        "rounds": "R7 only (collides with R1 id 36 = friend)",
+        "effort": "small",
+        "rationale": "R7/WALL7.C is 95 lines, the same shape as wall1: six half-sizes from wall7_tbl0, hitchk every frame. 460 placements, subtypes 0-5. No stall proves it load-bearing (no R7 Act 1 or 2 program stalls at all), but 460 solid blocks is genuine level geometry that is simply absent today, and the port would currently spawn animals at every one of them."
+      },
+      {
+        "rank": 9,
+        "type_id": 22,
+        "name": "mosugu - goal approach sign (GOAL.C)",
+        "placements_unlocked": 64,
+        "rounds": "all seven, id 22, subtype 0 only",
+        "effort": "small",
+        "rationale": "Exactly one per program in six of seven rounds. Subtype 0 everywhere, so the port's handler needs nothing but the id map and the lifted zone gate. Grouped with ranks 10-12 as the act-end set: together they are 180 placements for what is effectively four table entries."
+      },
+      {
+        "rank": 10,
+        "type_id": 23,
+        "name": "goal - end-of-act signpost (GOAL.C)",
+        "placements_unlocked": 56,
+        "rounds": "all seven, id 23, subtype 0 only",
+        "effort": "small",
+        "rationale": "One per program in Acts 1 and 2 of every round. Without it no non-Palmtree act can end. Note the port's naming is inverted relative to retail: SCD_OBJ_GOAL is 22 (retail mosugu) and SCD_OBJ_SIGN is 23 (retail goal). The ids are right, the labels read backwards."
+      },
+      {
+        "rank": 11,
+        "type_id": 20,
+        "name": "bigring - Special Stage ring (GOAL.C)",
+        "placements_unlocked": 52,
+        "rounds": "all seven, id 20, subtype 0 only",
+        "effort": "small",
+        "rationale": "One per program past the signpost in Acts 1 and 2. Subtype 0 in all seven rounds. The port already deletes it once the matching time stone is held; only Special Stage 1 exists in this prototype, which caps the payoff but not the cost."
+      },
+      {
+        "rank": 12,
+        "type_id": 21,
+        "name": "gene - animal capsule (GOAL.C)",
+        "placements_unlocked": 8,
+        "rounds": "five (R1,R3,R4,R5,R6), id 21, subtype 0 only",
+        "effort": "small",
+        "rationale": "Only 10 placements in the whole game and 2 of them are R1's, but it is the Act 3 end condition for four more zones. R7 and R8 Act 3 place no capsule record at all, which I verified directly - their boss acts end some other way, and I did not determine how."
+      },
+      {
+        "rank": 13,
+        "type_id": 43,
+        "name": "wall73 - Act 3 sized solid (R7/WALL73.C) - R7 ACT 3 ID SPACE",
+        "placements_unlocked": 56,
+        "rounds": "R7 Act 3 only (same id is ball in R7 Acts 1-2)",
+        "effort": "small",
+        "rationale": "166 lines, reuses wall7_tbl0 sizes plus an optional scripted path that only 2 of the 56 records use. Stall-proven: R73C and R73D free-fall at x=12790 through a 128px hole, and I confirmed the exact record in objects73C.bin - id 43 subtype 3 at x=12224 y=496, which wall7_tbl0[6..7] makes a 128x32 solid whose top is y=480, the same as the floor either side. Two more sealed programs for one small object."
+      },
+      {
+        "rank": 14,
+        "type_id": 45,
+        "name": "et - robot generator (ET<n>.C)",
+        "placements_unlocked": 48,
+        "rounds": "all seven; id 45 R1, 55 R3, 81 R4, 46 R5, 46 R6, 41 R7, 67 R8",
+        "effort": "small",
+        "rationale": "Eight placements per round, subtype 0 everywhere, and it is the sole Good Future switch in R8 (which has no projector). The port's generator already gates on the Past and awards the flag at src/objects.c:1196-1202. Pure id-map work, with the caveat that the id moves in all seven rounds and R5/R6 both land on 46, which is the port's projector."
+      },
+      {
+        "rank": 15,
+        "type_id": 34,
+        "name": "dair6 - oscillating rideable platform (R6/DAIR6.C) - R6 ID SPACE",
+        "placements_unlocked": 546,
+        "rounds": "R6 only (collides with R1 id 34 = ene_kamemusi)",
+        "effort": "small",
+        "rationale": "The largest single-round structural type in the game and DAIR6.C is only 155 lines: displacement is sin(gametimer & 255) * 4 >> 4 from the spawn point, subtype 0-3 picks right/left/up/down, 48x24, one sprite frame, ridechk each frame, horizontal variants write their own delta into the rider's xspeed. Every instance in the zone swings off the global frame counter, so there is no per-instance state to model."
+      },
+      {
+        "rank": 16,
+        "type_id": 33,
+        "name": "beem6 - electric arc and flash trigger (R6/BEEM6.C) - R6 ID SPACE",
+        "placements_unlocked": 364,
+        "rounds": "R6 only (collides with R1 id 33 = dodai platform)",
+        "effort": "small",
+        "rationale": "364 placements and every single one carries subtype 0, which BEEM6.C:84 makes inert after init. A draw-only 32x32 stub plus one global flash controller covers 100 percent of the records. Cheapest way to make Wacky Workbench look like itself. The R6 survey flagged that 364 copies of an inert decoration is odd enough to want a capture to confirm, and I agree - the code says inert, nothing I read contradicts it."
+      },
+      {
+        "rank": 17,
+        "type_id": 54,
+        "name": "togedair8 / harir8 - spike and spike-block (R8/TRAP_R81.C) - R8 ID SPACE",
+        "placements_unlocked": 386,
+        "rounds": "R8 only (collides with R1 id 54 = kowasi breakable wall)",
+        "effort": "medium",
+        "rationale": "386 placements, second largest in R8. Subtype bit 7 splits it: 248-255 are the spike and block forms, 0 and 1 are a 32x32 block that spawns a spring or a spike child 24px above itself. No ridechk anywhere in it, only hitchk, so nothing stands on it - it is a hazard, not geometry, which is why it sits below the platforms despite the count."
+      },
+      {
+        "rank": 18,
+        "type_id": 42,
+        "name": "konbea - segmented conveyor belt (R8/KONBEA.C) - R8 ID SPACE",
+        "placements_unlocked": 104,
+        "rounds": "R8 only (collides with R1 id 42 = kasoku ramp)",
+        "effort": "medium",
+        "rationale": "Only 104 placements but stall-proven for four programs: R81A/B/C/D sit in a 225-cell sealed pocket and I confirmed the two konbea records inside it in objects81A.bin at x=487 y=1840 and y=1916, era mask 7. KONBEA.C is 961 lines and builds a chain of 16x10 segment children driven along a 446-point path table, so the cost is real; the payoff is four of the eighteen sealed programs."
+      },
+      {
+        "rank": 19,
+        "type_id": 52,
+        "name": "piston - sine lift and rider launcher (R8/PISTON.C) - R8 ID SPACE",
+        "placements_unlocked": 104,
+        "rounds": "R8 only (collides with R1 id 52 = ball, and with R4 id 52 = wall1)",
+        "effort": "medium",
+        "rationale": "201 lines, and the subtype is a clean bitfield: bits 0-1 shape, 2-3 speed from {4,8,16,32}, 4-5 starting phase from {0,256,512,768}, 6 radius, 7 launch strength. ride_on_chk carries the player and shape 1 fires the rider at yspeed -4096. Stall-proven for R82A, R82C and R82D; I confirmed the record in objects82A.bin at x=432 y=1182 era mask 6 and its Present-only sibling at x=321. R82B's Past uses a spring in the same slot, so spring already covers that fourth program."
+      },
+      {
+        "rank": 20,
+        "type_id": 48,
+        "name": "dair5 - moving platform and conveyor (R5/DAI_RD5.C) - R5 ID SPACE",
+        "placements_unlocked": 498,
+        "rounds": "R5 only (collides with R1 id 48 = heart1)",
+        "effort": "large",
+        "rationale": "498 placements, the most of any stall-proven type, and it seals four programs: R51C/D and R53C/D. I confirmed the R51C record at x=320 y=400 subtype 3 Future-masked. The cost is why it ranks here and not higher: 594 lines, a 25-entry subtype table setting pattern and half-width, parallel belt_flag and bane_flag tables, six movement modes, conveyor push whose speed is era-dependent (0.5 / 1.0 / 2.0 px per frame by time_flag) off a global colrevflag that a separate switch object (beltsw5, id 49, 172 placements) owns, plus spring children spawned onto the platform surface. Quartz Quadrant is not cheap and should be scheduled as a zone, not as a type."
+      },
+      {
+        "rank": 21,
+        "type_id": 7,
+        "name": "shooter - tube transport (SHOOT<n>.C)",
+        "placements_unlocked": 358,
+        "rounds": "four (R1, R5, R6, R8), id 7 in every act_tbl",
+        "effort": "large",
+        "rationale": "Shared id and shared mechanism - it seizes the player (actfree[2]=129, mstno 2, speeds zeroed) and drives him waypoint to waypoint - but the data is not shared at all. The port's tunnels.inc holds Palmtree Panic's 3 paths and src/objects.c:165 rejects any subtype above 2. R5 declares shooterpositbl[22], R6 nineteen paths with subtypes up to 138, R8 thirty-nine subtype values from 128 to 188. Each round needs its own path table extracted before a single record spawns, which is why 358 placements rank this low."
+      },
+      {
+        "rank": 22,
+        "type_id": 46,
+        "name": "movie - Metal Sonic projector (MOVIE<n>.C)",
+        "placements_unlocked": 40,
+        "rounds": "six (R1,R3,R4,R5,R6,R7); id 46 R1, 56 R3, 82 R4, 44 R5, 47 R6, 39 R7. R8 has none",
+        "effort": "medium",
+        "rationale": "Eight placements per round, Past-masked, subtype 0. The port's projector_step carries a hardcoded four-child table and a 12-step explosion script from projector.inc, both derived from R1/MOVIE1.C, so each round needs its own child offsets and art. Low count, but with et it is half the Good Future condition in five zones. Skip it for R8, which has no projector object."
+      }
+    ],
+    "disagreements": "I checked the contradictions against the data rather than averaging them. Eight are real.\n\n1. ALREADY_IMPLEMENTED, R5 against the other six. R5 marked all 28 of its types false. R1, R3, R4, R6, R7 and R8 marked the shared ones true. Both describe something real and the flag is being used for two different questions. Verified: 36 distinct object types have working handlers in src/objects.c, all at Palmtree Panic's ids (I resolved the 41 entries of supported_types[] through ACT11A/11B/12A/13C and they cover exactly R1's 36 placed ids). And src/objects.c:34, `if(objects_zone)active_placement_count=0`, means zero placements from the other six rounds reach any handler. So \"a handler exists\" is true, \"it runs for this zone\" is false everywhere but R1. I counted already_implemented as 36 on the first reading.\n\n2. TIME POST POLARITY, R5 against R4. R5 says ITEM.C:288-292 makes subtype 8 set time_item = 1 (Past) and 9 set it to -1. R4 says 8 is -1 and 9 is +1. Read build/audit/source/src/ITEM.C:288-293: `if (userflag.b.h != 8) { time_item = 1; sub_sync(118); } else { time_item = -1; sub_sync(119); }`. R4 is right. R5 has the sign inverted; its Past/Future labels are right, so the error is cosmetic, but anyone porting t_item off the R5 text would send the player the wrong way.\n\n3. GETROUNDSTR, R5 against R7. R5 says it \"lives in the Windows executable and is not in the decompiled source (it is only called)\". It is in the source, at build/audit/source/src/LOADER2.C lines 35-56, and it is the cleanest era proof anyone found: time_flag 0 writes 'B', 1 writes 'A', 2 writes 'C' when generate_flag is set and 'D' otherwise. So Past='B', Present='A', Good Future='C', Bad Future='D', and era-mask bit0 = time_flag 0 = Past. R7's citation is correct and this independently confirms the bit assignment all seven surveys derived by other routes. No survey got the era bits wrong.\n\n4. R3's SECONDARY BYTE. R3 states flatly \"it is 0 in all 4006 R3 records\". There is one distinct record with d=255: objects31A-D at x=4544 y=890, id 36 (ene_kama), subtype 255 - four placements. It matters because id 36 is in convert_objects.py's SUPPORTED set, so line 18 raises ValueError('unsupported secondary subtype') on it.\n\n5. R8's SECONDARY BYTE, and this is the one with teeth. R8 says d is non-zero on 40 records, only on ids 47 and 35. The real figure is 114 placements: id 16 ring 38, id 25 item 8, id 35 bigbom 40, id 47 scarab 28. The ring and item ones sit on the two types the first slice builds, and both ids are in SUPPORTED, so convert_objects.py:18 aborts the R8 conversion before it emits anything. Fix the guard before the slice, not after.\n\n6. DENOMINATORS. R1 says \"byte 7 is non-zero only on two Act-1 records\"; I count 8 R1 placements. Not a contradiction - R1 counted distinct records, I count placements across the four era programs, which are byte-identical files. Several surveys switch between the two conventions inside one entry. Every headline count in this catalogue is placements across all 70 programs. Divide Act 1 and 2 figures by 4 and Act 3 by 2 for distinct records.\n\n7. BALL'S SPEED FLOOR. R3 writes \"3328 in zone 5\", R6 writes \"round 6\". PLAYSUB.C:873 is `if (stageno.b.h == 5) cal_speed1 = 3328` and Wacky Workbench is stage index 5. Same fact, two numbering schemes. R6's reading is the useful one.\n\n8. UNSORTED LAYOUTS. R6 flagged objects63C/63D (records 65 and 66 run x 2568, 2567, 2566) and warned convert_objects.placements(ordered=True) would raise. True. R1 did not mention that its own objects13C/13D are unsorted too - record index 56 is x=3056 after x=3088. That one is already handled: tools/convert_objects.py:139-141 calls placements(ordered=False) for Act 3 with a comment explaining that native streaming spawns by distance, so record order only sets slot order. R6 Act 3 needs the same treatment, and the pattern is a known one rather than a defect.\n\nWhere the surveys AGREE and I confirmed it: every per-round total and distinct-id count reproduces exactly from the binaries - 4062/36, 4006/31, 3208/46, 3476/28, 3420/35, 6006/28, 3108/38, summing to 27286 across 242 (round, id) slots. All 21 four-file and two-file era groups are byte-identical, so era selection is entirely the byte-6 mask. The 8-byte >HHBBBB layout and the field meanings from ACTSET.C:325-362 are consistent across all seven.\n\nBLOCKS_TRAVERSAL is the column I trust least and the surveys knew it. R1 and R6 set all entries false and said why. R3, R4, R5, R7 and R8 set a handful true from their own terrain probes. The stall report is the only arbiter that actually moved a player, and it names five types across eighteen sealed programs. Nothing stalls anywhere in R3, in R6, in R4 Act 1, or in R7 Acts 1-2, so the traversal claims in those surveys - R3's frip, drumr3, for3 and frdr3, R4's awa, sw4, tobira4 and tobiras4, R7's chgban - are plausible but uncorroborated at any specific x. I did not decode terrain myself and I am not overriding them; I am saying they carry less weight than the five the walker proved.",
+    "stall_conclusion": "Eighteen of the twenty-six stalls are missing objects, eight are the bot, and there are zero terrain defects. I verified the object side of every one of the eighteen by pulling the cited records out of the binaries myself.\n\nThe eighteen reduce to just FIVE distinct object types, and one of those is already implemented:\n\nwall1 (R4 id 52) seals R42A, R42B, R42C, R42D. Confirmed in objects42A.bin: id 52 at x=320 y=400 sub5 Present, x=448 y=1040 sub5, x=384 y=1680 sub5, stacked across a terrain column with no solid pixels.\ndair5 (R5 id 48) seals R51C, R51D, R53C, R53D. Confirmed in objects51C.bin: id 48 subtype 3 at x=320 y=400, Future-masked, hanging 240px above flat ground.\nkonbea (R8 id 42) seals R81A, R81B, R81C, R81D. Confirmed in objects81A.bin: two records at x=487 y=1840 and y=1916, era mask 7, inside the 225-cell sealed pocket.\npiston (R8 id 52) seals R82A, R82C, R82D. Confirmed in objects82A.bin at x=432 y=1182 era mask 6 and x=321 y=1182 Present-only.\nwall73 (R7 Act 3 id 43) seals R73C and R73D. Confirmed in objects73C.bin: subtype 3 at x=12224 y=496, and wall7_tbl0 entry 3 makes that a 128x32 solid whose top is y=480 - the exact height of the floor on both sides of the 128px hole.\nR82B is the eighteenth, and its lift is a SPRING: objects82A.bin id 10 subtype 1 at x=431 y=1112, era mask 1 (Past). The port already implements springs. That program comes unstuck the moment the zone gate opens.\n\nSo four new objects, three of them small, plus a type the port already has, clear every proven stall in the game.\n\nThe eight bot stalls are not data problems and should not enter the build queue. tools/zone_walk_test.c presses Jump for exactly one frame, and Sonic's jump is variable height, so the walker only ever hops 33px against a real 100px full jump. R41A-D, R43C/D and R83C/D are all inside that gap; the report measured held-jump variants clearing them with zero objects spawned. Fixing the walker is a one-line change that removes eight false blockers from the board and should happen before anyone reads another stall list.\n\nOne caveat I am carrying forward rather than resolving: the report itself flags R51C/D and R53D as its weakest calls, because the terrain step there is a steep quarter-pipe face that is inside jump range on paper. The dair5 record hovering in empty air at exactly the needed height is strong circumstantial evidence, not proof.",
+    "recommended_first_slice": "Do NOT start by lifting src/objects.c:34. Measured: of the 23,224 placements outside Palmtree Panic, opening the gate with the port's current flat id table would spawn the CORRECT object for 9,082 of them, the WRONG object for 9,886, and silently drop 4,256. 104 (round, id) pairs collide. A naive gate lift makes six zones worse, not better.\n\nTHE SLICE. One piece of infrastructure plus ten types, none of which needs new object behaviour:\n\nInfrastructure: a per-ROUND-and-ACT id-to-handler table, replacing the assumption that type ids are global. Per-act is not optional - R7 id 43 is ball in Acts 1 and 2 and wall73 in Act 3, R3 id 48 is a cutscene barrier in Act 1 and a boss part in Act 3, R8 id 29 is a beam in Act 2 and R3's pinball bumper in Act 3. Then lift the gate.\n\nTypes, all already implemented at Palmtree Panic's ids, needing only the map and in two cases one line:\nring 16 (3300 unlocked), spring 10 (3222), item 25 (1794), friend 36 to 40/41/45/47/50/57 (1566), ball 52 to 30/43/53 (1126), marker 19 (228), mosugu 22 (64), goal 23 (56), bigring 20 (52), gene 21 (8).\n\nThat is 11,416 placements, 49 percent of everything outside Palmtree Panic, for an id table, one subtype check, and one constant.\n\nThe two lines: PLAYSUB.C:873 raises ball's horizontal floor from 2560 to 3328 in Wacky Workbench and the port hardcodes 2560; and the animals need a per-round species check because R4 links FRIEND4.C and R8 splits sheep/hato.\n\nThree converter fixes go in the same slice, and they will abort the build if they do not. tools/convert_objects.py:18 raises on any non-zero secondary byte outside ids 7 and 42 - that hits 38 R8 ring records, 8 R8 item records, 1 R3 record (x=4544, id 36, d=255), 52 R4 screw, 68 R5 denden and 48 R6 block6. Six of the seven rounds abort on it. placements(ordered=True) raises on objects63C/63D; apply the ordered=False pattern already used for R1 Act 3 at line 141. And check capacity as you go: the worst fully-expanded program is R7 Act 2 at 965 placements against SCD_PLACEMENT_CAPACITY=1024, so there are 59 slots of headroom and no more.\n\nWHAT I VERIFIED SO THE SLICE IS SAFE. The ring run expander needs no change at all: RING.C:149-165 ringtbl equals tools/convert_objects.py:8 DELTAS entry for entry across all 16 rows, and no round uses a high nibble above 11. Springs never exceed subtype 12 in any round, all inside the existing bit decode. Items never exceed subtype 9 in any round, inside the existing reject. Animals are subtype {0,1} in all seven rounds. Ball subtypes are 0-4 and src/objects.c:678-697 already implements all five, ball_rd7 branch included. The four act-end objects are subtype 0 in every round. Nothing in the slice needs a subtype I could not account for.\n\nTHE SECOND SLICE, once the first proves out: wall1 (R4 id 52, 138 lines, 504 placements, unseals R42A-D), wall7 (R7 id 36, 95 lines, 460 placements) and wall73 (R7 Act 3 id 43, 166 lines, 56 placements, unseals R73C/D). Three static sized solids totalling under 400 lines of retail C, 1,020 placements, and six of the eighteen sealed programs. Every one of them is \"read a size from a table, call hitchk\" - the cheapest real level geometry in the catalogue.\n\nThen the four zone-shaped commitments, in cost order: dair6 (R6, 546), konbea and piston together (R8, 208, four more sealed programs), and dair5 with its beltsw5 switch and global colrevflag (R5, 670). Leave shooter and the bosses alone until a zone actually needs them."
+  },
+  "verdicts": [
+    {
+      "holds": false,
+      "errors_found": [
+        "CONVERTER FIX LIST INCOMPLETE (build-breaking): the catalogue's recommended_first_slice lists the convert_objects.py:18 secondary-byte hits as '38 R8 ring, 8 R8 item, 1 R3 record, 52 R4 screw, 68 R5 denden, 48 R6 block6' (=215). Recounted against the actual guard (line 17 skips kinds outside SUPPORTED before the check; line 18 exempts kind 7/42 when secondary==1), the real raising set is 254 placements: R3 id36 4, R4 id53 52, R5 id32 68, R6 id42 44, R6 id62 12, R8 id16 38, R8 id25 8, R8 id47 28. It OMITS R6 id 62 (12 placements, R6 Act 3, secondary 5/6/7) and R8 id 47 (28 placements, R8 Act 1, secondary 1 and 10) entirely, both of which are in convert_objects.SUPPORTED and will abort the conversion.",
+        "R6 id 42 OVERSTATED: catalogue says '48 R6 block6'. Four of the 48 carry secondary==1, which convert_objects.py:18 explicitly exempts for kind 42. Only 44 raise.",
+        "'Six of the seven rounds abort on it' is FIVE. Aborting rounds are R3, R4, R5, R6, R8. R1's only non-zero secondaries are kind 7 and kind 42 with secondary==1 (both exempt). R7's non-zero secondaries sit on ids 43 and 56, neither in SUPPORTED, so line 17 skips them before line 18 is reached. The catalogue's own list names only five rounds, contradicting its own count.",
+        "METHODOLOGY CLAIM FALSE: 'I parsed ... the 25 act_tbl arrays ... and resolved every record through its own round-and-act table.' There is no act_tbl for R5 Act 2 or R7 Act 2 anywhere in build/audit/source/src (tables exist only for (1,1),(1,2),(1,3),(3,1),(3,2),(3,3),(4,1),(4,2),(4,3),(5,1),(5,3),(6,1),(6,2),(6,3),(7,1),(7,3),(8,1),(8,2),(8,3)). Those two acts hold 4,848 placements = 17.8% of 27,286 and 20.9% of the 23,224 outside Palmtree Panic. 177 reproduces ONLY under an undisclosed fallback to each round's Act 1 table; with no fallback the count is 176 with 4,848 placements unresolved. The single routine that exists only via the fallback is buranko5.",
+        "PER-ERA DIMENSION UNREPORTED: the catalogue insists 'per-act is not optional' but never states that act_tbl also varies by ERA. ACT11A[19]=marker vs ACT11B[19]=noact (and ACT11B[43]=marker); ACT41A[36]=noact vs ACT41B[36]=lrblk4; ACT42A[35]=noact vs ACT42C[35]=udblk4; ACT31A[19]=marker vs ACT31B[19]=noact. Resolving with a single era's table per act yields 169 distinct routines and 16 unresolved slots instead of 177. Consequently the claim 'marker 260, all seven rounds, id 19' / 'id 19 in every act_tbl' is literally false (noact in ACT11B and ACT31B).",
+        "COLLISION COUNT: '104 (round, id) pairs collide' is 103. Recomputing every non-R1 (round,id) against R1's routine for the same id gives 103 genuine mismatches. The 104th is R8 id 49, which is noact in ACT81A, ACT82A and ACT83 \u2014 its 8 R8 Act 1 placements dispatch to nothing in retail. That is a dead id with a missing era table, not a collision. (The catalogue's 9,886 'WRONG' figure does reproduce exactly only if those 8 placements are counted as wrong: I get 9,878 wrong + 8 unresolvable.)",
+        "mosugu (rank 9): 'Exactly one per program in six of seven rounds' is false. Exactly one per program holds in only TWO rounds, R4 and R6. Actual per (round,act): R1a1=12 over 4 programs (3 each), R1a2=8; R3a1=4, R3a2=8 (2 each); R5a1=4, R5a2=8 (2 each); R7a1=8 (2 each), R7a2=4; R8a1=4, R8a2=4, R8a3=0.",
+        "goal (rank 10): 'One per program in Acts 1 and 2 of every round' is false for R3 (Act 2 has 8 over 4 programs) and R5 (Act 1 has 8 over 4 programs). It holds in five of seven rounds.",
+        "bigring (rank 11): 'One per program past the signpost in Acts 1 and 2' is false for R1 (Act 1 has 8 over 4 programs) and R3 (Act 2 has 8 over 4 programs).",
+        "et (rank 14): 'Eight placements per round' is false for R1, which has 12. Totals are R1 12, R3 8, R4 8, R5 8, R6 8, R7 8, R8 8 = 60.",
+        "CONVENTION SLIPS against the catalogue's own stated rule ('Every headline count in this catalogue is placements across all 70 programs'): '1 R3 record (x=4544, id 36, d=255)' is 4 placements (1 distinct record x 4 era-identical files); '38 R8 ring records carry a non-zero secondary byte' is 38 placements but only 10 distinct records (9 in Act 2 x 4 files + 1 in Act 3 x 2 files).",
+        "UNANTICIPATED SLICE BREAKAGE: R7 Act 3 id 43 carries secondary 82 (2 placements) and 194 (2 placements). These do not raise today only because id 43 is outside convert_objects.SUPPORTED. The recommended first slice maps R7 id 43 to ball (Acts 1-2) / wall73 (Act 3), which makes the id supported, and convert_objects.py:18 will then raise on all 4. The slice's converter fix list does not cover this.",
+        "LINE-NUMBER SLOP: the spring bit decode is src/objects.c:178-183, not '178-186'; spin_tag_step (ball) is src/objects.c:677-695, not '678-697'. Both blocks start where claimed and the substance is correct."
+      ],
+      "corrected_figures": "total_placements = 27286 (CONFIRMED). Per-round placements/distinct-ids: R1 4062/36, R3 4006/31, R4 3208/46, R5 3476/28, R6 3420/35, R7 6006/28, R8 3108/38 (ALL CONFIRMED). 242 (round,id) slots and 60 distinct raw ids CONFIRMED; there are 464 (round,act,id) slots. distinct_types_all_zones = 177 only with an undisclosed fallback for R5 Act 2 and R7 Act 2; 176 without it (4,848 placements unresolvable); 180 if the fallback unions all of a round's tables; 169 if a single era table is used per act. already_implemented = 36 CONFIRMED (41 supported_types entries minus ids 17, 24, 26, 31, 48 never placed in R1; all 36 R1 ids are inside the port's 41). Outside Palmtree Panic = 23,224 CONFIRMED. Split CONFIRMED: CORRECT 9,082, WRONG 9,878 + 8 unresolvable = 9,886, DROPPED 4,256. Colliding (round,id) pairs = 103, not 104 (of 206 non-R1 pairs). Converter secondary-byte raises = 254 placements, not ~215: R3 id36 4, R4 id53 52, R5 id32 68, R6 id42 44 (not 48), R6 id62 12 (omitted), R8 id16 38, R8 id25 8, R8 id47 28 (omitted). Rounds that abort = 5 (R3,R4,R5,R6,R8), not 6. Shared-type totals ALL CONFIRMED: spring 3936, ring 3934, item 2120, friend 1836, ball 1236 (R1 110 + R3 274 + R6 68 + R7 Acts1-2 784; R7 Act 3's 56 are wall73), shooter 370, marker 260, mosugu 84, goal 72, bigring 64, et 60, movie 48, gene 10, bobin 306 raw but 286 as routine (R3 274 + R8 Act 3 12; R8 Acts 1-2's 20 are id 29 = beam), dango 80, togeball 44. Single-round totals CONFIRMED: wall1 R4 id52 504, wall7 R7 id36 460, wall73 R7a3 id43 56, dair6 R6 id34 546, beem6 R6 id33 364, togedair8 R8 id54 386, konbea R8 id42 104, piston R8 id52 104, dair5 R5 id48 498, beltsw5 R5 id49 172. Capacity CONFIRMED: worst expanded program is R7 Act 2 at 965 of SCD_PLACEMENT_CAPACITY 1024, 59 slots headroom; no program exceeds 1024. Unsorted programs are exactly objects13C, objects13D, objects63C, objects63D (CONFIRMED). All 21 era groups byte-identical (CONFIRMED). Every cited stall record CONFIRMED at exact coordinates: R4 id52 objects42A x=320 y=400 sub5 mask2, x=448 y=1040 sub5 mask2, x=384 y=1680 sub5 mask2; R5 id48 objects51C x=320 y=400 sub3 mask4; R8 id42 objects81A x=487 y=1840 and y=1916 mask7; R8 id52 objects82A x=432 y=1182 mask6 and x=321 y=1182 mask2; R7 id43 objects73C x=12224 y=496 sub3 mask4; R8 id10 objects82A x=431 y=1112 sub1 mask1; R3 objects31A x=4544 y=890 id36 sub255 sec255.",
+      "score": 7,
+      "summary": "The catalogue's headline arithmetic is genuinely strong: I independently reparsed all 70 binaries and 25 act_tbl arrays and reproduced total_placements 27286, every per-round total and distinct-id count, 242 slots, 60 raw ids, 23224 outside R1, the 9082/9886/4256 split to the exact placement, already_implemented 36, all 16 shared-type totals (ball 1236 and bobin 286 both correct once per-act resolution is applied), every ranked placements_unlocked figure, the 965-of-1024 capacity headroom, all 21 byte-identical era groups, and every one of the cited stall records at its exact x/y/subtype/era mask. RING.C ringtbl matches DELTAS row for row, and the ITEM.C, PLAYSUB.C:873, LOADER2.C and ACT83 citations are all accurate. Thirteen defects survive. The most serious is operational: the recommended first slice's converter fix list is wrong in three ways and would abort the build it was written to protect. It omits R6 id 62 (12 placements) and R8 id 47 (28 placements) although both are in convert_objects.SUPPORTED, and it overstates R6 id 42 by 4 because secondary==1 is exempt for that kind. The real raising set is 254 placements, not 215, and five rounds abort, not six. The second is methodological: the catalogue claims it resolved every record through its own round-and-act table, but no act_tbl exists for R5 Act 2 or R7 Act 2 anywhere in the decompiled source, covering 4,848 placements (17.8% of the corpus), and 177 only reproduces under an undisclosed fallback to those rounds' Act 1 tables. It also never mentions that the tables vary by ERA, while insisting per-act resolution is mandatory, which makes its own 'id 19 in every act_tbl' claim false. Four distribution claims about the act-end objects (mosugu, goal, bigring, et) are wrong, the collision count is 103 rather than 104, and the slice will hit a fourth converter raise on R7 Act 3 id 43 that the catalogue did not anticipate."
+    },
+    {
+      "findings": "[]",
+      "holds": true,
+      "errors_found": [
+        "RANK 5 (ball), WRONG ZONE - the single most damaging behaviour error. The catalogue says 'PLAYSUB.C:873 raises the horizontal floor from 2560 to 3328 when stageno.b.h==5, which is Wacky Workbench'. build/audit/source/src/LOADER2.C:36-37 defines the mapping: `round = StageNo.b.h + 1; if (round > 1) ++round;`. So stageno.b.h 0,1,2,3,4,5,6 = rounds 1,3,4,5,6,7,8. stageno.b.h==5 is ROUND 7, Stardust Speedway - not Wacky Workbench (which is stageno.b.h==4). This is corroborated: every stageno.b.h==6 test in the source (RING.C:230, ITEM.C:239/273/335/390, SAVE.C:43, FCOL.C:797) reads userflag.b.l, and the only round whose records carry a non-zero secondary byte on ids 16 and 25 is R8 - so 6==R8, hence 5==R7. Consequence: the catalogue's adjudication of disagreement #7 ('Wacky Workbench is stage index 5... R6's reading is the useful one') is backwards, and an implementer following rank 5 would apply the 3328 floor to R6 (68 ball placements) and leave 2560 in R7 (784 ball placements, the largest ball population in the game). The named fix lands on the wrong zone.",
+        "RECOMMENDED_FIRST_SLICE INFRASTRUCTURE IS UNDER-SPECIFIED. The catalogue prescribes 'a per-ROUND-and-ACT id-to-handler table' and says 'Per-act is not optional'. The act_tbl is per round, per act AND PER ERA. I parsed all 25 act_tbl arrays and diffed the era variants: R1 Act 1 - ACT11A vs ACT11B differ at 8 ids (id 19 is `marker` in A but `noact` in B, where marker moves to id 43; id 42 kasoku->noact; id 44 hoshi->noact; id 47 emie1->noact; id 48 heart1->noact; id 50 noact->eda). R4 Act 1 - ACT41A/41B/41C differ at 20 ids (id 51 `walls` in A and B, `noact` in C; id 64 is `ring4` in C only - a second ring routine; id 36 `lrblk4` in B only; id 82 `movie4` in B only). R4 Act 2 - ACT42A/42B/42C differ at 19 ids, and ACT42C is only 80 entries long against ACT42A's 82, so ids 81 and 82 do not exist in the Future table at all. R3 Act 1 - ACT31A vs ACT31B differ at 6 ids. A table keyed on (round, act) mis-dispatches every one of these.",
+        "RANK 6 (marker), FALSE ID CLAIM. 'all seven, id 19 in every act_tbl' is wrong. id 19 is `marker` in only 16 of the 25 act_tbl arrays. It is `noact` in ACT11B, ACT31B and in all seven Act-3 tables (ACT13C, ACT33C, ACT43C, ACT53, ACT63, ACT73, ACT83). In ACT11B (R1 Act 1, Past) the marker routine sits at id 43 instead. By contrast ids 10, 16, 20, 21, 22, 23, 24, 25 and 26 ARE identical across all 25 tables - I checked each one - so the error is specific to marker, the one shared type the catalogue happened to get wrong.",
+        "RANK 4 (friend), 'the roam-and-ground-follow code transfers unchanged' IS WRONG FOR R4. The catalogue treats R4 as an art difference ('R4 links FRIEND4.C ... so the art differs per round'). build/audit/source/src/R4/FRIEND4.C is a structurally different routine: it exposes m_init/m0move/m1move, with no t_roll, no t_*/p_* pair, and no ground collision anywhere. m1move (line 276-285) advances x by a constant and sets `yposi.w.h = spawn_y + (sin(phase)>>3)` - a sine orbit about the spawn point, i.e. a swimmer in an underwater zone. m0move (line 222-247) orbits a PARENT actor and calls frameout if `tempact->actno != 82` (the projector), so those animals only exist as projector children. R1/R3/R5/R6/R7/R8 all share the t_*/p_* shape, so the claim holds for six rounds and fails for the seventh: 260 of the 1,566 placements the rank claims would spawn hopping land animals where retail has orbiting swimmers. 'effort: small' is not right for R4.",
+        "RANK 9 (mosugu), 'the port's handler needs nothing but the id map' IS WRONG. GOAL.C mosug_init (line 575-585) carries a special case: `if (stageno.w == 513 && time_flag == 1)` - stageno.w 513 is b.h=2 (round 4), b.l=1 (act 2), time_flag 1 (Present) - where a mosugu with subtype 0 rewrites its own subtype to 1 and returns uninitialised, then on the next pass only initialises if `divdevwk[0] == 0`. Separately, GOAL.C offset_set (line 698-729) sets the sign's sproffset from a 56-entry table indexed by (round, era) and then `if (stageno.b.h != 3) sproffset |= 32768`, so the art base is per-round-and-era, not one constant. goal_init (GOAL.C:774-776) does the same: `sproffset = 1084; if (stageno.b.h != 0) sproffset |= 128`. Ranks 9-12 are described as 'effectively four table entries'; they are four table entries plus 28 art bases.",
+        "RANKS 1 AND 3, 'zero behaviour work' / 'Same converter secondary-byte fix as ring' UNDERSTATES THE R8 SECONDARY BYTE. The catalogue frames the R8 secondary byte purely as a converter guard to relax. It is a live gameplay field in Metallic Madness. RING.C:230-236: in stage 6 the ring copies userflag.b.l and, when non-zero, clears the high bit of sproffset and raises sprpri from 0 to 2. ITEM.C:239-240 and :390-391 do the same for the monitor/time post, and ITEM.C:273-281 (t_item_move0) plus ITEM.C:335-341 (ride_on_chk_i) gate the time post's trigger and its solidity on `userflag.b.l` matching `prio_flag`. Permitting the byte through the converter without carrying it into the handler mis-layers 38 R8 rings and mis-fires 8 R8 time posts on the wrong layer of the two-layer zone.",
+        "THE CONVERTER-ABORT LIST IN recommended_first_slice IS INCOMPLETE AND MISCOUNTED. Claimed: '38 R8 ring, 8 R8 item, 1 R3 record, 52 R4 screw, 68 R5 denden and 48 R6 block6... Six of the seven rounds abort on it.' I simulated tools/convert_objects.py:18 over all 70 files. Actual raising placements: R3 id36 = 4, R4 id53 = 52, R5 id32 = 68, R6 id42 = 44 AND R6 id62 = 12, R8 id47 = 28 + id16 = 38 + id25 = 8. Total 254. Three corrections: (a) R6 block6 is 44, not 48 - the other 4 records carry secondary==1, which line 18 PERMITS and which line 20 then turns into `sub |= 128` because the converter believes id 42 is R1's kasoku ramp, so those 4 are silently mis-decoded rather than caught; (b) R6 id 62 (12 placements) is missing from the list entirely - 62 is in the V7 set so it does raise; (c) R8 scarab id 47 (28) appears in the disagreements section but is left out of the slice's fix list. And FIVE rounds abort, not six: R1 does not (its only non-zero secondary bytes are on ids 7 and 42 with value 1, which the guard allows) and R7 does not (its 184 secondary-bearing records are ids 56 and 43, neither in SUPPORTED, so they are skipped before the guard).",
+        "MINOR FACTUAL SLIPS. (a) Rank 14: 'Eight placements per round' for et - R1 has 12, not 8 (era masks {1,2,3}; every other round has exactly 8 with mask 3). The stated total of 60 is right. (b) Rank 9: 'Exactly one per program in six of seven rounds' for mosugu - resolving era masks per program, it is exactly one in four rounds (R1, R4, R6, R8); R3 Act 2, R5 Act 2 and R7 Act 1 each have two active. Goal and bigring are likewise two per program in R3 Act 2, against rank 10's 'One per program in Acts 1 and 2 of every round'. Also mosugu is placed in Act 3 in R4 and R6, which the 'act-end set' framing does not mention. (c) Rank 21: shooter 'id 7 everywhere' - id 7 is `shooter` in only 9 of 25 tables, and in R8 only in ACT82A (Acts 1 and 3 have noact there). (d) Rank 22: R4's projector is `movie4`, a separate routine from the shared `movie` used by R3/R5/R6/R7, and it appears only in the two B-era tables. (e) Rank 13: 'reuses wall7_tbl0 sizes' - R7/WALL73.C:9-16 declares its OWN wall7_tbl0 = {11,16, 32,16, 48,16, 64,16, 11,32, 11,48}, different values from R7/WALL7.C's {12,17, 28,17, 44,17, 60,17, 12,33, 12,49}; it reuses only the pattern array via `extern sprite_pattern* pat_wall7[]`. The derived stall figures are right off WALL73's own table (subtype 3 -> 64x16 half-sizes = 128x32, top at y=496-16=480), so the conclusion survives, but the wording would lead an implementer to share one size table between the two objects."
+      ],
+      "corrected_figures": "stageno.b.h -> round mapping (LOADER2.C:36-37): 0=R1, 1=R3, 2=R4, 3=R5, 4=R6, 5=R7, 6=R8. PLAYSUB.C:873's 3328 horizontal floor therefore applies to STARDUST SPEEDWAY (R7, 784 ball placements), not Wacky Workbench. FCOL.C:834's `stageno.b.h == 5 || == 6` is likewise R7/R8.\n\nmarker id 19: present in 16 of 25 act_tbl arrays, not 25. Absent from ACT11B (relocated to id 43), ACT31B, and all seven Act-3 tables.\n\net placements: R1 12, all other rounds 8, total 60 (catalogue's per-round figure of 8 is wrong only for R1; the total is right).\n\nconvert_objects.py:18 raising placements: R3 4, R4 52, R5 68, R6 56 (id42 44 + id62 12), R8 74 (id47 28 + id16 38 + id25 8). Total 254 across FIVE rounds, not six. Plus 4 R6 block6 records with secondary==1 that pass the guard and are then silently given sub|=128 at line 20.\n\nR6 id 42 (block6) secondary values: {1:4, 2:4, ... 12:4}, 48 records total, 44 raising.\nR6 id 62 secondary values: {5:4, 6:4, 7:4} - 12 raising, omitted from the catalogue.\n\nmosugu active-per-program: 1 in R1, R4, R6, R8; 2 in R3 Act 2, R5 Act 2, R7 Act 1. goal/bigring: 2 in R3 Act 2, 1 elsewhere.\n\nR7/WALL73.C wall7_tbl0 = {11,16, 32,16, 48,16, 64,16, 11,32, 11,48} (its own table, not WALL7.C's {12,17, 28,17, 44,17, 60,17, 12,33, 12,49}).\n\nCONFIRMED EXACTLY, reproduced from the binaries and the 25 act tables independently: 27,286 total placements; 4062/36, 4006/31, 3208/46, 3476/28, 3420/35, 6006/28, 3108/38 per round; 23,224 outside R1 splitting 9,082 correct / 9,886 wrong / 4,256 dropped with 104 colliding (round,id) pairs; the four worst collisions R6 id34 dair6 546, R7 id40 friend 544, R4 id52 wall1 504, R5 id48 dair5 498; worst expanded program R7 Act 2 at 965 against SCD_PLACEMENT_CAPACITY 1024 (59 slots headroom); unsorted layouts exactly objects13C/13D (record 56) and objects63C/63D (records 65-66); R8 secondary-byte total 114 = ring 38 + item 8 + bigbom 40 + scarab 28; R3's single d=255 record on id 36; era bits (c>>5)&7 with bit0=Past per ACTSET.C:278-284 and LOADER2.C:42-51; RING.C:149-165 ringtbl identical to convert_objects.py:8 DELTAS across all 16 rows with max observed high nibble 11; ring run count min(sub&7,6)+1 identical to RING.C:183-184 and :249; spring bit decode 2=weak/4=horizontal/8=diagonal identical to SPRING.C:441-469 including the -4096/-2560 sjumptbl; time-post polarity sub 8 = -1, sub 9 = +1 (ITEM.C:288-293) already matching src/objects.c:645; R4/WALL1.C 138 lines, 7 sizes, patno=subtype, hitchk only; R7/WALL7.C 95 lines, 6 sizes, hitchk only; the port's GOAL/SIGN label inversion (SCD_OBJ_GOAL=22 runs scd_act_goal = retail mosugu, SCD_OBJ_SIGN=23 runs the animated scd_act_sign = retail goal) - ids right, labels backwards, exactly as stated.\n\nalready_implemented = 36 is CORRECT. supported_types[] at src/objects.c:95-106 has 41 entries; R1 places exactly 36 distinct ids; the set difference is supported-but-never-placed = {17 lost ring, 24 explosion, 26 monitor item, 31 flower, 48 Amy's heart}, all child-spawned, and placed-but-unsupported is empty. src/objects.c:34 `if(objects_zone)active_placement_count=0` confirmed. I found NO type wrongly marked implemented.",
+      "score": 7,
+      "summary": "The catalogue survives. I could not refute its core: the 27,286 total, the per-round counts, the 9,082/9,886/4,256 mis-spawn split, the 104 colliding pairs, the four worst collisions, the 965/1024 capacity headroom and the unsorted-layout list all reproduce exactly when I parse the 70 binaries and the 25 act tables myself. The already_implemented flag is right - supported_types[] covers all 36 R1-placed ids with nothing placed-but-unsupported - and I found no type wrongly marked implemented, which was the failure mode I looked hardest for. The behaviour descriptions for ring, spring, item, wall1, wall7 and wall73 check out line for line against RING.C, SPRING.C, ITEM.C, R4/WALL1.C, R7/WALL7.C and R7/WALL73.C, and the GOAL/SIGN label inversion is real.\n\nFour errors would cause real damage. First, stageno.b.h==5 is Stardust Speedway, not Wacky Workbench - LOADER2.C:36-37 maps b.h 0..6 to rounds 1,3,4,5,6,7,8 - so rank 5's one named constant is attributed to the zone with 68 ball placements instead of the one with 784. Second, the act_tbl is per-era as well as per-act, which the prescribed per-(round,act) table cannot express: R4 Act 1's three era tables differ at 20 ids and ACT42C is two entries shorter than ACT42A. Third, rank 6's 'id 19 in every act_tbl' is false - marker is at id 19 in 16 of 25 tables and at id 43 in ACT11B. Fourth, rank 4's 'transfers unchanged' fails for R4: FRIEND4.C is a different routine with sine-orbit motion, a projector parent and no ground collision, covering 260 placements.\n\nBelow those: rank 9's mosugu needs more than an id map (a stageno.w==513 special case plus a 28-entry per-round-and-era art table); the R8 secondary byte is a live layer flag in RING.C and ITEM.C rather than just a converter guard; and the converter-abort list misses R6 id 62 entirely, overcounts R6 block6 by 4 while missing that those same 4 are silently mis-decoded, and says six rounds abort when five do.\n\nScore 7: the ranking order, the build-order argument and the warning against a naive gate lift all hold, and the per-era finding strengthens rather than undermines the first slice. But the ball constant, the R4 animals and the marker id claim each need correcting before anyone writes the id table."
+    }
+  ],
+  "stalls": {
+    "stalls": [
+      {
+        "program": "R41A",
+        "stall_x": 949,
+        "classification": "bot_limitation",
+        "evidence": "Sonic stands on the 16px ledge y=992..1007 that runs x=864..959 (tt41A.bin chunks + ttcollision41A.bin height table), blocked right by the pillar at x=960..975 that is solid y=800..1007. That is a 192px face, and the port's measured full jump is 100px (traced: 1969 -> 1869 on mm81A). BUT the same pocket has a ride-on ledge top at y=896 over x=864..895 (block 896..927, bit13 set), i.e. exactly 96px above the 992 floor, and the pillar top at y=800 is another 96px above that. Two chained full jumps clear it. The shipped bot only ever holds Right and only taps Jump for one frame (33px hop), so it never takes the leftward hop. A back-off variant of the same bot reached y=781 (feet at y=800, the pillar top) inside this pocket. No extracted-vs-retail disagreement found."
+      },
+      {
+        "program": "R41B",
+        "stall_x": 949,
+        "classification": "bot_limitation",
+        "evidence": "Identical pocket geometry to R41A in tt41B.bin/ttcollision41B.bin: floor y=992 over x=864..959, pillar x=960..975 solid y=800..1007, intermediate ride-on ledge top y=896 over x=864..895 (96px up), pillar top y=800 (96px above that). Port full jump = 100px. The stall is the bot's Right-only, single-frame-Jump policy, not the terrain."
+      },
+      {
+        "program": "R41C",
+        "stall_x": 949,
+        "classification": "bot_limitation",
+        "evidence": "Proved empirically. With the identical terrain and no objects, a variant of tools/zone_walk_test.c that holds Jump (full 100px height) and backs off left for run-ups climbs out of the y=992 pocket and reaches max_x=1109 (vs 949 for the shipped bot), min y=397. So the terrain past x=949 is connected and a real player passes. Retail also places awa (id 32, R4/AWA.C, the rising bubble whose awamove2 zeroes actwk[0] x/yspeed and carries the player) at x=944 y=992 - exactly on this ledge - so the era's intended route is the bubble, but the terrain alone suffices."
+      },
+      {
+        "program": "R41D",
+        "stall_x": 949,
+        "classification": "bot_limitation",
+        "evidence": "Same as R41C: the held-jump + back-off bot reaches max_x=1109 on tt41D.bin/ttcollision41D.bin with zero objects spawned. Terrain past x=949 is connected."
+      },
+      {
+        "program": "R42A",
+        "stall_x": 661,
+        "classification": "missing_object",
+        "evidence": "Object type id 52 'wall1' (R4/WALL1.C, includes RIDECHK.H, sets sprhs/sprvsize from tbl0[subtype*2]) at x=320 y=400 sub5, x=448 y=1040 sub5 and x=384 y=1680 sub5. tt42A.bin has ZERO solid pixels over the entire column x=250..511 for y=0..2047 (verified by scanning every 4px); the retail act bridges that void with those three stacked wall1 blocks, one per tier. With no objects the bot free-falls across the void and lands in the lowest bay (floor y=1728, x=581..676), whose right wall at x=677..692 is solid y=1536..1743 with its top at y=1520 - a 208px face against a 100px jump, and the next floor right is y=1504 at x>=709. All six bot strategies tried (1-frame hop, held jump, back-off run-ups, progress-triggered jumps, jump spam, spin dash) stop at exactly 661. R4's watercolitbl (WTBL42A.C) has no current record west of x=4608, so water does not lift him either."
+      },
+      {
+        "program": "R42B",
+        "stall_x": 661,
+        "classification": "missing_object",
+        "evidence": "Same void and same bay in tt42B.bin. Past-era records put id 52 'wall1' at x=464 y=400, x=464 y=1040 and x=464 y=1680 (sub 4) across the empty column x=250..511. Bay floor y=1728 x=581..676, right wall x=677 solid y=1536..1743 (top y=1520, 208px). No retail water current west of x=4608 in WTBL42B.C."
+      },
+      {
+        "program": "R42C",
+        "stall_x": 661,
+        "classification": "missing_object",
+        "evidence": "Same void and bay in tt42C.bin. Good-Future records put id 52 'wall1' at x=448 y=400, x=448 y=1040, x=448 y=1680 (sub 2) in the empty column, plus wall1 sub0 at x=656 y=1392 and awa (id 32) at x=752 y=1504 on the tier the player is meant to reach. Bay right wall x=677 is 208px tall against a 100px jump."
+      },
+      {
+        "program": "R42D",
+        "stall_x": 661,
+        "classification": "missing_object",
+        "evidence": "Identical to R42C (objects42C.bin and objects42D.bin are the same table; era mask bit 2 covers both futures): id 52 'wall1' at x=448 y=400/1040/1680 bridging the empty terrain column x=250..511 of tt42D.bin, and wall1 sub0 at x=656 y=1392. Bay at y=1728 is sealed by the 208px wall at x=677."
+      },
+      {
+        "program": "R43C",
+        "stall_x": 501,
+        "classification": "bot_limitation",
+        "evidence": "Proved empirically. The stall is caused by the bot's 1-frame Jump press, which gives a 33px hop instead of Sonic's full 100px jump. Rebuilding tools/zone_walk_test.c with the Jump button held while rising, and nothing else changed, takes R43C from max_x=501 to max_x=949 with zero objects spawned. Terrain and collision at x=501 are fine."
+      },
+      {
+        "program": "R43D",
+        "stall_x": 501,
+        "classification": "bot_limitation",
+        "evidence": "Same as R43C: holding Jump (full 100px height) instead of tapping it takes the same walker from max_x=501 to max_x=949 on tt43D.bin/ttcollision43D.bin, no objects."
+      },
+      {
+        "program": "R51C",
+        "stall_x": 437,
+        "classification": "missing_object",
+        "evidence": "Object type id 48 'dair5' (R5/DAI_RD5.C, a rideable moving platform - dair5_move ends in ridechk(pActwk,&actwk[0])) subtype 3 at x=320 y=400. qq51C.bin is flat ground at y=640 from x=200 to x=380, then a quarter-pipe rising to y=448 by x=448; the route onward is a 63px corridor y=384..447 with floor y=448 running from x=448 to x>=500. Nothing else exists between y=323 and y=630 over x=200..440, so dair5 at (320,400) is the only way up to the corridor mouth. Tried and failed: 1-frame hop, held 100px jump, back-off run-ups, progress-triggered jumps, jump spam, spin dash, and a sweep of single well-timed jumps fired at x=340..435 - every one stops at max_x=437 (best centre y=343 with the spin dash, but x never exceeds 437 because jumping off the steep face pushes Sonic away from it). Caveat: I cannot prove no input sequence climbs the quarter-pipe; the retail platform is the positive evidence. The same act in Present/Past (R51A/B) has different geometry here and the plain bot passes it."
+      },
+      {
+        "program": "R51D",
+        "stall_x": 437,
+        "classification": "missing_object",
+        "evidence": "Same as R51C. objects51D.bin lists id 48 'dair5' subtype 3 at x=320 y=400 with era mask bit 2 (both futures). qq51D.bin has the same flat y=640 ground, the same quarter-pipe to y=448 at x=448, and the same 63px corridor (y=384..447) beyond. All six bot strategies plus the jump-timing sweep stop at max_x=437."
+      },
+      {
+        "program": "R53C",
+        "stall_x": 437,
+        "classification": "missing_object",
+        "evidence": "Object type id 48 'dair5' subtype 0 at x=272 y=400 with id 10 'spring' subtype 2 sitting on it at x=272 y=376. In qq53C.bin the approach floor top at x=437 is y=586 and the next floor is y=432 at x=453 - a 154px step against a 100px jump, so this one is not even marginal. The 4px-cell reachability flood from the retail spawn (64,620) over the whole act stops at x=436 of scralim_right=3735 even with a hitbox smaller than Sonic's. dair5 + spring at x=272, hovering 240px above the flat y=640 ground with no terrain anywhere near them, is the only lift in the act's first 500px."
+      },
+      {
+        "program": "R53D",
+        "stall_x": 437,
+        "classification": "missing_object",
+        "evidence": "objects53C.bin and objects53D.bin are byte-identical and the records carry era bit 2, so R53D has the same id 48 'dair5' subtype 0 at x=272 y=400 and id 10 'spring' subtype 2 at x=272 y=376. qq53D.bin's step at the stall is smaller than R53C's (floor y=516 at x=437, next floor y=448 at x=453, i.e. 68px) but every bot strategy still stops at max_x=437-438: jumping off that near-vertical face throws Sonic left, and a swept single jump fired anywhere in x=340..435 never gets his feet above y=447 at x>=448. Lower confidence than R53C - the terrain step is inside jump range in principle."
+      },
+      {
+        "program": "R73C",
+        "stall_x": 12790,
+        "classification": "missing_object",
+        "evidence": "Object type id 43 'wall73' (R7/WALL73.C) SUBTYPE 3 at x=12224 y=496. WALL73.C sets sprhs=sprhsize=wall7_tbl0[sub*2] and sprvsize=wall7_tbl0[sub*2+1]; wall7_tbl0 = {11,16, 32,16, 48,16, 64,16, 11,32, 11,48}, so subtype 3 is a solid 128x32 block covering x=12160..12288, y=480..512. ss73C.bin's lower floor (top y=480) ends at x=12171 and resumes at x=12300 - a 128px hole with only the upper platform y=288..319 above it. The trace shows Sonic running the lower floor at y=460, going airborne at x=12172, clipping the left face of the next hill at x=12277, then free-falling 12790 -> y=2042 with nothing under him. The object's span matches the hole's span to within 12px and its top matches the floor top exactly."
+      },
+      {
+        "program": "R73D",
+        "stall_x": 12790,
+        "classification": "missing_object",
+        "evidence": "objects73D.bin carries the same record: id 43 'wall73' subtype 3 at x=12224 y=496 (a solid 128x32 block per wall7_tbl0[6..7] = 64,16). ss73D.bin has the same 128px hole in the lower floor (floor top y=480 ends x=12171, resumes x=12300). Same free fall to y=2043."
+      },
+      {
+        "program": "R81A",
+        "stall_x": 501,
+        "classification": "missing_object",
+        "evidence": "Object type id 42 'konbea' (R8/KONBEA.C, a rideable moving platform - it calls ridechk(pActwk,&actwk[0]) and ride_on_clr, sprhs 16 / sprvsize 16 while ridden, driven along the 446-point path konbea8tbl) at x=487 y=1840 AND x=487 y=1916, era mask 7 (all four eras). Sonic lands on the pit floor y=1984 spanning x=470..511; the block at x=450..469 is solid y=1824..1999 and the wall at x=512..543 is solid y=1808..2031, i.e. 160 and 176px above his feet against a 100px jump. A 4px-cell flood fill from (501,1964) reaches only 225 cells, x=472..504 by y=1868..1964 - a sealed pocket - and the konbea at (487,1916) sits inside it. Also id 10 'spring' subtype 2 at x=440 y=1816 on the ledge he overshoots."
+      },
+      {
+        "program": "R81B",
+        "stall_x": 501,
+        "classification": "missing_object",
+        "evidence": "mm81B.bin gives the identical pit (floor y=1984 over x=470..511, walls to y=1824 left and y=1808 right) and the flood fill from (501,1964) is the same 225-cell sealed pocket x=472..504 / y=1868..1964. id 42 'konbea' at x=487 y=1840 and x=487 y=1916 carries era mask 7, so it is present in Past too."
+      },
+      {
+        "program": "R81C",
+        "stall_x": 501,
+        "classification": "missing_object",
+        "evidence": "mm81C.bin: same sealed pit (225 reachable cells, x=472..504, y=1868..1964 from the stall point) and the same era-mask-7 id 42 'konbea' pair at x=487 y=1840 / y=1916. No bot variant (held jump, back-off, jump spam, spin dash) exceeds x=501."
+      },
+      {
+        "program": "R81D",
+        "stall_x": 501,
+        "classification": "missing_object",
+        "evidence": "mm81D.bin: same sealed pit and the same id 42 'konbea' pair at x=487 y=1840 / y=1916 (era mask 7). Five bot strategies all stop at exactly x=501."
+      },
+      {
+        "program": "R82A",
+        "stall_x": 501,
+        "classification": "missing_object",
+        "evidence": "Object type id 52 'piston' (R8/PISTON.C - piston_move calls ride_on_chk(pistonwk,&actwk[0]) while rising and carries a jump_tbl, i.e. a rider launcher) at x=432 y=1182 and x=321 y=1182. In mm82A.bin Sonic is in a 96px-tall corridor: floor y=1216..1231 and ceiling y=1104..1119 over x=485..511, sealed at x=512..531 by a column solid from y=880 down to y=1379. The pistons sit in that same corridor at the same y. Flood fill from the retail spawn (46,1164) over the whole act stops at x=500 of scralim_right=7831."
+      },
+      {
+        "program": "R82B",
+        "stall_x": 501,
+        "classification": "missing_object",
+        "evidence": "Past uses id 10 'spring' subtype 1 at x=431 y=1112 (era mask 1) in place of the piston - the same launcher slot at the same x. mm82B.bin has the same corridor (floor y=1216, ceiling y=1104..1119) sealed at x=512 by a column solid y=880..1379; whole-act flood fill from the spawn stops at x=500. Every bot strategy stops at x=501."
+      },
+      {
+        "program": "R82C",
+        "stall_x": 501,
+        "classification": "missing_object",
+        "evidence": "id 52 'piston' at x=432 y=1182 with era mask 6 (Present + both futures), so it is live in Good Future. mm82C.bin: same 96px corridor sealed at x=512 by a column solid y=880..1379, whole-act flood fill from spawn (46,1164) stops at x=500 of 7831. Also id 54 'togedair8' at x=496 y=1008 and id 10 'spring' at x=530 y=744 on the tier above, which is where the piston throws you."
+      },
+      {
+        "program": "R82D",
+        "stall_x": 501,
+        "classification": "missing_object",
+        "evidence": "Same as R82C - id 52 'piston' at x=432 y=1182 (era mask 6 covers Bad Future). mm82D.bin has the same sealed 96px corridor; flood fill from spawn stops at x=500. No bot variant passes x=501."
+      },
+      {
+        "program": "R83C",
+        "stall_x": 661,
+        "classification": "bot_limitation",
+        "evidence": "Proved empirically. Sonic stands on the floor y=768 and the wall at x=677..692 is solid y=672..783 - 96px above his feet, which is inside the port's 100px full jump but far outside the shipped bot's 33px one-frame hop. Rebuilding tools/zone_walk_test.c to hold Jump while rising takes R83C from max_x=661 to max_x=725, and adding back-off run-ups takes it to max_x=981, all with zero objects spawned. The next floor beyond the wall is y=672 at x>=693, exactly the height Sonic reaches."
+      },
+      {
+        "program": "R83D",
+        "stall_x": 661,
+        "classification": "bot_limitation",
+        "evidence": "Same as R83C on mm83D.bin/mmcollision83D.bin: the wall at x=677 is 96px above the y=768 floor, and the held-jump walker reaches max_x=725 while the held-jump-plus-back-off walker reaches max_x=981, without objects."
+      }
+    ],
+    "summary": "Zero terrain defects. 18 of the 26 stalls need an object the port does not implement; 8 are limits of the bot, not the data.\n\nThe single most important calibration finding: the shipped bot presses Jump for exactly one frame (tools/zone_walk_test.c, `if(stuck>=30 && !(p.flags&2)){buttons|=SCD_JUMP;...}`), and Sonic's jump is variable-height, so it only ever performs a 33px hop. I measured the port's real full jump at 100px by holding the button (mm81A: centre y 1969 -> 1869). A one-line change to hold Jump while rising moves R43C/D from x=501 to x=949 and R83C/D from x=661 to x=725; adding back-off run-ups takes R83C/D to 981 and R41C/D to 1109. Those eight stalls were never terrain.\n\nThe other 18 are sealed against every input I could generate. I built five walker variants (held jump, back-off run-ups, progress-triggered jumps, jump spam, spin dash via the port's Down+Jump charge_buffer path) plus a sweep of single well-timed jumps, and also wrote a 4px-cell flood fill that reads the extracted chunk/block/height tables exactly as src/player.c scramapad and build/probe-source/fcol.c scdchk do. Every route also runs with zero objects: src/objects.c:34 zeroes the placement count for any zone != 0.\n\nFor each of the 18 the retail act's own object table puts an actor precisely where the gap or lift is needed, which is what you expect when the terrain is right. The record layout was derived from build/audit/source/src/ACTSET.C actnoset/tm_setchk (x:u16, y:u16 with bits 14-15 = flip, a:u8 with bit7 = one-shot and bits 0-6 = act_tbl index + 1, b = subtype, c>>5 = era mask past/present/future, d = secondary), and type ids were resolved through each round's own ACT<r><a>.C act_tbl. Highlights: R73C/D fall through a 128px hole in the lower floor at x=12172..12299 that wall73 (id 43) subtype 3 at (12224,496) fills exactly - WALL73.C's wall7_tbl0 entry 3 is a 128x32 solid block whose top is y=480, the same as the floor either side. R81A-D sit in a 225-cell sealed pocket with a konbea moving platform (id 42) literally inside it at (487,1916). R82A-D sit in a 96px corridor whose launcher is a piston (id 52) at (432,1182), replaced by a spring in the Past. R42A-D have 260px of completely empty terrain at x=250..511 that three stacked wall1 blocks (id 52) are meant to bridge.\n\nOn terrain defects specifically: all 70 programs' foreground chunk map, collision index, height map, width map and angle table are byte-equal to the PC reconstruction tables (tools/extract_zone_auto.py:355-365, build/all-zones-extract.json). The one stage-pack part with no PC oracle is the chunk block table. I probed it by comparing every Good/Bad Future terrain pair; they differ by 3-36% across all zones, so R53C-vs-R53D differing is normal Sonic CD era geometry, not extraction damage. I found no case where extracted data disagrees with the retail source.\n\nTwo honest caveats. R51C/D and R53D are my weakest calls: the terrain step there is a steep quarter-pipe face that is within jump range on paper, and I classified them missing_object on the strength of a dair5 moving platform (id 48) hovering in otherwise empty air at exactly the needed height - I cannot prove no input sequence climbs the face. And for R42 Present and Past I could not identify the specific lift out of the y=1728 bay; the wall1 platforms across the void upstream are what put the player on a higher tier in the first place.",
+    "terrain_defects_found": 0
+  }
+}

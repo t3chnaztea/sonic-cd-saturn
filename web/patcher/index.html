@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Build a verified Sonic CD Saturn image from local files. No uploads. Local V0.082 patcher preview.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob:; connect-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Sonic CD Saturn Patcher · V0.082</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="release.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+<main>
+  <header class="masthead"><a class="wordmark" href="./">SONIC CD <span>SATURN</span></a><span class="edition">FAN PORT / V0.082</span></header>
+  <section class="intro" aria-labelledby="title">
+    <div><p class="eyebrow">A NEW HOME FOR LITTLE PLANET</p><h1>Sonic CD.<br>Meet Saturn.</h1><p class="lede">Your original disc files. A native Saturn port.<br>One verified BIN and CUE, ready for SAROO.</p></div>
+    <div class="privacy"><span class="privacy-mark" aria-hidden="true">↳</span><div><strong>Your files stay here.</strong><p>No uploads. No account.<br>Everything runs in your browser.</p></div></div>
+  </section>
+  <p class="preview"><strong>Local preview.</strong> This version needs a private patch bundle. No public patch bundle is available. The site contains no game data.</p>
+  <div class="workspace">
+    <form class="patch-card" id="patch-form">
+      <div class="card-heading"><h2>Sonic CD Saturn Patcher</h2><span class="tag">V0.082</span></div>
+      <div class="file-step"><span class="step-number" aria-hidden="true">01</span><div class="field"><label for="bundle">Private patch bundle</label><p class="hint" id="bundle-hint">Choose the locally generated .scsp file for the tested V0.082 build. Keep this file private.</p><input type="file" id="bundle" accept=".scsp" aria-describedby="bundle-hint" required></div></div>
+      <div class="file-step"><span class="step-number" aria-hidden="true">02</span><div class="field"><label for="originals">Original Japanese disc BIN files</label><p class="hint" id="originals-hint">Select all BIN tracks from the supported original dump. Names, sizes and SHA-256 checksums must match the bundle. CHD, ZIP and already-patched files are not supported.</p><input type="file" id="originals" accept=".bin" multiple aria-describedby="originals-hint" required></div></div>
+      <div class="action-row"><span class="step-number" aria-hidden="true">03</span><button id="run" disabled>Verify and patch <span aria-hidden="true">↗</span></button><button id="cancel" type="button" class="secondary" hidden>Cancel</button></div>
+      <progress id="progress" max="100" value="0" aria-label="Patch progress"></progress>
+      <p id="status" role="status" aria-live="polite">Choose your files, then select Verify and patch.</p>
+      <section id="results" tabindex="-1" hidden aria-labelledby="result-title"><h2 id="result-title">Your Saturn files are ready.</h2><p>Save both game files in one folder under SAROO/ISO. Open the CUE on your Saturn. Keep your originals.</p><div id="downloads"></div></section>
+    </form>
+    <aside class="guide" aria-labelledby="guide-title"><p class="eyebrow">BEFORE YOU START</p><h2 id="guide-title">Keep your originals.</h2><p>The patcher reads your selected files. It creates new downloads. It never changes your disc files.</p><h3>Checks first. Downloads last.</h3><p>Every required source is checked. The finished BIN and CUE must match the tested release before you can save them.</p><div class="guide-rule"></div><h3>Made for this computer.</h3><p>Use a current desktop browser. The output is 724 MiB. Verification needs about 2 GiB of spare memory. Keep this tab open until it finishes.</p><h3>Console test still open.</h3><p>V0.082 passed 215 software checks and 347 matrix cases. The maintainer's Saturn test is still pending. These checks do not measure every path through the game.</p></aside>
+  </div>
+  <details class="limits"><summary>Why does this preview need a private bundle?</summary><div class="limits-body"><p>The current native build converts game data from local sources. Its delta bundle contains some of that data. It must not be published. A public patch needs an asset extraction route that supplies those bytes from the user's own files.</p><p>This preview proves the local browser flow against the accepted release. It does not distribute a playable image, a BIOS, music or game art. The site has no analytics, remote fonts or upload endpoint.</p></div></details>
+  <footer><span>UNOFFICIAL FAN PROJECT · NOT AFFILIATED WITH SEGA</span><span>LOCAL PATCHING / VERIFIED OUTPUT / V0.082</span></footer>
+</main>
+</body>
+</html>

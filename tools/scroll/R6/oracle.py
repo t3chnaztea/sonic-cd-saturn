@@ -1,0 +1,227 @@
+#!/usr/bin/env python3
+"""Retail oracle: compile the retail scroll() routine itself and compare every
+rendered line with the evaluator running the draft IR.
+
+    python3 tools/scroll/R6/oracle.py [R6/SCR61A.C ...]     (default: every R6 program)
+    python3 tools/scroll/R6/oracle.py --selftest            altered drafts must be detected
+
+For each program this writes build/oracle_<name>.c, which holds, verbatim,
+the text of scroll() and of every file-local function it reaches (copied out
+of build/audit/source/src by cfront.functions, never retyped), the functions
+rule CLOSURE links (sinset from ETC.C), definitions of the globals they use
+(the declarations of the file's own headers, without `extern`), empty camera
+tracking functions (scrchk, scroll_h, scroll_v: the camera is the input, as
+in extract.py), and a driver.  It is compiled twice with clang:
+  zero     -ftrivial-auto-var-init=zero      locals the C reads unwritten are 0
+  pattern  -ftrivial-auto-var-init=pattern   they are 0xAA bytes
+and linked with evaluate_ext.c and the draft tables (build/ir_ext_tables.c).
+
+The driver moves the camera the way play does (each frame scra_h_posit.w.h
+= x and scra_hz = dx << 8, |dx| <= 16) along three walks: 0 -> 16383 in
+steps of 1, 16383 -> -4096 and -4096 -> 0 in steps cycling 1..16.  After each
+frame it renders windows (camera Y = 4 * top, so background Y = top) and
+compares each of the 224 lines of lphscrollbuff with
+-scroll_ir_raster_x(ir, x, top + i, frame, 0) as 16-bit words.  All 1024
+window tops are rendered at 21 chosen camera X values and at every 512th
+frame; 4 rotating tops at every other frame.  The background Y is compared
+at every camera Y 0..65535.
+
+A line whose render reads hscrollwork past row 127 (the 1024-line buffer is
+128 rows; zonescrsetsub0 walks 30 rows from the window's first row without
+re-masking) is counted apart as class B: retail shows hscrollwork[128..],
+which scroll() never writes, and the IR shows the wrapped line.  It needs a
+window top of 801 or more (camera Y >= 3204); R6's camera stops at 1808.
+Everything else is class A and must match exactly.
+
+Results go to results_oracle.json.  Exit status 1 when any class A line or
+background Y differs in a zero build, or in a pattern build of a program for
+which the draft records no UNINIT correction.
+"""
+import json
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))
+sys.path.insert(0, str(HERE))
+from cfront import RETAIL, _FUNC_HEAD, functions, programs, strip_comments   # noqa: E402
+from cparse import Unit                                                      # noqa: E402
+from interp import CAMERA_TRACKING, Program                                  # noqa: E402
+import extract as X                                                          # noqa: E402
+
+BUILD = HERE / 'build'
+CC = ['clang', '-std=gnu99', '-O1', '-fwrapv', '-fno-strict-aliasing', '-w']
+
+
+class OracleError(Exception):
+    pass
+
+
+def reachable(bodies, start='scroll'):
+    seen, todo = [], [start]
+    while todo:
+        f = todo.pop()
+        if f in seen or f in CAMERA_TRACKING or f not in bodies:
+            continue
+        seen.append(f)
+        todo.extend(sorted(X.called_names(bodies[f])))
+    return seen
+
+
+def heads_of(text):
+    return {m.group(1): m.group(0)[:-1].rstrip() for m in _FUNC_HEAD.finditer(text)}
+
+
+def generate(path, ident):
+    raw = path.read_text(errors='replace')
+    text = strip_comments(raw)
+    funcs, heads = functions(text), heads_of(text)
+    bodies = {k: v[1] for k, v in funcs.items()}
+    own = reachable(bodies)
+    prog = Program(path)
+    linked = X.link_closure(prog, f'{path.parent.name}/{path.name}')
+    pieces = []                       # (name, head, body, source)
+    for f in own:
+        pieces.append((f, heads[f], bodies[f], path.relative_to(RETAIL).as_posix()))
+    for f, src in linked:
+        stext = strip_comments((path.parents[1] / src).read_text(errors='replace'))
+        pieces.append((f, heads_of(stext)[f], functions(stext)[f][1], src))
+    used = set()
+    for _, _, body, _ in pieces:
+        used.update(re.findall(r'\b[A-Za-z_]\w*\b', body))
+    statics = sorted(used & set(prog.statics))
+    if statics:
+        raise OracleError(f'{path.name}: the routine uses file-scope statics {statics}; the oracle does not copy them')
+    externs = sorted(used & set(prog.unit.externs))
+    header_text = '\n'.join(strip_comments(h.read_text(errors='replace')) for h in Unit.headers(path, set()))
+    defs = []
+    for name in externs:
+        ms = re.findall(r'(?m)^\s*extern\s+([^;]*?)\b' + re.escape(name) + r'\b([^;]*);', header_text)
+        if len(ms) != 1 or ',' in ms[0][0] + ms[0][1]:
+            raise OracleError(f'{path.name}: cannot find one plain extern declaration of {name}')
+        defs.append(f'{ms[0][0]}{name}{ms[0][1]};')
+    includes = re.findall(r'(?m)^\s*#\s*include\s+"[^"]+"', raw)
+    out = [f'/* Generated by tools/scroll/R6/oracle.py from build/audit/source/src/{path.relative_to(RETAIL).as_posix()}.',
+           '   The functions below are the retail text, copied verbatim.  Do not edit. */',
+           '#include <stdio.h>', '#include <stdlib.h>', '#include <string.h>']
+    out += includes
+    out += ['#include "evaluate_ext.h"', '', '/* globals the routine uses (the headers declare them extern) */']
+    out += defs
+    out += ['', '/* camera tracking: the camera is the input */', 'void scrchk(void) {}',
+            'static void scroll_h(void) {}', 'static void scroll_v(void) {}', '', '/* prototypes */']
+    for f, head, _, _ in pieces:
+        if f != 'scroll':
+            out.append(head + ';')
+    for f, head, body, src in pieces:
+        out += ['', f'/* {src}: {f} */', head + ' {' + body + '}']
+    out += ['', f'#define ORACLE_IR scroll_ir_{ident}', f'extern const scroll_ir ORACLE_IR;',
+            f'static const char *const ORACLE_PROGRAM = "{path.parent.name}/{path.name}";',
+            '#include "oracle_driver.h"', '']
+    return '\n'.join(out) + '\n', [f for f, _ in linked]
+
+
+def run(path, draft):
+    ident = path.stem.lower()
+    src, linked = generate(path, ident)
+    c = BUILD / f'oracle_{path.stem}.c'
+    c.write_text(src)
+    results = []
+    for init in ('zero', 'pattern'):
+        exe = BUILD / f'oracle_{path.stem}_{init}'
+        cmd = CC + [f'-ftrivial-auto-var-init={init}', f'-I{path.parent}', f'-I{RETAIL}', f'-I{HERE}',
+                    str(c), str(HERE / 'evaluate_ext.c'), str(BUILD / 'ir_ext_tables.c'), '-o', str(exe)]
+        r = subprocess.run(cmd, capture_output=True, text=True)
+        if r.returncode:
+            raise OracleError(f'{path.name}: compile failed:\n{r.stderr[:4000]}')
+        r = subprocess.run([str(exe)], capture_output=True, text=True, timeout=1800)
+        if r.returncode not in (0, 1) or not r.stdout.strip():
+            raise OracleError(f'{path.name} ({init}): driver failed ({r.returncode}): {r.stderr[:2000]}')
+        res = json.loads(r.stdout.strip().splitlines()[-1])
+        res['init'] = init
+        res['uninit_corrections'] = draft['rules'].get('UNINIT', 0)
+        results.append(res)
+    return results
+
+
+def selftest():
+    """The oracle must see a wrong IR: build SCR61A/SCR61C/SCR61B against
+    deliberately altered drafts and require differences."""
+    import copy
+    import irc_ext
+    cases = [
+        ('SCR61A', 'lerp w 194 -> 193', lambda d: d['runs'][0]['expr'].update(w=193)),
+        ('SCR61C', 'lerp prod_bits 16 -> 32', lambda d: [r['expr'].update(prod_bits=32) for r in d['runs']
+                                                          if r['expr']['op'] == 'lerp']),
+        ('SCR61B', 'step D 17 -> 16', lambda d: [r['expr'].update(D=16) for r in d['runs']
+                                                 if r['expr']['op'] == 'step']),
+        ('SCR61A', 'run lengths 20/46 -> 21/45', lambda d: (d['runs'][-2].update(entries=21),
+                                                             d['runs'][-1].update(entries=45))),
+        ('SCR61A', 'bg_y shift 2 -> 3', lambda d: d['bg_y'].update(shifts=[3])),
+    ]
+    bad = 0
+    for stem, what, change in cases:
+        path = RETAIL / 'R6' / f'{stem}.C'
+        draft = copy.deepcopy(json.loads((HERE / 'draft' / f'{stem}.json').read_text()))
+        change(draft)
+        tables = BUILD / f'selftest_{stem}_tables.c'
+        irc_ext.emit_c([draft], tables)
+        src, _ = generate(path, stem.lower())
+        c = BUILD / f'selftest_oracle_{stem}.c'
+        c.write_text(src)
+        exe = BUILD / f'selftest_oracle_{stem}'
+        r = subprocess.run(CC + ['-ftrivial-auto-var-init=zero', f'-I{path.parent}', f'-I{RETAIL}', f'-I{HERE}',
+                                 str(c), str(HERE / 'evaluate_ext.c'), str(tables), '-o', str(exe)],
+                           capture_output=True, text=True)
+        if r.returncode:
+            raise OracleError(f'selftest compile failed: {r.stderr[:2000]}')
+        r = subprocess.run([str(exe)], capture_output=True, text=True, timeout=1800)
+        res = json.loads(r.stdout.strip().splitlines()[-1])
+        seen = r.returncode == 1 and (res['a_mismatch'] or res['bgy_mismatch'])
+        bad += not seen
+        print(f"oracle selftest {stem} {what:28} {'detected' if seen else 'NOT DETECTED'}: "
+              f"{res['a_mismatch']:,} lines, {res['bgy_mismatch']:,} background Y differ")
+    if bad:
+        print(f'oracle.py: FAIL selftest: {bad} altered drafts passed', file=sys.stderr)
+        return 1
+    print(f'oracle.py: selftest: {len(cases)} of {len(cases)} altered drafts detected')
+    return 0
+
+
+def main(argv):
+    if argv == ['--selftest']:
+        return selftest()
+    names = argv or [f'R6/{p.name}' for r, a, e, p in programs() if r == 6]
+    allres, bad = [], []
+    for n in names:
+        path = RETAIL / n
+        draft = json.loads((HERE / 'draft' / (path.stem + '.json')).read_text())
+        for res in run(path, draft):
+            allres.append(res)
+            strict = res['init'] == 'zero' or res['uninit_corrections'] == 0
+            flag = ''
+            if res['a_mismatch'] or res['bgy_mismatch']:
+                flag = 'FAIL' if strict else 'differs (expected: UNINIT)'
+                if strict:
+                    bad.append(f"{res['program']} {res['init']}")
+            print(f"oracle {res['program']:12} {res['init']:7}  A {res['a_compared']:>11,} lines "
+                  f"{res['a_mismatch']:>9,} differ (max |d| {res['a_maxdiff']})  "
+                  f"B {res['b_lines']:>9,} lines {res['b_mismatch']:>9,} differ  "
+                  f"bgY {res['bgy_compared']:,}/{res['bgy_mismatch']} differ  {flag}")
+            if res['a_mismatch']:
+                print(f"       first A difference: {res['first']}")
+    (HERE / 'results_oracle.json').write_text(json.dumps(allres, indent=1) + '\n')
+    if bad:
+        print(f'oracle.py: FAIL {bad}', file=sys.stderr)
+        return 1
+    print(f'oracle.py: {len(allres)} builds, every strict build exact on class A lines and background Y')
+    return 0
+
+
+if __name__ == '__main__':
+    try:
+        sys.exit(main(sys.argv[1:]))
+    except (OracleError, X.ExtractError) as e:
+        print(f'oracle.py: FAIL {e}', file=sys.stderr)
+        sys.exit(1)

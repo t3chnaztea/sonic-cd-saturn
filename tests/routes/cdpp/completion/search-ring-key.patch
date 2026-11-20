@@ -1,0 +1,12 @@
+--- a/tools/cc_campaign_search.c
++++ b/tools/cc_campaign_search.c
+@@ -378,7 +378,8 @@
+     scd_player_state p=scd_player_get();
+     if(!zone){unsigned x=(unsigned)clamp(p.x/65536,0,16383)/32,y=(unsigned)clamp(p.y/65536,0,2047)/32;
+         return x|(y<<9)|((leg*5+milestone)<<15)|((unsigned)armed()<<20)|((scd_player_checkpoint().id?1u:0u)<<22)
+-            |(ppz_loss_goal()?((ppz_ring_loss>=ppz_loss_goal())<<23)|((ppz_rings>=ppz_loss_goal())<<24):0u);}
++            |(ppz_loss_goal()?((ppz_ring_loss>=ppz_loss_goal())<<23)|((ppz_rings>=ppz_loss_goal())<<24):0u)
++            |(getenv("PPZ_SEARCH_RING_KEY")?(uint32_t)((plring>56?56:plring)/8)<<25:0u);}
+     unsigned x=(unsigned)clamp(p.x/65536,0,16383)/32,y=(unsigned)clamp(p.y/65536,0,2047)/32;
+     /* Search only (CC_ROUTE_RINGS): ring count buckets of 8. */
+     static int rings=-1;if(rings<0)rings=getenv("CC_ROUTE_RINGS")!=NULL;

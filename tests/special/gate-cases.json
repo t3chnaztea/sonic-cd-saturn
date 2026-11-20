@@ -1,0 +1,440 @@
+{
+ "SP1-win": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "1",
+   "win",
+   "{out}"
+  ]
+ },
+ "SP1-timeout": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "1",
+   "timeout",
+   "{out}"
+  ]
+ },
+ "SP1-hazard": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "1",
+   "hazard",
+   "{out}"
+  ]
+ },
+ "SP2-win": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "2",
+   "win",
+   "{out}"
+  ]
+ },
+ "SP2-timeout": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "2",
+   "timeout",
+   "{out}"
+  ]
+ },
+ "SP2-hazard": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "2",
+   "hazard",
+   "{out}"
+  ]
+ },
+ "SP3-win": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "3",
+   "win",
+   "{out}"
+  ]
+ },
+ "SP3-timeout": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "3",
+   "timeout",
+   "{out}"
+  ]
+ },
+ "SP3-hazard": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "3",
+   "hazard",
+   "{out}"
+  ]
+ },
+ "SP4-win": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "4",
+   "win",
+   "{out}"
+  ]
+ },
+ "SP4-timeout": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "4",
+   "timeout",
+   "{out}"
+  ]
+ },
+ "SP4-hazard": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "4",
+   "hazard",
+   "{out}"
+  ]
+ },
+ "SP5-win": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "5",
+   "win",
+   "{out}"
+  ]
+ },
+ "SP5-timeout": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "5",
+   "timeout",
+   "{out}"
+  ]
+ },
+ "SP5-hazard": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "5",
+   "hazard",
+   "{out}"
+  ]
+ },
+ "SP6-win": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "6",
+   "win",
+   "{out}"
+  ]
+ },
+ "SP6-timeout": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "6",
+   "timeout",
+   "{out}"
+  ]
+ },
+ "SP6-hazard": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "6",
+   "hazard",
+   "{out}"
+  ]
+ },
+ "SP7-win": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "7",
+   "win",
+   "{out}"
+  ]
+ },
+ "SP7-timeout": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "7",
+   "timeout",
+   "{out}"
+  ]
+ },
+ "SP7-hazard": {
+  "lane": "ss-retail",
+  "command": [
+   "bash",
+   "tools/test-special-case.sh",
+   "7",
+   "hazard",
+   "{out}"
+  ]
+ },
+ "SP8-win": {
+  "lane": "ss-modes (ss8-route-weekend)",
+  "command": [
+   "bash",
+   "tools/test-special-ss8-emulator.sh",
+   "{out}"
+  ],
+  "note": "test-only harness poke for stage-8 entry until the sound-test entry lands"
+ },
+ "SP8-timeout": {
+  "lane": "ss-modes (special-modes-weekend)",
+  "command": [
+   "python3",
+   "tools/special_mode_gate.py",
+   "SP8-timeout",
+   "--output",
+   "{out}"
+  ]
+ },
+ "SP8-hazard": {
+  "lane": "ss-modes (special-modes-weekend)",
+  "command": [
+   "python3",
+   "tools/special_mode_gate.py",
+   "SP8-hazard",
+   "--output",
+   "{out}"
+  ]
+ },
+ "BIGRING-PPZ": {
+  "lane": "mm-routes (special-entry-weekend)",
+  "command": [
+   "python3",
+   "tools/test_special_entry.py",
+   "ppz",
+   "--out",
+   "{out}"
+  ],
+  "group": "bigring"
+ },
+ "BIGRING-CC": {
+  "lane": "mm-routes (special-entry-weekend)",
+  "command": [
+   "python3",
+   "tools/test_special_entry.py",
+   "cc",
+   "--out",
+   "{out}"
+  ],
+  "group": "test_cc2_route.py:build/cc1/controller"
+ },
+ "BIGRING-TT": {
+  "lane": "mm-routes (special-entry-weekend)",
+  "command": [
+   "python3",
+   "tools/test_special_entry.py",
+   "tt",
+   "--out",
+   "{out}"
+  ],
+  "group": "test_tt_route.py:build/tt1/controller"
+ },
+ "BIGRING-QQ": {
+  "lane": "mm-routes (special-entry-weekend)",
+  "command": [
+   "python3",
+   "tools/test_special_entry.py",
+   "qq",
+   "--out",
+   "{out}"
+  ]
+ },
+ "BIGRING-WW": {
+  "lane": "mm-routes (special-entry-weekend)",
+  "command": [
+   "python3",
+   "tools/test_special_entry.py",
+   "ww",
+   "--out",
+   "{out}"
+  ]
+ },
+ "BIGRING-SS": {
+  "lane": "mm-routes (special-entry-weekend)",
+  "command": [
+   "python3",
+   "tools/test_special_entry.py",
+   "ss",
+   "--out",
+   "{out}"
+  ]
+ },
+ "BIGRING-MM": {
+  "lane": "mm-routes (special-entry-weekend)",
+  "command": [
+   "python3",
+   "tools/test_special_entry.py",
+   "mm",
+   "--out",
+   "{out}"
+  ]
+ },
+ "SAVE-progression": {
+  "lane": "mm-routes (special-entry-weekend)",
+  "group": "bigring",
+  "before": [
+   [
+    "python3",
+    "tools/test_save_progression.py"
+   ]
+  ],
+  "command": [
+   "python3",
+   "tools/test_special_entry.py",
+   "qq",
+   "--stones",
+   "3",
+   "--out",
+   "{out}"
+  ]
+ },
+ "ENDING-good": {
+  "lane": "ss-ending (special-ending-weekend)",
+  "group": "ending",
+  "command": [
+   "python3",
+   "tools/test_ending_emulator.py",
+   "--case",
+   "good",
+   "--out",
+   "{out}"
+  ]
+ },
+ "ENDING-bad": {
+  "lane": "ss-ending (special-ending-weekend)",
+  "group": "ending",
+  "command": [
+   "python3",
+   "tools/test_ending_emulator.py",
+   "--case",
+   "bad",
+   "--out",
+   "{out}"
+  ]
+ },
+ "STONES-return": {
+  "lane": "ss-ending (special-ending-weekend)",
+  "group": "ending",
+  "command": [
+   "python3",
+   "tools/test_ending_emulator.py",
+   "--case",
+   "stones",
+   "--out",
+   "{out}"
+  ]
+ },
+ "FRONTEND": {
+  "lane": "frontend (frontend-weekend)",
+  "command": [
+   "python3",
+   "tools/test_frontend_emulator.py"
+  ],
+  "report": "build/frontend-qa/report.json"
+ },
+ "DEMO-SS1": {
+  "lane": "ss-modes (special-modes-weekend)",
+  "command": [
+   "python3",
+   "tools/special_mode_gate.py",
+   "DEMO-SS1",
+   "--output",
+   "{out}"
+  ]
+ },
+ "DEMO-SS6": {
+  "lane": "ss-modes (special-modes-weekend)",
+  "command": [
+   "python3",
+   "tools/special_mode_gate.py",
+   "DEMO-SS6",
+   "--output",
+   "{out}"
+  ]
+ },
+ "TA-SS1-win": {
+  "lane": "ss-modes (special-modes-weekend)",
+  "command": [
+   "python3",
+   "tools/special_mode_gate.py",
+   "TA-SS1-win",
+   "--output",
+   "{out}"
+  ]
+ },
+ "TA-SS1-exit": {
+  "lane": "ss-modes (special-modes-weekend)",
+  "command": [
+   "python3",
+   "tools/special_mode_gate.py",
+   "TA-SS1-exit",
+   "--output",
+   "{out}"
+  ]
+ },
+ "ART-MISSES": {
+  "lane": "zones-visual / zones-art2 / mm-visual",
+  "exclusive": true,
+  "command": [
+   "python3",
+   "tools/test_art_misses.py",
+   "--zones",
+   "ppz,cc,tt,qq,ww,ss,mm",
+   "--jobs",
+   "2"
+  ],
+  "report": "build/art-misses/report.json"
+ },
+ "SP8-credits": {
+  "lane": "ss-modes (special-modes-weekend)",
+  "command": [
+   "python3",
+   "tools/special_mode_gate.py",
+   "SP8-credits",
+   "--output",
+   "{out}"
+  ]
+ }
+}

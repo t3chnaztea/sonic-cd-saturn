@@ -1,0 +1,16 @@
+diff --git a/env.mk b/env.mk
+index 991dd20..3098edd 100644
+--- a/env.mk
++++ b/env.mk
+@@ -80,7 +80,11 @@ SH_NM:=      $(YAUL_INSTALL_ROOT)/bin/$(YAUL_PROG_SH_PREFIX)-gcc-nm$(EXE_EXT)
+ SH_OBJCOPY:= $(YAUL_INSTALL_ROOT)/bin/$(YAUL_PROG_SH_PREFIX)-objcopy$(EXE_EXT)
+ SH_OBJDUMP:= $(YAUL_INSTALL_ROOT)/bin/$(YAUL_PROG_SH_PREFIX)-objdump$(EXE_EXT)
+ 
++# Build paths stay out of objects (assert __FILE__, debug info): the library
++# and every game built with it are identical from any checkout directory.
+ SH_CFLAGS_shared:= \
++	-ffile-prefix-map=$(YAUL_BUILD_ROOT)=libyaul \
++	-ffile-prefix-map=$(YAUL_INSTALL_ROOT)=toolchain \
+ 	-flto \
+ 	-ffat-lto-objects \
+ 	-ffunction-sections \
