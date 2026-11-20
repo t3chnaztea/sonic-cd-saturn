@@ -2,6 +2,7 @@
 """Export HEAD as one clean public tree and audit it.
 
     python3 tools/export-public.py [--out DIR] [--message TEXT]
+    python3 tools/export-public.py --into CLONE --message TEXT
 
 `git archive HEAD` puts tracked files into DIR, except those marked
 `export-ignore` in .gitattributes (internal session and QA records). DIR defaults to
@@ -9,6 +10,10 @@
 or be empty. DIR gets `git init` and one commit with this repository's
 user.name/user.email, dated like HEAD. No remote is added and nothing is
 pushed.
+
+--into CLONE updates an existing public clone instead: CLONE must be a clean
+Git work tree. Its files are replaced by the export (untracked and ignored files are
+removed) and one commit is added on top of its history. Nothing is pushed.
 
 The audit then checks the export and exits non-zero on any finding:
   retail hex   fromhex()/unhexlify() literals of 8+ bytes that occur in a
@@ -57,8 +62,13 @@ def git(*args,cwd=ROOT,env=None):
     return subprocess.run(['git',*args],cwd=cwd,env=env,check=True,capture_output=True,text=True).stdout.strip()
 
 
-def export(out,message):
-    if out.exists() and any(out.iterdir()):
+def export(out,message,into=False):
+    if into:
+        if not (out/'.git').is_dir() or git('status','--porcelain',cwd=out):
+            raise SystemExit(f'{out} must be a clean Git work tree')
+        git('rm','-rqf','.',cwd=out)
+        git('clean','-fdxq',cwd=out)  # untracked and ignored leftovers must not enter the commit
+    elif out.exists() and any(out.iterdir()):
         raise SystemExit(f'{out} exists and is not empty; remove it first')
     out.mkdir(parents=True,exist_ok=True)
     data=subprocess.run(['git','archive','--format=tar','HEAD'],cwd=ROOT,check=True,capture_output=True).stdout
@@ -68,7 +78,8 @@ def export(out,message):
     when=git('log','-1','--format=%cI')
     env={**os.environ,'GIT_AUTHOR_NAME':name,'GIT_AUTHOR_EMAIL':email,'GIT_COMMITTER_NAME':name,
          'GIT_COMMITTER_EMAIL':email,'GIT_AUTHOR_DATE':when,'GIT_COMMITTER_DATE':when}
-    git('init','-q','-b','main',cwd=out)
+    if not into:
+        git('init','-q','-b','main',cwd=out)
     git('config','user.name',name,cwd=out);git('config','user.email',email,cwd=out)
     # -f: a tracked file that .gitignore matches still belongs in the export.
     git('add','-A','-f',cwd=out,env=env)
@@ -136,8 +147,10 @@ def main():
     ap.add_argument('--out',type=Path,default=ROOT.parent/'sonic-cd-saturn-public-export')
     ap.add_argument('--message',default=f'Sonic CD Saturn {ip_version()} source',
                     help='commit message (default: %(default)s, from IP_VERSION in the Makefile)')
+    ap.add_argument('--into',type=Path,help='existing public clone to update with one new commit')
     args=ap.parse_args()
-    commit,source,name,email=export(args.out.resolve(),args.message)
+    if args.into:args.out=args.into
+    commit,source,name,email=export(args.out.resolve(),args.message,bool(args.into))
     files,hex_total,findings=audit(args.out.resolve())
     committed=git('ls-files',cwd=args.out.resolve()).splitlines()
     source_files=git('ls-files').splitlines()

@@ -14,7 +14,7 @@ A native Sega Saturn port of Sonic CD (1993). The game logic is reimplemented in
 > This repository contains no SEGA art, audio, level data, program files, disc images or BIOS files, and no playable image will be distributed. The game logic is reimplemented in C; like the decompilation it follows, it keeps some of the original's numeric tables, and the test tools find code on your disc by short byte patterns. To build it you need your own U.S. and Japanese Sonic CD discs. Do not share the images you build. If you do not own the game, it is sold in [Sonic Origins](https://www.sega.com/games/sonic-origins).
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/0ca9b063-50d6-4ded-9398-00677be68785" alt="Palmtree Panic Act 1: Sonic passes a time post and warps into the Past (V0.078, emulator capture)" width="640">
+  <img src="https://github.com/user-attachments/assets/2ec70176-3266-41e0-8916-79be67c8c80f" alt="Palmtree Panic Act 1: Sonic passes a time post and warps into the Past (V0.078, emulator capture)" width="640">
 </p>
 
 ## Status
@@ -86,9 +86,9 @@ V0.078 in Beetle Saturn, 2x nearest-neighbor. Console photos will follow the SAR
 
 | | |
 | --- | --- |
-| ![Title screen](https://github.com/user-attachments/assets/e6a4e8bf-b73b-4ad9-aa91-0a3f663254d4) | ![Palmtree Panic Act 1 Present](https://github.com/user-attachments/assets/ae5a5528-e36c-4b52-bb75-1340ff0919eb) |
-| ![Stardust Speedway Act 1 Bad Future](https://github.com/user-attachments/assets/335f3827-d58f-4eec-846a-8b5410f8e19f) | ![Special Stage 1](https://github.com/user-attachments/assets/6f1ab864-f1e2-4cf9-a22e-074c635d4d28) |
-| ![Metallic Madness Act 3 boss](https://github.com/user-attachments/assets/3a0bd185-71a3-4bd5-a398-8d44f19dda67) | |
+| ![Title screen](https://github.com/user-attachments/assets/81989a68-ef56-4de0-8a3b-d221f3fbf79f) | ![Palmtree Panic Act 1 Present](https://github.com/user-attachments/assets/4e4b2b1c-6a85-47b2-86ae-ffa234f9d4c7) |
+| ![Stardust Speedway Act 1 Bad Future](https://github.com/user-attachments/assets/6288bb17-4ac7-4f49-b8fd-8ffd43d3fe05) | ![Special Stage 1](https://github.com/user-attachments/assets/c5c76a6d-afd6-4eb9-8636-e69d24caee40) |
+| ![Metallic Madness Act 3 boss](https://github.com/user-attachments/assets/1da9274e-3524-45be-bf5a-b46139af87fa) | |
 
 ## Compatibility
 
