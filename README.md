@@ -6,7 +6,7 @@
 
 ![CI](https://github.com/t3chnaztea/sonic-cd-saturn/actions/workflows/ci.yml/badge.svg)
 ![V0.082: software regression passed](https://img.shields.io/badge/V0.082-software%20regression%20passed-2ea44f)
-![Saturn console test: pending](https://img.shields.io/badge/Saturn%20console%20test-pending-orange)
+![Saturn console test: V0.082 works](https://img.shields.io/badge/Saturn%20console%20test-V0.082%20works-2ea44f)
 
 A native Sega Saturn port of Sonic CD (1993). The game logic is reimplemented in C and runs on the Saturn's SH-2 CPUs. There is no Sega CD emulation. It follows the 1993 Sega CD release, not the 2011 remaster.
 
@@ -19,9 +19,9 @@ A native Sega Saturn port of Sonic CD (1993). The game logic is reimplemented in
 
 ## Status
 
-The current candidate is V0.082 (build label 2026-11-17). Its software regression finished on 2026-11-19: 215/215 checks, 347/347 matrix windows, and 70 art cases with zero misses. The tested game source is `49bfd89643b2a77962964a988e87b75a46e9b7a6`. My Saturn/SAROO test is pending. These counts do not establish a percentage of all paths through the game. See [V0.082 release notes](RELEASE-NOTES-V0.082.md) for the exact image hashes and evidence. Version history is in [CHANGELOG.md](CHANGELOG.md).
+The current candidate is V0.082 (build label 2026-11-17). Its software regression finished on 2026-11-19: 215/215 checks, 347/347 matrix windows, and 70 art cases with zero misses. The tested game source is `49bfd89643b2a77962964a988e87b75a46e9b7a6`. I tested it on my Saturn with a SAROO on 2026-11-21, and it works. These counts do not establish a percentage of all paths through the game. See [V0.082 release notes](RELEASE-NOTES-V0.082.md) for the exact image hashes and evidence. Version history is in [CHANGELOG.md](CHANGELOG.md).
 
-There is no release download yet. Two things come first: my console test of V0.082, and a public patcher that takes all game data from your own discs. Until then, the only way to get a playable image is to build it from source with your own discs (see [Building](#building)).
+There is no release download yet. A public patcher that takes all game data from your own discs comes first. Until then, the only way to get a playable image is to build it from source with your own discs (see [Building](#building)).
 
 [`web/patcher`](web/patcher/README.md) holds the browser patcher's code only. It has no payload. The bundle I test it with contains converted game data, so it stays private and is not in this repository.
 
@@ -39,19 +39,19 @@ What works in the emulator:
 - The Japanese soundtrack, copied from your disc without resampling.
 - An optional CD++-style preset (see below). Classic is the default.
 
-The last build tested on hardware was V0.065 (2026-09-26), on my Saturn with a SAROO. It covered Palmtree Panic, Collision Chaos and Tidal Tempest, and the result was "works, no new defects". I did not log each act and era separately. Quartz Quadrant onward, the special stages, the front-end additions and the CD++ preset have never run on a console. V0.082 console acceptance remains open.
+V0.082 ran on my Saturn with a SAROO on 2026-11-21, and it works. That report is short. I did not log which zones, acts, eras, special stages or modes I played, so no single path is confirmed on hardware by name. The console-tested build before it was V0.065 (2026-09-26), which covered Palmtree Panic, Collision Chaos and Tidal Tempest.
 
 The zone table below is from the V0.080 full QA run.
 
 | Zone | Retail match | Saturn routes | Art | Time travel | Campaign | Real Saturn |
 | --- | --- | --- | --- | --- | --- | --- |
-| Palmtree Panic | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | V0.065 ok; V0.080 pending |
-| Collision Chaos | 10/10 | 10/10 | 10/10 | 10/10 | 5/5 | V0.065 ok; V0.080 pending |
-| Tidal Tempest | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | V0.065 ok; V0.080 pending |
-| Quartz Quadrant | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | never tested |
-| Wacky Workbench | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | never tested |
-| Stardust Speedway | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | never tested |
-| Metallic Madness | 10/10 | 10/10 | 12/12 | 10/10 | 3/3 | never tested |
+| Palmtree Panic | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | V0.065 ok; V0.082 not itemized |
+| Collision Chaos | 10/10 | 10/10 | 10/10 | 10/10 | 5/5 | V0.065 ok; V0.082 not itemized |
+| Tidal Tempest | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | V0.065 ok; V0.082 not itemized |
+| Quartz Quadrant | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | V0.082 not itemized |
+| Wacky Workbench | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | V0.082 not itemized |
+| Stardust Speedway | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | V0.082 not itemized |
+| Metallic Madness | 10/10 | 10/10 | 12/12 | 10/10 | 3/3 | V0.082 not itemized |
 
 Each zone has 10 act/era variants: Acts 1 and 2 in four eras, Act 3 in both futures. "Retail match" replays a recorded controller route on the original Sega CD program and on the port, and compares nine state fields. "Campaign" plays from New Game through to the Good Future. All results are from the V0.080 BIN, SHA-256 `7bbce369…5338`. Evidence is in [RELEASE-NOTES-V0.080.md](RELEASE-NOTES-V0.080.md) and [QA-PLAN.md](QA-PLAN.md).
 
@@ -66,7 +66,7 @@ An optional preset adds five moves from the 2009 Sonic CD++ hack: the Sonic 2 sp
 - Many objects, bosses, menus and movies are also compared picture by picture or state by state with the original. Examples: the credits audit, D.A. Garden, Visual Mode and the special stages.
 - Player physics has its own trace test (`tools/test-player.sh`). The Classic traces must stay identical when the CD++ code is built in.
 - The V0.080 full QA run has 201 steps and takes about 3.5 hours. All 201 passed, including 42 special-stage and front-end cases.
-- None of this replaces a console test. Only a test on my own Saturn counts as "works on hardware". The last one was V0.065. V0.082 console acceptance remains open.
+- None of this replaces a console test. Only a test on my own Saturn counts as "works on hardware". The last one was V0.082 on 2026-11-21, a short report with no per-path log.
 
 ## Related project
 
@@ -95,12 +95,12 @@ V0.078 in Beetle Saturn, 2x nearest-neighbor. Console photos will follow the SAR
 | Target | State |
 | --- | --- |
 | Beetle Saturn (libretro) | All automated tests run here. V0.082 passes. |
-| Real Saturn + [SAROO](https://github.com/tpunix/SAROO) | Main target. V0.065 works. V0.066 to V0.082 untested. |
+| Real Saturn + [SAROO](https://github.com/tpunix/SAROO) | Main target. V0.082 works on my console (2026-11-21). V0.066 to V0.081 untested. |
 | Mednafen | Used for manual play during development. |
 | Yaba Sanshiro, Kronos, SSF | Untested. |
 | Burned CD-R, other ODEs | Untested. |
 
-The disc header lists every Saturn region (`IP_AREAS JTUBKAEL`), but only my console has run it. I did not record its model, region, video mode or SAROO firmware for the V0.065 test; that will be logged with the V0.082 test. PAL timing is untested.
+The disc header lists every Saturn region (`IP_AREAS JTUBKAEL`), but only my console has run it. I have not yet recorded its model, region, video mode or SAROO firmware. PAL timing is untested.
 
 The build produces one BIN/CUE with 42 tracks (one data track plus CD audio). Load the CUE. The ISO under `dist/iso/` has no music.
 

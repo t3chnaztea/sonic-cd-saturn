@@ -1,4 +1,4 @@
-# Hardware acceptance: V0.082 candidate (software regression passed, console pending)
+# Hardware acceptance: V0.082 candidate (software regression passed, console test reported working)
 
 ## Quick reference
 
@@ -6,7 +6,7 @@ Purpose: the console test handoff. `tools/package-hardware-candidate.py` ships
 this file as `READ-ME-FIRST.md` and asserts line 1 names the Makefile
 `IP_VERSION`. Update line 1 for every hardware build.
 
-Current state (2026-11-20):
+Current state (2026-11-21):
 
 - V0.082 BIN SHA-256 `cb872d149ba3575d9929a1072bb006dd403b97e79dfdfa0a6b4782bf178a3e66`
   (tested game source `49bfd89643b2a77962964a988e87b75a46e9b7a6`).
@@ -15,13 +15,16 @@ Current state (2026-11-20):
   SAROO folder: `/Volumes/Untitled/SAROO/ISO/Sonic CD Saturn v0.082`.
   BIN/CUE card readback verified on2026-11-20. Transfer receipt:
   `build/release-deployment-v0082-20261120/sd-transfer.json`.
-  Current checklist: the V0.082 section below. The maintainer will test.
+  Console result 2026-11-21: "tested and working on my saturn"
+  (`hardware-results/v0.082.json`). The report did not itemize the checklist
+  below, so its individual items stay unrecorded.
 - V0.079 (BIN `3370c557…32b8`) is the fallback package; V0.078 and earlier
   BINs embed the build machine's home path, so never share them.
 - V0.076 (BIN `ba1ffa33…c539`) is also packaged; its console test is open.
 - V0.075's local package is lost. Do not rebuild it without the maintainer's approval.
-- Last user-confirmed console result: V0.065, 2026-09-26, "Works, no new
-  defects" (`hardware-results/v0.065.json`). V0.066–V0.074 remain untested.
+- Last user-confirmed console result: V0.082, 2026-11-21. Before it: V0.065,
+  2026-09-26, "Works, no new defects" (`hardware-results/v0.065.json`).
+  V0.066–V0.081 remain untested.
 
 Binding rules:
 

@@ -14,7 +14,7 @@ Local baseline commit: `0afbcd62c02fce4a919aa0ee6e40b740daa0aa15`.
 | Missing-art scan | 70 route/era cases passed; 0 art misses |
 | Source18 disc-dependency repair | Passed in this full regression at step171 |
 | Owned processes | All 5 retired; coordinator, main, caffeinate, watcher and observer exited0 |
-| Hardware acceptance | Open; the maintainer will test Saturn/SAROO |
+| Hardware acceptance | Reported working on the maintainer's Saturn/SAROO on 2026-11-21; routes and setup not itemized (`hardware-results/v0.082.json`) |
 
 Exact terminal output:
 
@@ -60,7 +60,7 @@ Live result paths are `build/qa-loops/20261118-233511-837399/report.json` and `b
 
 ## Hardware and artifacts
 
-The maintainer will perform the console test. At the2026-11-19 QA close, the earlier SAROO transfer receipt predated this release commit. No new image was written during that QA session. No push or SEGA asset sharing occurred.
+The maintainer reported on 2026-11-21 that the build works on a Saturn with SAROO. The report did not list the routes played or the console setup. At the2026-11-19 QA close, the earlier SAROO transfer receipt predated this release commit. No new image was written during that QA session. No push or SEGA asset sharing occurred.
 
 The following hashes were captured after all owned processes retired and the required cooling interval elapsed. They match the images from the original V0.082 build.
 

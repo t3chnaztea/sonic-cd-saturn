@@ -1,0 +1,15 @@
+{
+  "version": "0.082",
+  "report_date": "2026-11-21",
+  "disc_sha256": "cb872d149ba3575d9929a1072bb006dd403b97e79dfdfa0a6b4782bf178a3e66",
+  "cue_sha256": "10f35a87674de372bc4b217a4e877f5321aa683afda91eab18df2df331d04337",
+  "platform": "User's Sega Saturn/SAROO",
+  "deployment_record": "build/release-deployment-v0082-20261120/sd-transfer.json",
+  "hardware_tested": true,
+  "user_report": "tested and working on my saturn",
+  "reported_defects": [],
+  "audio": "No audio failure reported. The report does not separately certify music, effects, pause/resume or repeated cold boots.",
+  "full_qa_release": true,
+  "limits": "One-line qualitative report. The hashes are those of the image written to the card on 2026-11-20; the report did not restate them. Saturn model, region/video mode, SAROO firmware, audio connection and the routes played were not recorded. Zones, eras, special stages, CD++ and endings were not itemized. It does not close individual HARDWARE-ACCEPTANCE.md checklist items.",
+  "supersedes_last_known_working": "0.065"
+}

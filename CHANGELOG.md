@@ -11,7 +11,7 @@ No built image is distributed for any version. Every build is made from the
 owner's own discs.
 
 "Emulator" means the Beetle Saturn gates. Only a console test on a real Saturn
-confirms a build. The last console-confirmed build is **V0.065**.
+confirms a build. The last console-confirmed build is **V0.082** (2026-11-21).
 
 Full notes for each version are in `RELEASE-NOTES-V<version>.md`, in the
 repository root or in [docs/archive/](docs/archive/). Each version heading
@@ -22,7 +22,8 @@ links to its notes.
 ## [V0.082](RELEASE-NOTES-V0.082.md) - 2026-11-17
 
 Software regression completed on 2026-11-19: 215/215 checks, 347/347 matrix
-windows, and 70 art cases with zero misses. Hardware acceptance remains open.
+windows, and 70 art cases with zero misses. Reported working on a Saturn with
+SAROO on 2026-11-21; the report did not itemize routes.
 The tested game source is `49bfd89`. BIN SHA-256:
 `cb872d149ba3575d9929a1072bb006dd403b97e79dfdfa0a6b4782bf178a3e66`.
 
