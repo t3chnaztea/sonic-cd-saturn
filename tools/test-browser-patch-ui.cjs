@@ -20,7 +20,8 @@ fs.mkdirSync(out, {recursive: false});
 const downloads = path.join(out, 'downloads'); fs.mkdirSync(downloads);
 const cue = fs.realpathSync(path.join(root, 'assets/private/sonic-cd-japan.cue'));
 const sources = [cue,...[...fs.readFileSync(cue, 'utf8').matchAll(/FILE\s+"([^"]+)" BINARY/g)].map(m => path.join(path.dirname(cue), m[1]))];
-const american=['sonic.bin','sonic.cue'].map(name=>path.join(root,'build/retail',name));
+const usDir=process.env.PATCHER_US_DIR;
+const american=usDir?fs.readdirSync(usDir).filter(name=>/\.(bin|cue)$/i.test(name)).map(name=>path.join(usDir,name)):['sonic.bin','sonic.cue'].map(name=>path.join(root,'build/retail',name));
 const bios=path.join(root,'assets/private/bios_CD_U.bin');
 const requests=[],errors=[],unexpected=[];
 const server=http.createServer((req,res)=>{

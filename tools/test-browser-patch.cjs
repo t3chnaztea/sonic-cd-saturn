@@ -25,6 +25,18 @@ async function main() {
   await assert.rejects(engine.apply(bundle(),[new File(['changed bytes!'],source.name)],release),/Checksum failed/);
   await assert.rejects(engine.apply(bundle(header,' plus broken code'),[source],release),/Output checksum/);
   await assert.rejects(engine.inspect(new Blob(['not a bundle at all']),release),/not a Sonic/);
+  const usTrack=n=>({role:'us',file:new File([n===2?Buffer.alloc(353920+3,2):Buffer.from([n])],`Sonic CD (USA) (Track ${String(n).padStart(2,'0')}).bin`)});
+  const usTracks=Array.from({length:35},(_,i)=>usTrack(i+1));
+  const joined=engine.splitUS([{role:'jp',file:source},...usTracks,{role:'us',file:new File(['cue'],'Sonic CD (USA).cue')}]);
+  assert.deepEqual(joined.map(f=>f.file.name),['track.bin','sonic.bin','sonic.cue']);
+  const usBin=Buffer.from(await joined[1].file.arrayBuffer());
+  assert.equal(usBin.length,1+3+33+1120);
+  assert.deepEqual([...usBin.subarray(0,8)],[1,2,2,2,3,4,5,6]);
+  assert.ok(usBin.subarray(-1120).every(x=>x===0));
+  assert.equal(sha(Buffer.from(await joined[2].file.arrayBuffer())),'8667fe20fb207abb8edaff2285d36c78a39139a722c24da125415aaec06e127a');
+  assert.throws(()=>engine.splitUS(usTracks.slice(1)),/Missing U.S. BIN track 1/);
+  const single=[{role:'us',file:new File(['x'],'sonic.bin')}];
+  assert.equal(engine.splitUS(single),single);
   const bad=structuredClone(header);bad.ops[0].offset=Number.MAX_SAFE_INTEGER;
   await assert.rejects(engine.inspect(bundle(bad),release),/range exceeds/);
   const negative=structuredClone(header);negative.ops[0].offset=-1;

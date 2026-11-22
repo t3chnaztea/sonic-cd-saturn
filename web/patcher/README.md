@@ -18,8 +18,13 @@ No site package or release has been published by this work.
 Use current desktop Chrome. Allow at least 4 GiB of spare memory. Mobile,
 Firefox and Safari conversion are unverified. The output is 759,063,312 bytes.
 
-Select the Japanese CUE plus all 35 original BIN tracks. Select sonic.bin and
-sonic.cue for the supported U.S. dump. Select bios_CD_U.bin. Filenames, lengths
+Select the Japanese CUE plus all 35 original BIN tracks. For the U.S. disc,
+select the CUE and all 35 BIN tracks of the Redump "Sonic CD (USA)" dump. The
+page joins those tracks into the pinned single-BIN layout (sonic.bin and
+sonic.cue) before any check: it keeps track 1, drops the first 353,920 audio
+bytes (the track 2 pregap plus a 280-sample read offset) and appends 1,120 zero
+bytes. A matching single sonic.bin and sonic.cue are still accepted. Select
+bios_CD_U.bin. Filenames, lengths
 and SHA-256 values must match the recipe. CHD, ZIP, patched images and other
 revisions are unsupported. The original files are mounted read-only.
 
