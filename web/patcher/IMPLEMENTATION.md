@@ -339,3 +339,19 @@ literal is compiled code, compiler-generated tables, diagnostic strings, the
 MIT sound firmware and the ISO structure. Compiled functions include code
 compiled from the CC0 decompilation; rebuilding that in the browser needs an
 SH-2 compiler there.
+
+## Published: 2026-11-22
+
+The owner approved publication. The site package `build/patcher-site-outer-3`
+is served from the `gh-pages` branch at
+https://t3chnaztea.github.io/sonic-cd-saturn/web/patcher/. Earlier statements in
+this file that the site is not published describe the state before this date.
+
+| Check | Result |
+| --- | --- |
+| Deployed files against the audited package | 567 of 567 identical by SHA-256 (the package plus `.nojekyll` and a root redirect) |
+| Desktop Chrome on the live URL, real discs and BIOS, no request interception | Status `Verified`; BIN `cb872d149ba3575d9929a1072bb006dd403b97e79dfdfa0a6b4782bf178a3e66`; CUE `10f35a87674de372bc4b217a4e877f5321aa683afda91eab18df2df331d04337` |
+| Requests made by that run | 566 to the site, 1,710 to `raw.githubusercontent.com`, 0 that were not GET |
+| Fast QA on the final commits | `PASS` (report under `build/qa-loops/20261122-070840-881602/`) |
+
+Firefox, Safari and mobile remain untested. No tag or GitHub release exists.
