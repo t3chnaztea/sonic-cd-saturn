@@ -9,6 +9,33 @@ const SonicPatch = (() => {
   const relative = s => typeof s === 'string' && s.length > 0 && s.length < 256 &&
     !/[\\\x00-\x1f]/.test(s) && s.split('/').every(p => p && p !== '.' && p !== '..');
   const role = s => s === undefined || ['jp', 'us', 'bios'].includes(s);
+  // The recipe pins one U.S. image, sonic.bin/sonic.cue (a chdman extraction).
+  // The common Redump "Sonic CD (USA)" set has 35 split tracks with the same
+  // audio. Rebuild the pinned layout from it: keep track 1, join tracks 2-35,
+  // drop the first 353,920 bytes of that audio (the 150-sector track 2 pregap
+  // plus a 280-sample read offset) and append 1,120 zero bytes. The pinned
+  // size and SHA-256 checks still decide whether the result is accepted.
+  const US_CUE = "FILE \"sonic.bin\" BINARY\n  TRACK 01 MODE1/2352\n    INDEX 01 00:00:00\n  TRACK 02 AUDIO\n    PREGAP 00:02:00\n    INDEX 01 13:10:11\n  TRACK 03 AUDIO\n    INDEX 00 13:14:25\n    INDEX 01 13:16:25\n  TRACK 04 AUDIO\n    INDEX 00 15:05:39\n    INDEX 01 15:07:39\n  TRACK 05 AUDIO\n    INDEX 00 16:27:42\n    INDEX 01 16:29:42\n  TRACK 06 AUDIO\n    INDEX 00 17:53:52\n    INDEX 01 17:55:52\n  TRACK 07 AUDIO\n    INDEX 00 19:34:57\n    INDEX 01 19:36:57\n  TRACK 08 AUDIO\n    INDEX 00 20:55:62\n    INDEX 01 20:57:62\n  TRACK 09 AUDIO\n    INDEX 00 22:18:63\n    INDEX 01 22:20:63\n  TRACK 10 AUDIO\n    INDEX 00 24:15:00\n    INDEX 01 24:17:00\n  TRACK 11 AUDIO\n    INDEX 00 25:36:02\n    INDEX 01 25:38:02\n  TRACK 12 AUDIO\n    INDEX 00 26:55:06\n    INDEX 01 26:57:06\n  TRACK 13 AUDIO\n    INDEX 00 28:39:10\n    INDEX 01 28:41:10\n  TRACK 14 AUDIO\n    INDEX 00 29:58:43\n    INDEX 01 30:00:43\n  TRACK 15 AUDIO\n    INDEX 00 31:04:55\n    INDEX 01 31:06:55\n  TRACK 16 AUDIO\n    INDEX 00 32:37:58\n    INDEX 01 32:39:58\n  TRACK 17 AUDIO\n    INDEX 00 33:40:68\n    INDEX 01 33:42:68\n  TRACK 18 AUDIO\n    INDEX 00 35:01:74\n    INDEX 01 35:03:74\n  TRACK 19 AUDIO\n    INDEX 00 36:58:09\n    INDEX 01 37:00:09\n  TRACK 20 AUDIO\n    INDEX 00 38:12:19\n    INDEX 01 38:14:19\n  TRACK 21 AUDIO\n    INDEX 00 39:20:25\n    INDEX 01 39:22:25\n  TRACK 22 AUDIO\n    INDEX 00 40:46:32\n    INDEX 01 40:48:32\n  TRACK 23 AUDIO\n    INDEX 00 41:53:39\n    INDEX 01 41:55:39\n  TRACK 24 AUDIO\n    INDEX 00 43:07:45\n    INDEX 01 43:09:45\n  TRACK 25 AUDIO\n    INDEX 00 44:28:49\n    INDEX 01 44:30:49\n  TRACK 26 AUDIO\n    INDEX 00 45:53:50\n    INDEX 01 45:55:50\n  TRACK 27 AUDIO\n    INDEX 00 46:24:51\n    INDEX 01 46:26:51\n  TRACK 28 AUDIO\n    INDEX 00 46:55:52\n    INDEX 01 46:57:52\n  TRACK 29 AUDIO\n    INDEX 00 47:06:12\n    INDEX 01 47:08:12\n  TRACK 30 AUDIO\n    INDEX 00 47:30:13\n    INDEX 01 47:32:13\n  TRACK 31 AUDIO\n    INDEX 00 47:53:51\n    INDEX 01 47:55:51\n  TRACK 32 AUDIO\n    INDEX 00 48:06:52\n    INDEX 01 48:08:52\n  TRACK 33 AUDIO\n    INDEX 00 50:09:62\n    INDEX 01 50:11:62\n  TRACK 34 AUDIO\n    INDEX 00 52:14:71\n    INDEX 01 52:16:71\n  TRACK 35 AUDIO\n    INDEX 00 53:47:73\n    INDEX 01 53:49:73\n";
+  const US_HELP = 'Use the Redump "Sonic CD (USA)" dump: its CUE and all 35 BIN tracks.';
+  function splitUS(files) {
+    const us = files.filter(f => f && f.file && f.role === 'us');
+    if (us.some(f => f.file.name.toLowerCase() === 'sonic.bin')) return files;
+    const tracks = [];
+    for (const {file} of us) {
+      const m = /\(Track (\d+)\)\.bin$/i.exec(file.name);
+      if (m) tracks[Number(m[1])] = file;
+    }
+    if (!tracks.length) return files;
+    if (tracks.length !== 36) fail(`The U.S. disc needs 35 BIN tracks. ${US_HELP}`);
+    for (let n = 1; n <= 35; n++) if (!tracks[n]) fail(`Missing U.S. BIN track ${n}. ${US_HELP}`);
+    const audio = new Blob(tracks.slice(2)).slice(353920);
+    const bin = new File([tracks[1], audio, new Uint8Array(1120)], 'sonic.bin');
+    const cue = new File([US_CUE], 'sonic.cue', {type: 'text/plain'});
+    return files.filter(f => !(f && f.file && f.role === 'us')).concat([{role: 'us', file: bin}, {role: 'us', file: cue}]);
+  }
+  const DISC = {jp: ['the supported Japanese disc', 'Select the CUE and all 35 BIN tracks from the supported Japanese disc.'],
+    us: ['the U.S. disc', US_HELP], bios: ['the U.S. Sega CD BIOS', 'Select bios_CD_U.bin.']};
+  const disc = r => DISC[r] || DISC.jp;
   async function sha256(blob) {
     const digest = await crypto.subtle.digest('SHA-256', await blob.arrayBuffer());
     return Array.from(new Uint8Array(digest), x => x.toString(16).padStart(2, '0')).join('');
@@ -62,6 +89,7 @@ const SonicPatch = (() => {
     progress('Reading the patch bundle.', 1);
     const {data, payload} = await inspect(bundle, release);
     const byName = new Map();
+    files = splitUS(Array.from(files));
     for (const selected of files) {
       const file = selected.file || selected, selectedRole = selected.file ? selected.role : undefined;
       if (!role(selectedRole)) fail('An input has an unsupported disc role.');
@@ -72,10 +100,10 @@ const SonicPatch = (() => {
     const sources = [];
     for (let i = 0; i < data.sources.length; i++) {
       const expected = data.sources[i], file = byName.get(`${expected.role || ''}:${expected.name}`);
-      if (!file) fail(`Missing original file: ${expected.name}. Select all BIN files from the supported Japanese disc.`);
-      if (file.size !== expected.bytes) fail(`Wrong size: ${expected.name}. Use the original, unmodified Japanese dump.`);
+      if (!file) fail(`Missing original file from ${disc(expected.role)[0]}: ${expected.name}. ${disc(expected.role)[1]}`);
+      if (file.size !== expected.bytes) fail(`Wrong size: ${expected.name} from ${disc(expected.role)[0]}. ${disc(expected.role)[1]}`);
       progress(`Verifying original file ${i + 1} of ${data.sources.length}.`, 5 + 55 * i / data.sources.length);
-      if (await sha256(file) !== expected.sha256) fail(`Checksum failed: ${expected.name}. No output was prepared.`);
+      if (await sha256(file) !== expected.sha256) fail(`Checksum failed: ${expected.name} from ${disc(expected.role)[0]}. ${disc(expected.role)[1]} No output was prepared.`);
       sources.push(file);
     }
     const derived = new Map();
@@ -109,6 +137,6 @@ const SonicPatch = (() => {
     progress('Verified. Save both game files in the same SAROO folder.', 100);
     return {bin, cue: new Blob([data.target.cue], {type: 'text/plain'}), receipt};
   }
-  return {inspect, apply, sha256};
+  return {inspect, apply, sha256, splitUS};
 })();
 if (typeof module !== 'undefined') module.exports = SonicPatch;
