@@ -19,7 +19,7 @@ A native Sega Saturn port of Sonic CD (1993). The game logic is reimplemented in
 
 ## Status
 
-V0.082 is the current build (dated 2026-11-17). The full test run finished on 2026-11-19 and everything passed: 215 of 215 checks, 347 of 347 test windows, and all 70 art comparisons. I also ran it on my Saturn with a SAROO on 2026-11-21, and it works. The tests don't cover every path through the game. The tested source is `49bfd89643b2a77962964a988e87b75a46e9b7a6`. Image hashes and evidence are in the [V0.082 release notes](RELEASE-NOTES-V0.082.md). Older versions are in [CHANGELOG.md](CHANGELOG.md).
+V0.082 is the current version. The whole game is in, and it passes all of its automated tests in an emulator. It also runs on a real Saturn: I played it on mine from a SAROO on 2026-11-21. The tests can't cover every route through the game, so expect some bugs. Test numbers and file hashes are in the [V0.082 release notes](RELEASE-NOTES-V0.082.md). Older versions are in the [changelog](CHANGELOG.md).
 
 The [Easy Patcher](https://t3chnaztea.github.io/sonic-cd-saturn/web/patcher/) builds V0.082 in desktop Chrome from your own Japanese disc, U.S. disc and U.S. Sega CD BIOS. Nothing is uploaded. It checks your files first, and you only get a download if the result matches the build I tested, byte for byte. A run takes about 45 minutes and about 4 GiB of memory. Each disc has to be in the dump layout the page asks for. You can also build from source (see [Building](#building)).
 
