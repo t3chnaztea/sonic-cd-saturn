@@ -1,0 +1,36 @@
+{
+  "libyaul": {
+    "url": "https://github.com/yaul-org/libyaul.git",
+    "commit": "6012f79f237773378c8014e70d8998ad95a38d98"
+  },
+  "examples": {
+    "url": "https://github.com/yaul-org/libyaul-examples.git",
+    "commit": "66b648eb059bb8bb7392eac70821605a68205b85"
+  },
+  "soniccd": {
+    "url": "https://github.com/nfroggy/soniccddecompilation.git",
+    "commit": "46c02d374d56cfad68a0c2f7a5cd8ae253ac5abe"
+  },
+  "scddisasm": {
+    "url": "https://github.com/sonicretro/scddisasm.git",
+    "commit": "f8cf3f0af7bf419d18182ba98554f09307ad3cc6"
+  },
+  "beetle-saturn": {
+    "url": "https://github.com/libretro/beetle-saturn-libretro.git",
+    "commit": "1382b85dcad2e98ef9a67426a775ba548eaf0c68"
+  },
+  "archives": [
+    {
+      "file": "binutils-2.44.tar.xz",
+      "sha256": "ce2017e059d63e67ddb9240e9d4ec49c2893605035cd60e92ad53177f4377237"
+    },
+    {
+      "file": "gcc-13.4.0.tar.xz",
+      "sha256": "9c4ce6dbb040568fdc545588ac03c5cbc95a8dbf0c7aa490170843afb59ca8f5"
+    }
+  ],
+  "genesis-plus-gx": {
+    "url": "https://github.com/libretro/Genesis-Plus-GX.git",
+    "commit": "c2838c7dc4236fc2fe94e5dbd08b41486067918e"
+  }
+}

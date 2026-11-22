@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+"""Compile checked Collision Chaos scroll IR into the native table include."""
+from pathlib import Path
+import hashlib
+import json
+import sys
+
+ROOT=Path(__file__).resolve().parents[1]
+R3=ROOT/'tools/scroll/R3'
+sys.path.insert(0,str(R3))
+import irx  # noqa: E402
+
+
+def act_documents(act=2,letters='ABCD'):
+    """Cache symbolic reconstruction by all interpreter/source input bytes.
+
+    Window and retail CPU parity are separate gates in test_cc_scroll.py.
+    The read-only research directory is never modified.
+    """
+    import extract
+    paths=list((ROOT/'tools/scroll').glob('*.py'))+list(R3.glob('*.py'))
+    paths += [extract.RETAIL/'R3'/f'SCR3{act}{e}.C' for e in letters]
+    paths += [extract.RETAIL/n for n in ('TYPES.H','EQU.H','TBL0.C')]
+    inputs={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
+    out=ROOT/f'build/cc{act}/scroll-ir';out.mkdir(parents=True,exist_ok=True)
+    report_path=out/'report.json'
+    prior=json.loads(report_path.read_text()) if report_path.exists() else {}
+    if prior.get('inputs')==inputs and prior.get('status')=='passed':
+        if all(hashlib.sha256((out/n).read_bytes()).hexdigest()==h for n,h in prior['outputs'].items()):
+            return [irx.validate(json.loads((out/f'R3{act}{e}.json').read_text()),out/f'R3{act}{e}.json') for e in letters]
+    report=dict(status='pending',inputs=inputs,outputs={})
+    report_path.write_text(json.dumps(report,indent=2)+'\n')
+    documents=[]
+    try:
+        for e in letters:
+            doc=extract.derive(extract.RETAIL/'R3'/f'SCR3{act}{e}.C',scan=False)
+            path=out/f'R3{act}{e}.json';path.write_text(json.dumps(doc,indent=1)+'\n')
+            documents.append(irx.validate(doc,path))
+            report['outputs'][path.name]=hashlib.sha256(path.read_bytes()).hexdigest()
+        report['status']='passed'
+    except BaseException as error:
+        report.update(status='interrupted' if isinstance(error,KeyboardInterrupt) else 'failed',error=str(error))
+        raise
+    finally:
+        report_path.write_text(json.dumps(report,indent=2)+'\n')
+    return documents
+
+
+def main():
+    paths=[R3/'ir'/f'R31{era}.json' for era in 'ABCD']
+    documents=[irx.validate(__import__('json').loads(path.read_text()),path) for path in paths]
+    documents += act_documents(2)+act_documents(3,'CD')
+    temporary=ROOT/'build/background-r3-tables.c';temporary.parent.mkdir(parents=True,exist_ok=True)
+    irx.emit_c(documents,temporary)
+    text=temporary.read_text().replace('#include "evaluate_r3.h"\n','')
+    for old,new in [('scroll_table','r3_table'),('scroll_layer','r3_layer'),('scroll_run','r3_run'),
+                    ('scroll_band','r3_band'),('scroll_ir','r3_ir'),('SCROLL_','R3_')]:
+        text=text.replace(old,new)
+    text=text[:text.index('const r3_ir *const r3_ir_list[')]
+    # Ids are era|(act-1)<<2; Act 3 has only Good and Bad Future programs.
+    ids=[f'&r3_ir_scr3{a}{e}' for a in (1,2) for e in 'abcd']+['0','0','&r3_ir_scr33c','&r3_ir_scr33d']
+    text+='static const r3_ir *const r3_programs[12] = {'+','.join(ids)+'};\n'
+    # z3?x_wrttbl: the layer that draws each 16-pixel BG row into the plane
+    # (0 = x 0 across all 512 pixels, 2/4/6 = scrb/scrc/scrz). Retail plane B
+    # dumps (tools/capture_cc_plane.py) confirm the rows it selects.
+    import re
+    rows=[]
+    for name in ['31a','31b','31c','31d','32a','32b','32c','32d',None,None,'33c','33d']:
+        if name is None:rows.append('{0}');continue
+        src=(ROOT/'build/audit/source/src/R3'/f'SCR{name.upper()}.C').read_text()
+        m=re.search(r'z'+name+r'wrttbl\[49\] = \{(.*?)\};',re.sub(r'/\*.*?\*/','',src),re.S)
+        values=[int(v) for v in m[1].replace('\n',' ').split(',')];assert len(values)==49 and set(values)<={0,2,4,6},name
+        rows.append('{'+','.join(map(str,values))+'}')
+    text+='static const uint8_t r3_wrttbl[12][49] = {'+','.join(rows)+'};\n'
+    target=ROOT/'src/background_r3_tables.inc'
+    changed=not target.exists() or target.read_text()!=text
+    target.write_text(text)
+    print(f'Collision Chaos scroll tables: 10 reconstructed programs ({"updated" if changed else "unchanged"}); parity is a separate gate')
+    # Palmtree Panic Acts 2/3 (bg ids 4-7, 10-11): z12x_wrttbl marks the BG
+    # rows the original draws at x 0 across all 512 pixels (id 0). Act 1
+    # static rows come from the scddisasm BGSECT tables (prepare_background).
+    import re
+    lines=[]
+    for name in ['12a','12b','12c','12d',None,None,'13c','13d']:
+        if name is None:lines.append('{0}');continue
+        src=re.sub(r'/\*.*?\*/','',(ROOT/'build/audit/source/src/R1'/f'SCR{name.upper()}.C').read_text())
+        m=re.search(r'z1[23][a-d]wrttbl\[33\] = \{(.*?)\};',src,re.S)
+        values=[int(v) for v in m[1].split(',')];assert len(values)==33 and set(values)<={0,2,4,6},name
+        lines.append('{'+','.join(map(str,values))+'}')
+    ppz='/* Generated by tools/background_r3_assets.py from SCR12A-D/SCR13C-D.C z1?x_wrttbl. */\n'
+    ppz+='static const uint8_t ppz_wrttbl[8][33] = {'+','.join(lines)+'};\n'
+    target=ROOT/'assets/generated/ppz_rows.inc'
+    if not target.exists() or target.read_text()!=ppz:target.write_text(ppz)
+    # Act 2 drum tile cycles share this build step and background.c.
+    sys.path.insert(0,str(ROOT/'tools'))
+    import cc2_terrain_assets
+    cc2_terrain_assets.main()
+
+
+if __name__=='__main__':main()

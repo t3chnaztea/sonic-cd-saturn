@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "sha256": "be99d13b435241f0b1ffd3affb32137bdc03d19d874107088cf2a77a4f901b5a",
+  "literal_bytes": 624378,
+  "literal_bytes_by_class": {
+    "program": 606617,
+    "ISO-structure": 11408,
+    "project-CD-text": 18,
+    "PoneSound-program": 6335
+  },
+  "policy": "recipe-no-initialized-data-v5",
+  "audit_sources": {
+    "audit-recipe.py": "a45e488f192a788f5b8248545b47fc274997919f3eaa759e98bc963a4163a7e8",
+    "recipe_elf.py": "91724471421ddaba0f1a49798b8c535f7e26378fe9570bc3eafc118ce64a540e",
+    "recipe_provenance.py": "e0502f09ca961185fe472109c7395c025015c9a28ef02073ea87b6e7473b6d48",
+    "recipe_types.py": "8d4962ea99a9ef06d8c5cdc742e12a54d2724923bc8a773adc159c02c0931eec",
+    "recipe_values.py": "b60502cd46144b29a937dad1e36e0a7cf48583cc78b931e82e7d3be90487c316",
+    "recipe_tables.py": "a47f4d86f6e48628e5e06e9bee98c72f802aeacfee4f7b07f7c4f3318fdcb0ff",
+    "recipe_source.py": "db55140058393123716519fb33e1b08a1b025a3f133be883d4c8373d0b0f0920",
+    "recipe_dwarf.py": "6d5939548ee959c1cd6363ae2222e38e3d0c17b02212f1444f53cb4e93b00178",
+    "recipe_iso.py": "7459434119f4b1b698ffed667f6c1df694a48694853a3775acee11d466477bcf",
+    "recipe_literal_scan.c": "5ab57a9e718f31fc4d9ed5d1d5428b2a9306d89c1de417e06e8406fe18dbcbbf"
+  },
+  "live_reference_fetch_tested": false,
+  "hardware_tested": false
+}

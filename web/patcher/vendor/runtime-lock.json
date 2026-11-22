@@ -1,0 +1,193 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "path": "web/patcher/vendor/pyodide/pyodide.js",
+      "bytes": 14913,
+      "sha256": "b4cb23a53aba19c221659b9fb40a2f18281d685691dc06647fb0afd0681baf98",
+      "license": "MPL-2.0",
+      "origin": "Pyodide 0.27.7",
+      "upstream_sha256": "b4cb23a53aba19c221659b9fb40a2f18281d685691dc06647fb0afd0681baf98",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/pyodide/pyodide.mjs",
+      "bytes": 13931,
+      "sha256": "04c052c815abb0bf2981fa38c2dfa58e3120ee5288c956df2b2a15e301782c5f",
+      "license": "MPL-2.0",
+      "origin": "Pyodide 0.27.7",
+      "upstream_sha256": "04c052c815abb0bf2981fa38c2dfa58e3120ee5288c956df2b2a15e301782c5f",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/pyodide/pyodide.asm.js",
+      "bytes": 1255688,
+      "sha256": "6b4c90de5b7172873f04f21884d0e9d2274e305fe32116558fe3e4fbe3618d51",
+      "license": "MPL-2.0",
+      "origin": "Pyodide 0.27.7",
+      "upstream_sha256": "6b4c90de5b7172873f04f21884d0e9d2274e305fe32116558fe3e4fbe3618d51",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/pyodide/pyodide.asm.wasm",
+      "bytes": 10105545,
+      "sha256": "b0ef0b2f693c86eb011e92266825fd475e972f57435780cd31d6537ffd1da94b",
+      "license": "MPL-2.0",
+      "origin": "Pyodide 0.27.7",
+      "upstream_sha256": "a50dd1843f805a0b7c45b61037ee0d7b26dfe85efe0e18ef95a34ad24e401f5f",
+      "redacted_build_path_prefixes": 2
+    },
+    {
+      "path": "web/patcher/vendor/pyodide/python_stdlib.zip",
+      "bytes": 2360737,
+      "sha256": "16611534726e5d8ac2bd8f926410b2dcb8d6f49aa24913463533b457a2115c16",
+      "license": "PSF-2.0",
+      "origin": "Pyodide 0.27.7",
+      "upstream_sha256": "16611534726e5d8ac2bd8f926410b2dcb8d6f49aa24913463533b457a2115c16",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/pyodide/pyodide-lock.json",
+      "bytes": 112205,
+      "sha256": "9c45b916001a750f4102fc287494f3eab215909c7535c626a20db80fd6333e2c",
+      "license": "MPL-2.0",
+      "origin": "Pyodide 0.27.7",
+      "upstream_sha256": "9c45b916001a750f4102fc287494f3eab215909c7535c626a20db80fd6333e2c",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/pyodide/pillow-10.2.0-cp312-cp312-pyodide_2024_0_wasm32.whl",
+      "bytes": 987254,
+      "sha256": "43eab147a9355385a99eeac18fb577d4af2fe4bd0bbd23d3ba3ddb92e72c2815",
+      "license": "HPND",
+      "origin": "Pyodide 0.27.7",
+      "upstream_sha256": "43eab147a9355385a99eeac18fb577d4af2fe4bd0bbd23d3ba3ddb92e72c2815",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/ffmpeg/ffmpeg-core.js",
+      "bytes": 112059,
+      "sha256": "b266ab5b952555881dd6310663986994a182acb2b7ff25cf10a25f7a37ac2b21",
+      "license": "GPL-2.0-or-later",
+      "origin": "@ffmpeg/core 0.12.10",
+      "upstream_sha256": "b266ab5b952555881dd6310663986994a182acb2b7ff25cf10a25f7a37ac2b21",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/ffmpeg/ffmpeg-core.wasm",
+      "bytes": 32232419,
+      "sha256": "9f57947a5bd530d8f00c5b3f2cb2a3492faa7e5d823315342d6a8656d0a6b7b7",
+      "license": "GPL-2.0-or-later",
+      "origin": "@ffmpeg/core 0.12.10",
+      "upstream_sha256": "9f57947a5bd530d8f00c5b3f2cb2a3492faa7e5d823315342d6a8656d0a6b7b7",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/native/genesis.js",
+      "bytes": 64908,
+      "sha256": "db6557077751dfa8218d2d9d664112c18a38b3326d67d8953930d8ea4ba17d9c",
+      "license": "LicenseRef-Genesis-Plus-GX",
+      "origin": "Emscripten 4.0.10",
+      "upstream_sha256": "db6557077751dfa8218d2d9d664112c18a38b3326d67d8953930d8ea4ba17d9c",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/native/genesis.wasm",
+      "bytes": 2783380,
+      "sha256": "1aec2d66b44d07928b7794f44f9818de4da60eb319b0bf054764d875e2d33491",
+      "license": "LicenseRef-Genesis-Plus-GX",
+      "origin": "Emscripten 4.0.10",
+      "upstream_sha256": "1aec2d66b44d07928b7794f44f9818de4da60eb319b0bf054764d875e2d33491",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/native/sonic.js",
+      "bytes": 59279,
+      "sha256": "2cc7a40974b8dc6314eeb7382c4ef62cc9b8b6cf180e4ffbe0113795f04eeadd",
+      "license": "MIT",
+      "origin": "Emscripten 4.0.10",
+      "upstream_sha256": "2cc7a40974b8dc6314eeb7382c4ef62cc9b8b6cf180e4ffbe0113795f04eeadd",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/native/sonic.wasm",
+      "bytes": 13183,
+      "sha256": "ee4c7a8d3d07de2cd7e8f94a91b7f2aab7571ab916c27e2d29a6878954c924e7",
+      "license": "MIT",
+      "origin": "Emscripten 4.0.10",
+      "upstream_sha256": "ee4c7a8d3d07de2cd7e8f94a91b7f2aab7571ab916c27e2d29a6878954c924e7",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/native/fmv.js",
+      "bytes": 59297,
+      "sha256": "a8fc0d03c045d6331674a894f6087a70108521744728a203ac0c745b88eb9d94",
+      "license": "MIT",
+      "origin": "Emscripten 4.0.10",
+      "upstream_sha256": "a8fc0d03c045d6331674a894f6087a70108521744728a203ac0c745b88eb9d94",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/native/fmv.wasm",
+      "bytes": 22153,
+      "sha256": "fe8cf151159cf300595aef4b3b7a7a24b34165651a63a3be679cccef240b6f79",
+      "license": "MIT",
+      "origin": "Emscripten 4.0.10",
+      "upstream_sha256": "fe8cf151159cf300595aef4b3b7a7a24b34165651a63a3be679cccef240b6f79",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/native/iso.js",
+      "bytes": 59269,
+      "sha256": "2af50373349680dc1d4c08dbad0dac3e45dea8874854be532c5cf442b1e0a32c",
+      "license": "GPL-2.0-or-later",
+      "origin": "Emscripten 4.0.10",
+      "upstream_sha256": "2af50373349680dc1d4c08dbad0dac3e45dea8874854be532c5cf442b1e0a32c",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/native/iso.wasm",
+      "bytes": 15382,
+      "sha256": "c76626db899af3674f36c208a30c38642fca86b2d4362a68b7702097db679387",
+      "license": "GPL-2.0-or-later",
+      "origin": "Emscripten 4.0.10",
+      "upstream_sha256": "c76626db899af3674f36c208a30c38642fca86b2d4362a68b7702097db679387",
+      "redacted_build_path_prefixes": 0
+    },
+    {
+      "path": "web/patcher/vendor/licenses/Beetle-Saturn.txt",
+      "bytes": 18010,
+      "sha256": "a6996dcf0c334281f734560926e079b2dbbd5b78e81c0ca00a413ec01e1cd2fb",
+      "license": "upstream-notice",
+      "origin": "local pinned source"
+    },
+    {
+      "path": "web/patcher/vendor/licenses/Genesis-Plus-GX.txt",
+      "bytes": 63857,
+      "sha256": "642c163624269243d1f6b29d759d4e3a2d161bdc272c90d82ecbeec82ae26755",
+      "license": "upstream-notice",
+      "origin": "local pinned source"
+    },
+    {
+      "path": "web/patcher/vendor/licenses/Pillow.txt",
+      "bytes": 1446,
+      "sha256": "e706384c6f299d1b6fa782ae657740b372b4bd7938a1a318bf94ac249114758a",
+      "license": "upstream-notice",
+      "origin": "local pinned source"
+    }
+  ],
+  "archives": [
+    {
+      "name": "pyodide-0.27.7",
+      "sha256": "08dd7f4fc4710110ea0fe2a7daa95bdf76001e596545267bc16dd760436ea755"
+    },
+    {
+      "name": "ffmpeg-core-0.12.10",
+      "sha256": "d00089ce82e1bdf637ddbe42e0c3d41a1ba8cf4c9e825e7fa4d0bb970e844bd4"
+    },
+    {
+      "name": "emsdk-4.0.10",
+      "sha256": "2497b55ddbba9bf9be2d18cfca3e973d40a0cfaa8d18f6caacb882a65b2faf1c"
+    }
+  ]
+}
