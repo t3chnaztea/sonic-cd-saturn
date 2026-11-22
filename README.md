@@ -19,11 +19,11 @@ A native Sega Saturn port of Sonic CD (1993). The game logic is reimplemented in
 
 ## Status
 
-The current candidate is V0.082 (build label 2026-11-17). Its software regression finished on 2026-11-19: 215/215 checks, 347/347 matrix windows, and 70 art cases with zero misses. The tested game source is `49bfd89643b2a77962964a988e87b75a46e9b7a6`. I tested it on my Saturn with a SAROO on 2026-11-21, and it works. These counts do not establish a percentage of all paths through the game. See [V0.082 release notes](RELEASE-NOTES-V0.082.md) for the exact image hashes and evidence. Version history is in [CHANGELOG.md](CHANGELOG.md).
+V0.082 is the current build (dated 2026-11-17). The full test run finished on 2026-11-19 and everything passed: 215 of 215 checks, 347 of 347 test windows, and all 70 art comparisons. I also ran it on my Saturn with a SAROO on 2026-11-21, and it works. The tests don't cover every path through the game. The tested source is `49bfd89643b2a77962964a988e87b75a46e9b7a6`. Image hashes and evidence are in the [V0.082 release notes](RELEASE-NOTES-V0.082.md). Older versions are in [CHANGELOG.md](CHANGELOG.md).
 
-The [Easy Patcher](https://t3chnaztea.github.io/sonic-cd-saturn/web/patcher/) builds the V0.082 image in desktop Chrome from your own Japanese disc, U.S. disc and U.S. Sega CD BIOS. Nothing is uploaded. The page checks every input, and it offers the BIN and CUE only when both match the accepted V0.082 hashes. A run takes about 45 minutes and needs about 4 GiB of memory. Each disc must match the dump layout the page names. You can also build from source (see [Building](#building)).
+The [Easy Patcher](https://t3chnaztea.github.io/sonic-cd-saturn/web/patcher/) builds V0.082 in desktop Chrome from your own Japanese disc, U.S. disc and U.S. Sega CD BIOS. Nothing is uploaded. It checks your files first, and you only get a download if the result matches the build I tested, byte for byte. A run takes about 45 minutes and about 4 GiB of memory. Each disc has to be in the dump layout the page asks for. You can also build from source (see [Building](#building)).
 
-[`web/patcher`](web/patcher/README.md) holds the patcher's code and pinned browser runtimes. The patcher's recipe holds compiled program code, the MIT sound firmware and the disc's file structure. It holds no art, audio, level data or disc bytes: the browser rebuilds every data table from your files and from pinned public sources. No recipe, BIOS or disc image is committed here. [Verification record](web/patcher/IMPLEMENTATION.md).
+The patcher's code is in [`web/patcher`](web/patcher/README.md). The recipe it downloads contains compiled program code, the MIT-licensed sound driver and the disc's file layout. It has no art, audio, level data or disc bytes. Your browser rebuilds all of that from your files and from pinned public sources. No recipe, BIOS or disc image is in this repo. Test results are in the [verification record](web/patcher/IMPLEMENTATION.md).
 
 What works in the emulator:
 
@@ -33,13 +33,13 @@ What works in the emulator:
 - Title screen, New Game, Continue, RAM Data and Time Attack.
 - D.A. Garden, with its track list and looping music.
 - Visual Mode: the opening, both endings and the pencil-test movie.
-- The staff roll, the end screens, the "Thank You" screen and the Special Stage 8 credits. Each is compared with the original, picture by picture ([credits audit](docs/CREDITS-AUDIT.md)).
-- Backup-RAM saves for progress, Time Stones and future flags. RESET is held off while a save is written, the two progress slots and the Time Attack record files are written in turn so a power cut keeps the previous save, and a slot that cannot be read is never overwritten (V0.080).
+- The staff roll, the end screens, the "Thank You" screen and the Special Stage 8 credits. Each one is checked against the original, picture by picture ([credits audit](docs/CREDITS-AUDIT.md)).
+- Backup RAM saves for progress, Time Stones and future flags. Saves are written so that a reset or power cut can't destroy the previous save, and a slot that can't be read is never overwritten (V0.080).
 - The five secret sound-test pictures, from your disc (V0.080).
-- The Japanese soundtrack, copied from your disc without resampling.
+- The Japanese soundtrack, copied from your disc as is.
 - An optional CD++-style preset (see below). Classic is the default.
 
-V0.082 ran on my Saturn with a SAROO on 2026-11-21, and it works. That report is short. I did not log which zones, acts, eras, special stages or modes I played, so no single path is confirmed on hardware by name. The console-tested build before it was V0.065 (2026-09-26), which covered Palmtree Panic, Collision Chaos and Tidal Tempest.
+On the console I didn't write down which zones, acts or modes I played, so no specific path is confirmed on hardware. The last console-tested build before V0.082 was V0.065 (2026-09-26): Palmtree Panic, Collision Chaos and Tidal Tempest.
 
 The zone table below is from the V0.080 full QA run.
 
@@ -53,36 +53,36 @@ The zone table below is from the V0.080 full QA run.
 | Stardust Speedway | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | V0.082 not itemized |
 | Metallic Madness | 10/10 | 10/10 | 12/12 | 10/10 | 3/3 | V0.082 not itemized |
 
-Each zone has 10 act/era variants: Acts 1 and 2 in four eras, Act 3 in both futures. "Retail match" replays a recorded controller route on the original Sega CD program and on the port, and compares nine state fields. "Campaign" plays from New Game through to the Good Future. All results are from the V0.080 BIN, SHA-256 `7bbce369…5338`. Evidence is in [RELEASE-NOTES-V0.080.md](RELEASE-NOTES-V0.080.md) and [QA-PLAN.md](QA-PLAN.md).
+Each zone has 10 act/era variants: Acts 1 and 2 in four eras, plus Act 3 in both futures. "Retail match" plays the same recorded inputs on the original Sega CD game and on the port, then compares nine state values. "Campaign" plays from New Game to the Good Future. All results are from the V0.080 BIN (SHA-256 `7bbce369…5338`). Details are in [RELEASE-NOTES-V0.080.md](RELEASE-NOTES-V0.080.md) and [QA-PLAN.md](QA-PLAN.md).
 
 ## CD++ preset
 
-An optional preset adds five moves from the 2009 Sonic CD++ hack: the Sonic 2 spin dash, no air speed cap, an air roll, a homing attack and the mini Sonic spin dash. Switch it in RAM Data (MODE CLASSIC / CD++). The setting is saved in its own backup file, and Time Attack keeps separate CD++ records. The moves are written from scratch from public references. No CD++ code, patch data or sprites are used. Some values are this port's own choices, so it does not claim to match the hack frame for frame. Details are in [docs/CDPP-PRESET-SPEC.md](docs/CDPP-PRESET-SPEC.md).
+An optional preset adds five moves from the 2009 Sonic CD++ hack: the Sonic 2 spin dash, no air speed cap, an air roll, a homing attack and the mini Sonic spin dash. Turn it on in RAM Data (MODE CLASSIC / CD++). The setting has its own save file, and Time Attack keeps separate CD++ records. I wrote the moves from scratch using public references. No CD++ code, patch data or sprites are used. Some values are my own choices, so it won't match the hack frame for frame. Details are in [docs/CDPP-PRESET-SPEC.md](docs/CDPP-PRESET-SPEC.md).
 
 ## How this was checked
 
-- Game logic follows the [Sonic CD C decompilation](https://github.com/nfroggy/soniccddecompilation) and is checked against [scddisasm](https://github.com/sonicretro/scddisasm), the disassembly of the Sega CD original. Where they disagree, the original wins.
-- Retail match: the original Sega CD program runs in an offline emulator core with a recorded controller route. The Saturn build replays the same route in Beetle Saturn, and the two runs must agree on nine state fields. Each zone has 10 of these routes.
-- Many objects, bosses, menus and movies are also compared picture by picture or state by state with the original. Examples: the credits audit, D.A. Garden, Visual Mode and the special stages.
-- Player physics has its own trace test (`tools/test-player.sh`). The Classic traces must stay identical when the CD++ code is built in.
-- The V0.080 full QA run has 201 steps and takes about 3.5 hours. All 201 passed, including 42 special-stage and front-end cases.
-- None of this replaces a console test. Only a test on my own Saturn counts as "works on hardware". The last one was V0.082 on 2026-11-21, a short report with no per-path log.
+- The game logic follows the [Sonic CD C decompilation](https://github.com/nfroggy/soniccddecompilation) and is checked against [scddisasm](https://github.com/sonicretro/scddisasm), the disassembly of the Sega CD original. When they disagree, the original wins.
+- Retail match: I record a controller run on the original Sega CD game in an emulator, then play the same inputs on the Saturn build in Beetle Saturn. Nine state values have to match. Each zone has 10 of these runs.
+- Many objects, bosses, menus and movies are also compared with the original, picture by picture or state by state. Examples: the credits, D.A. Garden, Visual Mode and the special stages.
+- Player physics has its own test (`tools/test-player.sh`). Classic physics must stay identical when the CD++ code is built in.
+- The V0.080 full test run has 201 steps and takes about 3.5 hours. All 201 passed, including 42 special-stage and menu cases.
+- None of this replaces a console test. Only a run on my own Saturn counts as "works on hardware".
 
 ## Related project
 
-orca_earth_md is making a separate Sonic CD port for the Saturn ([r/SegaSaturn post](https://www.reddit.com/r/SegaSaturn/comments/1wlryos/)). It was shown running on real hardware in September 2026. The two projects are independent. This one is a C reimplementation of the game logic that is tested against the original Sega CD program, and it is built only from your own discs.
+orca_earth_md is making a separate Sonic CD port for the Saturn ([r/SegaSaturn post](https://www.reddit.com/r/SegaSaturn/comments/1wlryos/)). It was shown on real hardware in September 2026. The two projects are not connected. This one rewrites the game logic in C, tests it against the original Sega CD game, and is built only from your own discs.
 
 ## Known issues
 
-- Lost rings can bounce one update apart from the original after the Sega CD lags. The port does not copy Sega CD slowdown ([lag note](docs/LAG-MODEL-NOTE.md)).
-- Quartz Quadrant Act 1 Present: an era-sign timing difference reported in V0.078 is not reproduced on the current routes. It stays open until a route shows it or it is ruled out.
-- Tidal Tempest Act 3 has no water-entry splash (it does not fit the sprite memory).
-- Collision Chaos checks object touches in four passes where the original uses one loop that stops at the first overlap.
-- Stardust Speedway special-stage jump headroom still needs a console check.
+- Lost rings can bounce one update off from the original after a moment where the Sega CD would lag. The port doesn't copy Sega CD slowdown ([lag note](docs/LAG-MODEL-NOTE.md)).
+- Quartz Quadrant Act 1 Present: a timing difference on the era sign was reported in V0.078. I can't reproduce it on the current test runs. It stays open until I can reproduce it or rule it out.
+- Tidal Tempest Act 3 has no splash when you enter the water. It doesn't fit in sprite memory.
+- Collision Chaos checks object touches in four passes. The original uses one loop that stops at the first hit.
+- Jump headroom in the Stardust Speedway special stage still needs a console check.
 
 ## Screenshots
 
-V0.078 in Beetle Saturn, 2x nearest-neighbor. Console photos will follow the SAROO test.
+V0.078 in Beetle Saturn, scaled 2x. Console photos are still to come.
 
 | | |
 | --- | --- |
@@ -100,9 +100,9 @@ V0.078 in Beetle Saturn, 2x nearest-neighbor. Console photos will follow the SAR
 | Yaba Sanshiro, Kronos, SSF | Untested. |
 | Burned CD-R, other ODEs | Untested. |
 
-The disc header lists every Saturn region (`IP_AREAS JTUBKAEL`), but only my console has run it. I have not yet recorded its model, region, video mode or SAROO firmware. PAL timing is untested.
+The disc header lists every Saturn region (`IP_AREAS JTUBKAEL`), but it has only run on my console. I haven't written down its model, region, video mode or SAROO firmware yet. PAL timing is untested.
 
-The build produces one BIN/CUE with 42 tracks (one data track plus CD audio). Load the CUE. The ISO under `dist/iso/` has no music.
+The build makes one BIN/CUE with 42 tracks: one data track plus CD audio. Load the CUE. The ISO in `dist/iso/` has no music.
 
 ## Requirements
 
@@ -113,17 +113,17 @@ The build produces one BIN/CUE with 42 tracks (one data track plus CD audio). Lo
 | U.S. Sega CD BIOS | `assets/private/bios_CD_U.bin` | Offline render of the Past music |
 | U.S./EU Saturn BIOS | `assets/private/mpr-17933.bin` | Emulator tests only |
 
-Two discs are needed because the port uses the Japanese soundtrack, while the game data and sound driver come from the U.S. disc. The tools are verified against one U.S. disc image; other U.S. revisions are untested. The Japanese disc is checked by its header and track layout. The build stops if a source is missing or does not match.
+You need two discs because the port uses the Japanese soundtrack, and the game data and sound driver come from the U.S. disc. The tools are tested against one U.S. disc image. Other U.S. revisions are untested. The Japanese disc is checked by its header and track layout. The build stops if a file is missing or doesn't match.
 
-The build also downloads [scddisasm](https://github.com/sonicretro/scddisasm), the Sonic Retro disassembly, at a pinned commit. Stage art, layouts, palettes and mappings currently come from it. That repository contains SEGA-owned data and is not redistributed here. A later version will read these assets from your disc instead. See [THIRD-PARTY.md](THIRD-PARTY.md).
+The build also downloads [scddisasm](https://github.com/sonicretro/scddisasm), the Sonic Retro disassembly, at a pinned commit. Stage art, layouts, palettes and mappings come from it for now. That repo contains SEGA-owned data, so nothing from it is redistributed here. A later version will read these from your disc instead. See [THIRD-PARTY.md](THIRD-PARTY.md).
 
 Do not post disc images, BIOS files, built images or links to them in issues or pull requests. They will be deleted.
 
 ## Building
 
-Only tested on Apple Silicon macOS. Linux and Intel Macs have not been tried.
+Tested only on Apple Silicon Macs. I haven't tried Linux or Intel Macs.
 
-You need the Xcode command-line tools, Homebrew, Python 3.12+, Git, `ffmpeg` and `chdman` (`brew install ffmpeg rom-tools`), plus about 6 GB of disk space. The bootstrap script runs `brew install make xorriso gmp mpfr libmpc isl`, then builds a pinned toolchain (binutils 2.44, GCC 13.4.0 sh-elf, Yaul 0.3.1) inside the repo. It applies the fixes in `tools/patches/` to the pinned Yaul. Source revisions are pinned in [sources.lock.json](sources.lock.json).
+You need the Xcode command-line tools, Homebrew, Python 3.12+, Git, `ffmpeg` and `chdman` (`brew install ffmpeg rom-tools`), and about 6 GB of disk space. The bootstrap script runs `brew install make xorriso gmp mpfr libmpc isl`, then builds a pinned toolchain (binutils 2.44, GCC 13.4.0 sh-elf, Yaul 0.3.1) inside the repo, with the fixes in `tools/patches/` applied to Yaul. Exact source versions are in [sources.lock.json](sources.lock.json).
 
 ```sh
 git clone https://github.com/t3chnaztea/sonic-cd-saturn.git
@@ -143,7 +143,7 @@ bash tools/bootstrap.sh --emulator
 bash tools/build.sh
 ```
 
-This writes `dist/sonic-cd-saturn-prototype.cue` and its `.bin`. On an M-series Mac the toolchain build takes about 10 minutes and the first `tools/build.sh` about 20 minutes. The same source and discs give the same `.bin` from any checkout directory: ISO dates come from `IP_RELEASE_DATE` in the `Makefile` (or `SOURCE_DATE_EPOCH`), and no build path is compiled in. Everything stays in `.toolchain/`, `.deps/`, `build/` and `dist/`, all ignored by Git. Japanese disc setup is covered in [JAPANESE-MUSIC.md](JAPANESE-MUSIC.md).
+This writes `dist/sonic-cd-saturn-prototype.cue` and its `.bin`. On an M-series Mac the toolchain takes about 10 minutes to build, and the first `tools/build.sh` about 20. The same source and discs always give the same `.bin`, whatever folder you build in: ISO dates come from `IP_RELEASE_DATE` in the `Makefile` (or `SOURCE_DATE_EPOCH`), and no build path is compiled in. Everything stays in `.toolchain/`, `.deps/`, `build/` and `dist/`, which Git ignores. Japanese disc setup is in [JAPANESE-MUSIC.md](JAPANESE-MUSIC.md).
 
 To play on a Saturn, copy the `.bin` and `.cue` into a folder on the SAROO SD card and pick the game from the SAROO menu. To play in Mednafen with your Saturn BIOS, run `bash tools/run-emulator.sh`.
 
@@ -157,15 +157,11 @@ bash tools/test-player.sh        # player physics trace comparison
 
 ## Technical notes
 
-Game logic is ported from the [Sonic CD C decompilation](https://github.com/nfroggy/soniccddecompilation) (CC0) and checked against scddisasm. Where they disagree, the Sega CD original wins.
-
-VDP1 draws sprites and VDP2 draws terrain and parallax. Stage data is loaded from disc per act. Music is streamed as CD audio from the Japanese tracks. The Past music is rendered offline from the original Z80/PCM driver. Sound effects come from the original sound bank and play on the SCSP.
-
-For testing, the original Sega CD program runs in an offline emulator core with recorded controller input, and the Saturn build replays the same input in Beetle Saturn. A test passes only when state and pixels match.
+Sprites are drawn by VDP1. Terrain and scrolling backgrounds are drawn by VDP2. Each act loads its own data from the disc. Music plays as CD audio from the Japanese tracks. The Past music is rendered ahead of time from the original Z80/PCM driver. Sound effects come from the original sound bank and play on the SCSP.
 
 ## Hardware reports
 
-Console results are the most useful contribution. Use the [hardware test form](https://github.com/t3chnaztea/sonic-cd-saturn/issues/new?template=hardware_report.yml) and include the BIN SHA-256, Saturn model, region, video mode, SAROO firmware and what you saw. A photo or video helps. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Console results are the most useful thing you can send. Use the [hardware test form](https://github.com/t3chnaztea/sonic-cd-saturn/issues/new?template=hardware_report.yml) and include the BIN SHA-256, Saturn model, region, video mode, SAROO firmware and what you saw. A photo or video helps. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Credits
 
@@ -182,7 +178,7 @@ Full notices are in [THIRD-PARTY.md](THIRD-PARTY.md).
 
 ## AI use
 
-This port was developed with heavy use of Claude Code (Anthropic's coding agent) under my direction. I set the goals, made the design decisions and run every console test. Each feature is checked against scddisasm with the trace and emulator tests in [QA-PLAN.md](QA-PLAN.md). Hardware results decide what counts as working.
+I built this port with heavy use of Claude Code (Anthropic's coding agent). I set the goals, made the design decisions and run every console test. Each feature is checked against scddisasm with the trace and emulator tests in [QA-PLAN.md](QA-PLAN.md). Hardware results decide what counts as working.
 
 ## Legal
 
