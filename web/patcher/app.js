@@ -30,6 +30,7 @@
     worker.onmessage = event => {
       const data = event.data;
       if (data.kind === 'progress') { message(data.message); meter.value = data.value; }
+      else if (data.kind === 'timing') console.info('[patcher-timing] ' + JSON.stringify(data.row));
       else if (data.kind === 'error') { stop(); clear(); message(data.message, true); }
       else if (data.kind === 'result') {
         const {bin, cue, receipt} = data.result;

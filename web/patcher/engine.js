@@ -34,11 +34,26 @@ const SonicPatch = (() => {
     return files.filter(f => !(f && f.file && f.role === 'us')).concat([{role: 'us', file: bin}, {role: 'us', file: cue}]);
   }
   const DISC = {jp: ['the supported Japanese disc', 'Select the CUE and all 35 BIN tracks from the supported Japanese disc.'],
-    us: ['the U.S. disc', US_HELP], bios: ['the U.S. Sega CD BIOS', 'Select bios_CD_U.bin.']};
+    us: ['the U.S. disc', US_HELP], bios: ['the U.S. Sega CD BIOS', 'Select the Sega CD Model 2 U.S. BIOS v2.00W, 131,072 bytes, any filename.']};
+  const BIOS_UNSUPPORTED = 'The Model 1 (v1.10) BIOS and other revisions are not supported.';
   const disc = r => DISC[r] || DISC.jp;
   async function sha256(blob) {
     const digest = await crypto.subtle.digest('SHA-256', await blob.arrayBuffer());
     return Array.from(new Uint8Array(digest), x => x.toString(16).padStart(2, '0')).join('');
+  }
+  const hex = digest => Array.from(new Uint8Array(digest), x => x.toString(16).padStart(2, '0')).join('');
+  // The BIOS is matched by size and SHA-256 under any filename. Some dumps
+  // store each 16-bit word with its two bytes swapped. A size match with a
+  // hash miss is swapped in memory and checked once more. Only the pinned
+  // revision passes either check.
+  async function matchBios(file, expected) {
+    if (file.size !== expected.bytes) fail(`Wrong size: the selected BIOS is not ${expected.bytes.toLocaleString('en-US')} bytes. ${DISC.bios[1]} ${BIOS_UNSUPPORTED}`);
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    if (hex(await crypto.subtle.digest('SHA-256', bytes)) !== expected.sha256) {
+      for (let i = 0; i + 1 < bytes.length; i += 2) { const x = bytes[i]; bytes[i] = bytes[i + 1]; bytes[i + 1] = x; }
+      if (hex(await crypto.subtle.digest('SHA-256', bytes)) !== expected.sha256) fail(`Checksum failed: the selected BIOS is not the Sega CD Model 2 U.S. BIOS v2.00W. ${BIOS_UNSUPPORTED} No output was prepared.`);
+    }
+    return new File([bytes], expected.name);
   }
   async function inspect(bundle, release) {
     if (!bundle || bundle.size < 12) fail('Choose a complete .scsp patch bundle.');
@@ -88,18 +103,27 @@ const SonicPatch = (() => {
   async function apply(bundle, files, release, progress = () => {}, pipeline) {
     progress('Reading the patch bundle.', 1);
     const {data, payload} = await inspect(bundle, release);
-    const byName = new Map();
+    const byName = new Map(), biosFiles = [];
     files = splitUS(Array.from(files));
     for (const selected of files) {
       const file = selected.file || selected, selectedRole = selected.file ? selected.role : undefined;
       if (!role(selectedRole)) fail('An input has an unsupported disc role.');
       const key = `${selectedRole || ''}:${file.name}`;
+      if (selectedRole === 'bios') { biosFiles.push(file); continue; }
       if (byName.has(key)) fail('Two selected files have the same name. Choose one original disc folder.');
       byName.set(key, file);
     }
     const sources = [];
     for (let i = 0; i < data.sources.length; i++) {
-      const expected = data.sources[i], file = byName.get(`${expected.role || ''}:${expected.name}`);
+      const expected = data.sources[i];
+      if (expected.role === 'bios') {
+        if (biosFiles.length > 1) fail(`Select one BIOS file only. ${DISC.bios[1]}`);
+        if (!biosFiles.length) fail(`Missing original file: ${DISC.bios[0]}. ${DISC.bios[1]}`);
+        progress(`Verifying original file ${i + 1} of ${data.sources.length}.`, 5 + 55 * i / data.sources.length);
+        sources.push(await matchBios(biosFiles[0], expected));
+        continue;
+      }
+      const file = byName.get(`${expected.role || ''}:${expected.name}`);
       if (!file) fail(`Missing original file from ${disc(expected.role)[0]}: ${expected.name}. ${disc(expected.role)[1]}`);
       if (file.size !== expected.bytes) fail(`Wrong size: ${expected.name} from ${disc(expected.role)[0]}. ${disc(expected.role)[1]}`);
       progress(`Verifying original file ${i + 1} of ${data.sources.length}.`, 5 + 55 * i / data.sources.length);
