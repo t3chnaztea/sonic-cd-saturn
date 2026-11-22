@@ -8,6 +8,7 @@ works while libyaul is built with -fdata-sections. This reads the linked
 address from the ELF with sh-elf-nm.
 """
 import subprocess, sys
+from native import IS_BROWSER, linked_symbols
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,7 +17,10 @@ NM = ROOT / '.toolchain/bin/sh-elf-nm'
 
 
 def main():
-    out = subprocess.run([str(NM), str(ELF)], capture_output=True, text=True, check=True).stdout
+    if IS_BROWSER:
+        out='\n'.join(f'{value:08x} B {name}'for name,value in linked_symbols(ROOT).items())
+    else:
+        out = subprocess.run([str(NM), str(ELF)], capture_output=True, text=True, check=True).stdout
     hits = [line.split() for line in out.splitlines() if line.split()[-1:] == ['__sector']]
     if len(hits) != 1:
         sys.exit(f'FAIL: cdfs sector buffer: {len(hits)} __sector symbols in {ELF.name}')

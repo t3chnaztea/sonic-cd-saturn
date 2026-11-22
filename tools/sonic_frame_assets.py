@@ -23,11 +23,14 @@ import ctypes as C
 import hashlib,json,struct,subprocess
 from convert_assets import ROOT,sonic_frame
 from convert_objects import pack_texture
+from native import IS_BROWSER, decode_sonic
 
 class Art(C.Structure):
     _fields_=[('part',C.c_void_p*4),('size',C.c_uint32*4)]
 
 def native_lib(out):
+    if IS_BROWSER:
+        return None
     libpath=out/'frame-assets.dylib'
     subprocess.run(['clang','-std=c11','-O2','-Wall','-Wextra','-Werror','-dynamiclib','-Isrc',
         'src/sonic_art.c','-o',str(libpath)],cwd=ROOT,check=True)
@@ -39,12 +42,19 @@ def native_lib(out):
 def frame_pack(lib,source,reference):
     """SFR1 pack of the 198 poses the native decoder reads from a SON1 source;
     reference(n) gives each pose's RGB555 pixels from a separate renderer."""
-    data=C.create_string_buffer(source);art=Art()
-    assert lib.scd_sonic_art_open(C.byref(art),data,len(source))==0
-    colors=[lib.scd_sonic_art_color(C.byref(art),n) for n in range(16)]
+    if IS_BROWSER:
+        decoded=decode_sonic(source)
+        colors=struct.unpack_from('>16H',decoded)
+    else:
+        data=C.create_string_buffer(source);art=Art()
+        assert lib.scd_sonic_art_open(C.byref(art),data,len(source))==0
+        colors=[lib.scd_sonic_art_color(C.byref(art),n) for n in range(16)]
     frame=(C.c_uint16*1024)();streams=[];checks=[]
     for n in range(198):
-        assert lib.scd_sonic_art_decode(C.byref(art),n,frame)==0,('native decode failed',n)
+        if IS_BROWSER:
+            frame=struct.unpack_from('>1024H',decoded,32+n*2048)
+        else:
+            assert lib.scd_sonic_art_decode(C.byref(art),n,frame)==0,('native decode failed',n)
         expanded=struct.pack('>4096H',*(colors[(frame[i//4]>>((3-(i%4))*4))&15] for i in range(4096)))
         assert expanded==reference(n),('native/source pixel disagreement',n)
         raw=struct.pack('>1024H',*frame);streams.append(pack_texture(raw));checks.append(hashlib.sha256(raw).hexdigest())
@@ -124,8 +134,11 @@ def round_packs(lib,out):
     for name,programs in ROUND_PACKS.items():
         omit=ROUND_OMIT.get(name,frozenset())
         first=files[programs[0]+'__.MMD'];source=program_source(first,palette,omit)
-        art=Art();buffer=C.create_string_buffer(source);assert lib.scd_sonic_art_open(C.byref(art),buffer,len(source))==0
-        colors=[lib.scd_sonic_art_color(C.byref(art),n) for n in range(16)]
+        if IS_BROWSER:
+            colors=struct.unpack_from('>16H',decode_sonic(source))
+        else:
+            art=Art();buffer=C.create_string_buffer(source);assert lib.scd_sonic_art_open(C.byref(art),buffer,len(source))==0
+            colors=[lib.scd_sonic_art_color(C.byref(art),n) for n in range(16)]
         for program in programs:assert files[program+'__.MMD'].find(palette)>=0,('Sonic palette',program)
         payload,streams,checks=frame_pack(lib,source,lambda n:bytes(8192) if n in omit else program_pose(first,n,colors))
         for program in programs[1:]:

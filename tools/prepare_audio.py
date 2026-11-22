@@ -3,6 +3,7 @@
 import array,hashlib,json,os,re,struct,subprocess,sys
 from pathlib import Path
 from qa_limits import worker_limit
+from native import IS_BROWSER, runtime_inputs
 ROOT=Path(__file__).resolve().parents[1]
 assert Path.cwd()==ROOT
 OUT=ROOT/'assets/generated';WORK=ROOT/'build/retail';WORK.mkdir(parents=True,exist_ok=True)
@@ -18,12 +19,13 @@ def checked_core_sha(path,expected=None):
     if expected is not None and actual!=expected:raise ValueError('Pinned Genesis Plus GX Core hash differs')
     return actual
 core=ROOT/'.deps/genesis-plus-gx'
-core_file=core/'genesis_plus_gx_libretro.dylib'
-expected_core=os.environ.get('SCD_PREPARE_AUDIO_CORE_SHA256')
+core_file=ROOT/'browser/genesis.wasm' if IS_BROWSER else core/'genesis_plus_gx_libretro.dylib'
+expected_core=os.environ.get('SCD_BROWSER_CORE_SHA256' if IS_BROWSER else 'SCD_PREPARE_AUDIO_CORE_SHA256')
 core_sha=checked_core_sha(core_file,expected_core)
 actual=subprocess.check_output(['git','-C',core,'rev-parse','HEAD'],text=True).strip()
 assert actual==json.loads((ROOT/'sources.lock.json').read_text())['genesis-plus-gx']['commit']
-inputs=[ROOT/'assets/private/sonic-cd.chd',ROOT/'assets/private/bios_CD_U.bin',ROOT/'sources.lock.json']+[Path(__file__),ROOT/'tools/capture_retail_audio.py',ROOT/'tools/retail_capture.py']
+inputs=[WORK/'sonic.bin' if IS_BROWSER else ROOT/'assets/private/sonic-cd.chd',ROOT/'assets/private/bios_CD_U.bin',ROOT/'sources.lock.json']+[Path(__file__),ROOT/'tools/capture_retail_audio.py',ROOT/'tools/retail_capture.py']
+inputs+=runtime_inputs(ROOT,audio=True)
 for p in inputs:
     if not p.exists():raise SystemExit(f'Missing private audio input: {p}')
 fingerprint={str(p.relative_to(ROOT)):sha(p) for p in inputs}
@@ -41,7 +43,7 @@ if expected_core is None:
     fingerprint[str(core_file.relative_to(ROOT))]=core_sha
 # Extraction is cached against the complete CHD hash, never just a filename.
 stamp=WORK/'chd.sha256'
-if not stamp.exists() or stamp.read_text()!=sha(inputs[0]) or not (WORK/'sonic.bin').exists():
+if not IS_BROWSER and (not stamp.exists() or stamp.read_text()!=sha(inputs[0]) or not (WORK/'sonic.bin').exists()):
     for name in ['sonic.cue','sonic.bin']:(WORK/name).unlink(missing_ok=True)
     run(['chdman','extractcd','-i',inputs[0],'-o',WORK/'sonic.cue','-ob',WORK/'sonic.bin'])
     stamp.write_text(sha(inputs[0]))

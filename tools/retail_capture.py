@@ -1,4 +1,11 @@
-import ctypes as C,struct
+import struct
+from native import IS_BROWSER
+if IS_BROWSER:
+ import browser_ctypes as C
+ from native import backend
+ backend().resetGenesis()
+else:
+ import ctypes as C
 from pathlib import Path
 # Pinned core is used offline only; it is never linked into the Saturn game.
 lib=C.CDLL(str(Path('.deps/genesis-plus-gx/genesis_plus_gx_libretro.dylib').resolve()))

@@ -47,6 +47,7 @@
 *.mp4
 *.mov
 *.zip
+!web/patcher/vendor/pyodide/python_stdlib.zip
 *.7z
 *.tar
 *.tar.gz

@@ -105,12 +105,24 @@ def audit(out):
     files=sorted(str(p.relative_to(out)) for p in out.rglob('*') if '.git' not in p.relative_to(out).parts and (p.is_symlink() or p.is_file()))
     findings={'retail hex':[],'private':[],'SEGA files':[],'secrets':[],'leak gate':[]}
     hex_total=0
+    # Pinned browser runtimes: exact name, byte count and SHA-256 from
+    # web/patcher/vendor/runtime-lock.json. Archive rules do not apply to them.
+    from check_patcher_vendor import verified
+    vendor=verified(out,files)
     for rel in files:
         path=out/rel
         if path.is_symlink() or not path.is_file():continue
         data=path.read_bytes()
-        if Path(rel).suffix.lower() in SEGA_EXT:findings['SEGA files'].append(f'{rel}: extension')
-        if data.startswith(MAGIC) or data[0x8001:0x8006]==b'CD001':findings['SEGA files'].append(f'{rel}: disc or archive header')
+        if rel in vendor:
+            # Upstream binaries hold ordinary words that collide with the name
+            # list (statistics terms, game titles). Local paths, the volume and
+            # the account name are what a local build could leak.
+            raw=data.decode('latin-1')
+            if PRIVATE.search(raw) or (volume and volume.lower() in raw.lower()) or re.search(rf'\b{re.escape(account)}\b',raw):
+                findings['private'].append(f'{rel}: local path or account name in pinned runtime')
+        else:
+            if Path(rel).suffix.lower() in SEGA_EXT:findings['SEGA files'].append(f'{rel}: extension')
+            if data.startswith(MAGIC) or data[0x8001:0x8006]==b'CD001':findings['SEGA files'].append(f'{rel}: disc or archive header')
         if hashlib.sha256(data).hexdigest() in disc_sha:findings['SEGA files'].append(f'{rel}: identical to {disc_sha[hashlib.sha256(data).hexdigest()]}')
         if b'\0' in data and not data.startswith(TEXT_OK):continue
         text=data.decode('utf-8','replace')
@@ -127,6 +139,21 @@ def audit(out):
     if subprocess.run([sys.executable,str(gate),'--check-pin'],capture_output=True).returncode:
         findings['leak gate'].append('--check-pin failed; restore the pin before publishing')
     regular=[str(out/rel) for rel in files if (out/rel).is_file() and not (out/rel).is_symlink()]
+    # The gate refuses files over 20 MB. Scan those as overlapping pieces so
+    # every byte still passes through it.
+    import tempfile
+    LIMIT,PIECE,OVERLAP=20_000_000,16*1024*1024,64*1024
+    large=[name for name in regular if os.path.getsize(name)>LIMIT]
+    regular=[name for name in regular if name not in large]
+    with tempfile.TemporaryDirectory() as pieces:
+        for index,name in enumerate(large):
+            data=Path(name).read_bytes()
+            for start in range(0,len(data),PIECE-OVERLAP):
+                piece=Path(pieces)/f'{index}-{start}-{Path(name).name}'
+                piece.write_bytes(data[start:start+PIECE])
+                run=subprocess.run([sys.executable,str(gate),'--profile','public','--quiet',str(piece)],capture_output=True,text=True)
+                if run.returncode:findings['leak gate'].append(f'exit {run.returncode}: {Path(name).name} at {start}: '+(run.stdout+run.stderr).strip()[-300:])
+                piece.unlink()
     for i in range(0,len(regular),200):
         run=subprocess.run([sys.executable,str(gate),'--profile','public','--quiet',*regular[i:i+200]],capture_output=True,text=True)
         if run.returncode:findings['leak gate'].append(f'exit {run.returncode}: '+(run.stdout+run.stderr).strip()[-300:])

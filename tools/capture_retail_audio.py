@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """Run the retail sound drivers offline in pinned Genesis Plus GX (little-endian host)."""
-import array,ctypes as C,json,struct,sys
+import array,json,struct,sys
+from native import IS_BROWSER
+if IS_BROWSER:
+    import browser_ctypes as C
+else:
+    import ctypes as C
 from pathlib import Path
 import retail_capture as host
 lib=host.lib;chunks=host.chunks

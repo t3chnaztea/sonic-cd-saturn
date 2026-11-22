@@ -56,6 +56,10 @@ CELLS = (568, 584, 552)
 
 def oracle():
     src = SOURCE.read_text()
+    from native import IS_BROWSER
+    if IS_BROWSER:
+        from terrain_schedule import TidalSchedule
+        return TidalSchedule(src)
     from test_cc_palette import function
     arrays = '\n'.join(m[0] for m in re.finditer(r'static (?:int \w+\[16\]|tile_changes \w+) = \{.*?\n\};|static int \w+\[16\] = \{[^}]*\};', src, re.S))
     m = re.search(r'static unsigned int cg_chg1\(.*?\)\s*\{', src)

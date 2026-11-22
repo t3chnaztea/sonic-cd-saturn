@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+from native import IS_BROWSER
 
 import package_reuse as reuse
 
@@ -14,6 +15,12 @@ NAME = "sonic-cd-saturn-prototype"
 
 def main(root=ROOT):
     root = Path(root)
+    if IS_BROWSER:
+        from browser_package import build
+        manifest=json.loads((root/'program/construction.json').read_text())
+        build(root,manifest,(root/'program/literals.bin').read_bytes())
+        print('PASS: browser data-track package; exact ISO files and encoded sectors')
+        return 0
     dist = root / "dist"
     iso = dist / "iso" / f"{NAME}.iso"
     binary, cue = dist / f"{NAME}.bin", dist / f"{NAME}.cue"

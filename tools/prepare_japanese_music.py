@@ -12,6 +12,7 @@ import re
 import subprocess
 import sys
 from pathlib import Path
+from native import IS_BROWSER, runtime_inputs
 
 ROOT = Path(__file__).resolve().parents[1]
 SECTOR = 2352
@@ -117,8 +118,10 @@ def prepare(cue):
                 fingerprint = dict(driver_sha256=sha(bank),
                     capture_tool_sha256=sha((ROOT/'tools/capture_retail_audio.py').read_bytes()),
                     host_sha256=sha((ROOT/'tools/retail_capture.py').read_bytes()),
-                    core_sha256=sha((ROOT/'.deps/genesis-plus-gx/genesis_plus_gx_libretro.dylib').read_bytes()),
+                    core_sha256=sha((ROOT/'browser/genesis.wasm' if IS_BROWSER else ROOT/'.deps/genesis-plus-gx/genesis_plus_gx_libretro.dylib').read_bytes()),
                     conversion='s16le/44100/stereo gain=1.5 fade-out=3s sector-pad')
+                if IS_BROWSER:
+                    fingerprint['browser_runtime']={str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in runtime_inputs(ROOT,audio=True)}
                 prior = json.loads(cache.read_text()) if cache.exists() else {}
                 converted = output.with_name(output.name+'-cdda.raw')
                 if prior.get('inputs') != fingerprint or not converted.exists() or sha(converted.read_bytes()) != prior.get('sha256'):

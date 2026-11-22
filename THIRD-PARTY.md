@@ -11,8 +11,46 @@ one keeps its own license and notices.
 | PoneSound | via https://github.com/yaul-org/libyaul-examples | MIT | Sound driver and access layer, compiled into the Saturn executable |
 | Sonic CD C decompilation | https://github.com/nfroggy/soniccddecompilation | CC0 1.0 | Reference for game logic, reimplemented in `src/` |
 | scddisasm | https://github.com/sonicretro/scddisasm | No license file; contains SEGA-owned data | Downloaded by the build. Its data files are the current source of stage art, layouts, palettes, mappings and other game data. Nothing from it is redistributed here. See below. |
-| Genesis Plus GX | https://github.com/libretro/Genesis-Plus-GX | Custom non-commercial license (some parts GPL) | Local test and audio-preparation tooling only. Not linked into the game. Not distributed. |
-| Beetle Saturn | https://github.com/libretro/beetle-saturn-libretro | GPL-2.0-or-later | Local emulator validation and host-side CD sector encoding only. Not linked into the game. Not distributed. |
+| Genesis Plus GX | https://github.com/libretro/Genesis-Plus-GX | Custom non-commercial license (some parts GPL) | Local validation and browser audio/capture core. The pinned WASM core contains no BIOS or disc image. Not linked into the game. |
+| Beetle Saturn | https://github.com/libretro/beetle-saturn-libretro | GPL-2.0-or-later | Local emulator validation. Its CD error-correction code is also compiled into the browser sector encoder. The Saturn emulator is not distributed. |
+| Pyodide 0.27.7 | https://github.com/pyodide/pyodide | MPL-2.0 | Vendored Python WebAssembly runtime for browser converters |
+| CPython 3.12 in Pyodide | https://www.python.org/ | PSF-2.0 and bundled notices | Python runtime and standard library |
+| Pillow 10.2.0 | https://github.com/python-pillow/Pillow | HPND and bundled dependency notices | The pinned Pyodide wheel decodes movie inputs |
+| ffmpeg.wasm core 0.12.10 | https://github.com/ffmpegwasm/ffmpeg.wasm | GPL-2.0-or-later | Vendored single-thread SFX filter core; Past music uses project arithmetic code |
+| Emscripten 4.0.10 runtime | https://github.com/emscripten-core/emscripten | MIT / NCSA, with bundled library notices | Generated JavaScript/WASM support code for browser native-tool replacements |
+
+## Browser runtime pins and source
+
+`web/patcher/vendor/runtime-lock.json` records every allowed runtime file's
+SHA-256, byte count, origin and license. It also records the three approved
+archive hashes. CI admits only these named files and verifies their hashes.
+The vendoring tool performs no download and copies no BIOS or game input.
+
+The Pyodide release package identifies its license as MPL-2.0. Two upstream
+build-path prefixes in its WASM diagnostic strings are replaced at the same
+byte lengths. Both original and modified hashes are recorded. The exact
+transformation is in `tools/vendor-patcher-runtime.py`. Pyodide's source is
+available at version `0.27.7`; the [MPL 2.0 text](https://www.mozilla.org/en-US/MPL/2.0/)
+describes its source availability requirements. CPython's terms are in its
+[license documentation](https://docs.python.org/3.12/license.html).
+
+The Pillow wheel retains its complete license file. The Genesis Plus GX and
+Beetle notices are copied from their pinned source trees into
+`web/patcher/vendor/licenses/`. The emulator and encoder source revisions
+remain pinned in `sources.lock.json`. Project wrappers and all build flags are
+in `tools/patcher-wasm/` and `tools/build-patcher-wasm.py`. The Emscripten SDK is
+a local build tool; it is not copied into the site.
+
+Only the SFX chain uses ffmpeg.wasm. The package's upstream build source and
+notices remain under the ffmpeg.wasm project. The browser has no encoder
+service, upload endpoint or embedded soundtrack. Reference files from
+scddisasm and the CC0 decompilation are fetched at pinned commits, checked
+against per-file hashes, and held in the browser's virtual filesystem.
+
+Six boot/security blobs embedded by the SDK are also fetched at the pinned
+Yaul revision. Their bytes are reconstructed in the browser and never included
+in the site or recipe literals. Their presence in the SDK does not make them
+project-authored code. The audit checks their complete accepted-image ranges.
 
 Sonic Z-Treme (GPL-3.0) is mentioned in the hardware notes as a behavioral
 comparison only. No code from it is used in this repository.
@@ -116,3 +154,10 @@ local-only test ZIP that contains SEGA data; it is for personal use on your
 own hardware and must never be distributed.
 
 The project accepts no donations or payment of any kind.
+
+The browser source serializers also read GCC 13.4.0 libgcc2.c to reconstruct the
+compiler count-leading-zero table. Its upstream release URL and exact SHA-256
+are pinned in web/patcher/pipeline-lock.json. The file is fetched by the browser;
+it is not vendored into the site. GCC licenses it under GPL-3.0-or-later with
+the GCC Runtime Library Exception 3.1. Local verification uses the existing
+release source. Live retrieval of this added reference has not been tested.

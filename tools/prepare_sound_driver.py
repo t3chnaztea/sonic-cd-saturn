@@ -63,6 +63,9 @@ def cached(report,inputs,contract):
     return True
 
 def main():
+    from native import IS_BROWSER, sound_driver
+    if IS_BROWSER:
+        return sound_driver(ROOT)
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--compiler',type=Path,default=Path(os.environ.get('SCD_M68K_CC',ROOT/'build/private-toolchains/m68k-gcc-13.4.0/bin/m68k-elf-gcc')))
     parser.add_argument('--nm',type=Path,default=Path(os.environ.get('SCD_M68K_NM',ROOT/'.deps/build-binutils-m68k/binutils/nm-new')))

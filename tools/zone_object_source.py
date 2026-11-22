@@ -25,9 +25,13 @@ ROUNDS = (1, 3, 4, 5, 6, 7, 8)
 
 
 def dependencies():
+    from native import IS_BROWSER, runtime_inputs
     paths=['tools/special_retail.py','tools/retail_capture.py','tools/extract_mmd.py','tools/convert_assets.py',
            'sources.lock.json','.deps/scddisasm/src/Level/_Definitions.inc',
            '.deps/genesis-plus-gx/genesis_plus_gx_libretro.dylib','build/retail/IPX___.MMD']
+    if IS_BROWSER:
+        paths.remove('.deps/genesis-plus-gx/genesis_plus_gx_libretro.dylib')
+        paths += [str(p.relative_to(sr.ROOT)) for p in runtime_inputs(sr.ROOT)]
     return {p:hashlib.sha256((sr.ROOT/p).read_bytes()).hexdigest() for p in paths}
 
 

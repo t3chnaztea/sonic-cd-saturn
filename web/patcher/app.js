@@ -1,7 +1,7 @@
 'use strict';
 (() => {
   const $ = id => document.getElementById(id);
-  const form = $('patch-form'), bundle = $('bundle'), files = $('originals');
+  const form = $('patch-form'), inputs = ['japanese','american','bios'].map($);
   const run = $('run'), cancel = $('cancel'), status = $('status'), meter = $('progress');
   let worker, urls = [];
   function clear() {
@@ -10,14 +10,14 @@
     meter.value = 0;
   }
   function busy(value) {
-    bundle.disabled = files.disabled = value;
-    run.disabled = value || !bundle.files.length || !files.files.length;
+    inputs.forEach(input=>{input.disabled=value;});
+    run.disabled = value || inputs.some(input=>!input.files.length);
     cancel.hidden = !value;
     form.setAttribute('aria-busy', String(value));
   }
   function message(text, error = false) { status.textContent = text; status.dataset.error = String(error); }
   function stop() { worker?.terminate(); worker = undefined; busy(false); }
-  for (const input of [bundle, files]) input.addEventListener('change', () => {
+  for (const input of inputs) input.addEventListener('change', () => {
     clear(); busy(false); message('Choose your files, then select Verify and patch.');
   });
   cancel.addEventListener('click', () => { stop(); clear(); message('Cancelled. Your original files were not changed.'); run.focus(); });
@@ -44,7 +44,8 @@
         $('results').focus();
       }
     };
-    worker.postMessage({bundle: bundle.files[0], files: Array.from(files.files)});
+    const files=inputs.flatMap((input,index)=>Array.from(input.files,file=>({role:['jp','us','bios'][index],file})));
+    worker.postMessage({files});
   });
   if (!window.Worker || !window.crypto?.subtle) message('Open this site from localhost in a current desktop browser. Web Workers and secure-context hashing are required.', true);
   busy(false);

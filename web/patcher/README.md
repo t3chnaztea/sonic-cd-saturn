@@ -1,63 +1,209 @@
-# Sonic CD Saturn Patcher
+# Sonic CD Saturn Easy Patcher
 
-Local V0.082 preview with numbered steps, direct copy, and verified downloads. This site uses CSS and text. It has no game art, external fonts, analytics, or upload service.
+The page takes three groups of local files: the supported Japanese split-track
+BIN/CUE, the supported U.S. BIN/CUE, and the U.S. Sega CD BIOS. A Web Worker runs
+Python converters and local WebAssembly tools. Download links require the
+accepted V0.082 hashes:
 
-## Run locally
+- BIN: cb872d149ba3575d9929a1072bb006dd403b97e79dfdfa0a6b4782bf178a3e66
+- CUE: 10f35a87674de372bc4b217a4e877f5321aa683afda91eab18df2df331d04337
 
-From the repository root:
+Implementation and verification gates are tracked in
+[IMPLEMENTATION.md](IMPLEMENTATION.md). A prepared site package requires a
+passing audit. Source files alone do not provide a recipe.scsp deployment file.
+No site package or release has been published by this work.
 
-```sh
-python3 -m http.server 8082 --bind 127.0.0.1 --directory web/patcher
-```
+## Inputs and operation
 
-Open `http://127.0.0.1:8082` in current desktop Chrome. Firefox and Safari are unverified. Web Workers and secure-context Web Crypto are required. Keep about 2 GiB of memory available. The output is 759,063,312 bytes (724 MiB).
+Use current desktop Chrome. Allow at least 4 GiB of spare memory. Mobile,
+Firefox and Safari conversion are unverified. The output is 759,063,312 bytes.
 
-Choose a private `.scsp` bundle. Select all original Japanese split-track BIN files. The bundle lists the exact filenames, sizes, and SHA-256 hashes it supports. The local test uses 34 of the 35 Japanese tracks. Selecting all 35 is safe. CHD, combined BIN, ZIP, renamed tracks, other revisions, and modified files are unsupported.
+Select the Japanese CUE plus all 35 original BIN tracks. Select sonic.bin and
+sonic.cue for the supported U.S. dump. Select bios_CD_U.bin. Filenames, lengths
+and SHA-256 values must match the recipe. CHD, ZIP, patched images and other
+revisions are unsupported. The original files are mounted read-only.
 
-Select **Verify and patch**. Required inputs are hashed first. Copy and literal ranges form a new Blob. The complete output is hashed in a worker. The accepted BIN and CUE hashes are pinned in `release.js`. Download links appear only after both hashes match. Save the BIN and CUE together in a new `SAROO/ISO` folder. The JSON receipt records verification. It does not claim hardware acceptance.
+Select **Verify and patch**. The page verifies user inputs before loading the
+conversion pipeline. It fetches pinned reference files from GitHub, checks
+per-file hashes, runs the converters, fills generated program-data ranges,
+constructs the fixed ISO layout and encodes its sectors. The final BIN and CUE
+must match release.js before links appear. Save both files together in one
+SAROO/ISO folder. The receipt records software verification, not a console test.
 
-**Cancel** terminates the worker. Changing an input removes prior download links. Original files are never opened for writing.
+**Cancel** terminates the Worker. Changing an input clears old download links.
+The page has no account, analytics, external fonts or upload endpoint. Reference
+requests contain only fixed public repository paths and commit IDs. A separate
+check on 2026-11-22 fetched all 1,591 pinned files from GitHub with the pinned
+sizes and hashes. Offline tests fulfill those requests from the pinned local
+copies.
 
-## Private bundle preparation
+## Local package preparation
 
-The accepted native image must already exist. This command reads it without rebuilding:
+The accepted native image, ELF, preprocessor outputs and converter outputs must
+already exist. These tools read them without rebuilding the game. All output
+paths below must be new directories under ignored build/.
 
-```sh
-nice -n 20 python3 tools/make-browser-patch.py \
-  --out build/local-preview-v0082.private.scsp
-```
+    python3 tools/make-recipe-bundle.py --out build/recipe-raw-new
+    python3 tools/audit-recipe.py build/recipe-raw-new/recipe.scsp \
+      --work build/recipe-raw-audit-new
+    python3 tools/source-recipe-literals.py build/recipe-raw-new/recipe.scsp \
+      --audit build/recipe-raw-audit-new --out build/recipe-candidate-new
+    python3 tools/audit-recipe.py build/recipe-candidate-new/recipe.scsp \
+      --work build/recipe-audit-new
+    python3 tools/make-pipeline-lock.py \
+      --reads build/patcher-pipeline-new/source-files-used.json \
+      --recipe build/recipe-candidate-new/recipe.scsp
+    python3 tools/make-patcher-site.py \
+      --recipe build/recipe-candidate-new/recipe.scsp \
+      --audit build/recipe-audit-new/receipt.json --out build/easy-patcher-site-new
+    python3 -m http.server 8082 --bind 127.0.0.1 \
+      --directory build/easy-patcher-site-new
 
-The generator resolves `assets/private/sonic-cd-japan.cue`, reads its original BIN tracks, and uses `dist/sonic-cd-saturn-prototype.{bin,cue}`. The output must be new and stay under ignored `build/`. A receipt records its hash. Identical 2352-byte sectors become source copies. Nonmatching target bytes become private literals.
+Open http://127.0.0.1:8082/web/patcher/. The package builder copies only the named
+runtimes, hash-checked project source files and an audited recipe. It copies no
+reference checkout, BIOS, disc image or converter output. The reconstruction
+recipe stays under build/ and is never committed. A failing audit cannot create
+a prepared site package. Publishing remains a separate action.
 
-**Do not distribute this bundle.** The tested bundle has 446,494,272 copied bytes and 312,569,040 literal bytes. Some literals contain transformed game data. A delta is not proof that a file is safe to publish. Keep the bundle on the owner's storage. `.scsp` files are ignored and rejected by the export audit and asset-free CI.
+The raw audit must reach its literal-run scan. Only exact 16-byte coincidence
+matches can be replaced by source-recipe-literals.py. Other audit failures need
+correction before that step. The final candidate requires its own passing audit.
 
-## Public release boundary
+## Program-data provenance and audit
 
-This directory contains code and release metadata only. It is a working local patcher preview. It is not a complete public patch distribution. It neither downloads nor embeds a payload.
+The builder reads the accepted ELF and compiler .i line markers. It includes
+all nine program files, including the zone overlays. Every initialized data
+object derives from source, including handwritten project tables, SDK/compiler
+initializers and CC0-derived data. No short-table exception exists. The browser
+reads tracked source or pinned fetched source and serializes it to the accepted
+layout. Linked game assets also derive. Zero fill stores no payload bytes.
 
-Before a public installer can ship, replace private literals with an extraction/conversion route that obtains SEGA data from the user's own files. Audit every distributed payload and its licenses. Prove its output against a named accepted build. A separate source audit is required before publishing the full repository. Do not publish the current local Git history or bypass a failed export audit.
+Literals contain compiled function code and pools, remaining compiler-generated
+strings, PoneSound firmware, ISO structure and project CD text. Compiler switch
+lowering and unnamed instruction constants have no C data-object initializer;
+the audit records each retained range with its source, link-map or R_SH_DIR32
+code references and an explicit reason. Object filenames grant no ownership.
 
-No payload is published. The public route today is the source build in the repository README.
+Compiler VarDecl records locate source initializers. Source macros and enums
+are expanded deterministically in Python. The SH GCC compiler supplies SDK
+layout metadata, including bit fields; no compiler runs in the browser. Every
+serialized object must match the complete accepted byte range. Host ASTs,
+metadata objects and expanded initializer values are absent from the recipe.
 
-## Tests
+The serializer supports arrays, structs, unions, mixed widths, zero fill and
+relocated pointers. Schemas contain field offsets and sizes. Pointer records
+contain linked addresses and relocation/source evidence. Converter table values
+are read again at runtime; the bundle carries none of them. Every reconstructed
+range and final file has a pinned hash. No audio residual is needed: the seven
+Past fades use an exact arithmetic implementation; SFX uses ffmpeg.wasm.
 
-Asset-free contracts:
+The audit reruns certification. It rejects generated-data literals,
+unclassified bytes, changed recipes and unowned payload bytes. Its exact
+16-byte-run scan covers user discs/BIOS, CD game-data files and generated assets.
+The byte-test corpus contains every user disc BIN, the BIOS, non-text generated
+assets and CD files except .TXT. CUE and generated text (.inc/.h/.json/.c) are
+excluded from this binary test; source provenance still covers generated text.
+For compiled CD programs, the corpus includes non-literal ranges. Approved program
+ranges are excluded to avoid comparing a literal with itself in A.BIN. Project
+CD text metadata is separate from game-data files. Long zero runs use zero-fill
+operations rather than literal bytes. A nonzero audit exit blocks distribution.
+The entire literal payload is scanned as one stored contiguous buffer, starting
+after the JSON header. Target operations, ownership records, zero fills and
+derivations cannot split it. Every matching 16-byte window fails, including
+single-byte fills. The repair tool rechecks after compaction and repeats until
+zero matches remain; exact source copies replace matched bytes. The audit rejects the legacy
+CC0-compiled-data, CC0-adapted-program-data, compiled-object-data,
+project-source-initializer and dependency-source-initializer permissions.
 
-```sh
-node tools/test-browser-patch.cjs
-```
+The no-initialized-data policy receipt records **624,378 literal bytes**:
 
-Actual desktop Chrome test, with Playwright already available:
+| Owner | Bytes |
+| --- | ---: |
+| compiled-function-and-pools | 594687 |
+| compiled-control-table | 1390 |
+| source-string | 1844 |
+| PoneSound-MIT-program (linked firmware) | 6335 |
+| dependency-program-string | 2334 |
+| compiled-function-constant | 27 |
+| ISO-structure | 11408 |
+| project-CD-text | 18 |
+| PoneSound-program (standalone firmware) | 6335 |
 
-```sh
-nice -n 20 node tools/test-browser-patch-ui.cjs \
-  build/local-preview-v0082.private.scsp build/browser-patch-test-new
-```
+All five forbidden owner totals are zero. The receipt states
+"initialized data literals: 0". It also lists each compiler code-constant reason. Source evidence accompanies every
+literal record. The current validation state is in IMPLEMENTATION.md.
 
-`PLAYWRIGHT_MODULE` may point to an existing Playwright module. `BROWSER_CHANNEL` defaults to installed `chrome`. No browser is installed. The test serves only six allowlisted site files on loopback. It never serves the bundle or disc tracks. It checks invalid input, cancel, a real worker patch, downloaded hashes, receipt, desktop and 390 px layouts, stale link removal, no uploads, and browser errors. Screenshots and downloads stay under `build/`. Failed runs stay separate.
+The separate site audit scans every built file, including the recipe JSON,
+project source, patched Pyodide and locally built WASM. A runtime skips ownership
+scanning only when its actual SHA-256 equals upstream_sha256 in the checkout's
+pinned runtime lock. Each skipped file retains its hash in the receipt. Every
+other match records file/offset, exact 16-byte hex, a corpus witness and a
+classification: fill, ASCII text, generic run with an explanation, or UNEXPLAINED.
+Any UNEXPLAINED match fails. Any match overlapping the recipe literal payload
+fails regardless of its classification. No filename grants an exemption.
 
-## SCSP format 1
+    python3 tools/audit-site.py build/site-new \
+      --audit build/recipe-audit-new --work build/site-audit-new \
+      --upstream .deps/pyodide-spike-0.27.7/extracted/pyodide/pyodide.asm.wasm
 
-Eight ASCII bytes `SCSP082` plus newline; a four-byte little-endian JSON header length; UTF-8 JSON; then literal bytes. The header contains version, source filename/size/SHA-256 rows, target size/SHA-256/CUE text/CUE SHA-256, and ordered operations. A `source` operation has an index, offset, and length. A `literal` operation has an offset into the payload and a length. All ranges must use safe nonnegative integers and fit their files. The total output size must match the pinned release. Unknown operations fail. Header size, source count, and operation count have limits.
+The audit work directory must be new. --audit names a passing v5 recipe audit
+whose corpus manifest supplies the identical binary corpus. Receipts stay local.
+An optional --upstream file must match a recorded upstream SHA-256. It grants no
+file exemption. For a pinned patched runtime, a matching window can receive a
+generic-runtime explanation only if its exact bytes match the same upstream
+offset. Each such match records the upstream hash and offset. This certifies
+unchanged interpreter code and lookup data outside the diagnostic-path patches.
+The patched Pyodide file remains scanned in full. Genesis title-detection text
+is classified as ASCII; counting ramps carry their arithmetic explanation.
 
-Web Crypto hashes whole Blob buffers. This version is verified on the current 24 GiB Mac. It makes no low-memory or mobile patching claim. It has no compression engine or third-party JavaScript dependency. The code uses the repository's MIT license. It grants no rights to SEGA data.
+## Runtime pins and tests
+
+Runtime versions, archive hashes, file hashes and licenses are recorded in
+vendor/runtime-lock.json and [THIRD-PARTY.md](../../THIRD-PARTY.md). Pyodide,
+Pillow, ffmpeg and the native-tool WASM hosts are served from the same site.
+No CDN is used. CI's vendor allowance requires exact hashes and filenames.
+
+    node tools/test-browser-patch.cjs
+    python3 tools/test_native.py
+    python3 tools/test_recipe_literal_scan.py
+    python3 tools/test_recipe_provenance.py
+    node tools/test-past-fade.cjs build/past-fade-check-new
+    node tools/test-browser-patch-ui.cjs \
+      build/easy-patcher-site-new build/easy-patcher-chrome-new
+
+The Chrome test requires an installed Chrome and an existing Playwright module.
+PLAYWRIGHT_MODULE may point to that module. It performs fresh conversion from
+real files, downloads the BIN/CUE and checks both hashes. GitHub requests are
+fulfilled from local pinned checkouts; live fetch is not claimed. It checks bad
+BIOS input, cancellation, layouts, stale-link removal and absence of uploads.
+It installs no browser. Receipts, screenshots and downloads stay under build/.
+
+The offline Node runner uses the same locked source file list and 56 commands
+as the browser. Generated source files are absent at fresh-run startup. A
+targeted run may reuse converter outputs with --seed and --script; its image
+test must use --diagnostic. The --site option copies project files from the actual built site, checks every
+locked hash, exposes only locked references, and extracts the U.S. ISO from the
+user BIN. It has no toolchain mount. Only an unseeded complete run receives a fresh-run
+image receipt from tools/test-recipe-image.cjs.
+
+The source serializer lock adds 119 references: 118 libyaul source/header files
+at its existing pinned commit plus GCC 13.4.0 libgcc2.c. The GCC release URL has
+an exact content SHA-256 pin. Local tests use the existing source files. Live
+retrieval of these added references is untested in this offline session.
+
+## SCSP format 2
+
+The envelope is SCSP082 plus newline, a four-byte little-endian JSON header
+length, JSON metadata, then approved program/ISO literals. Ordered target
+operations are source, literal or derive. Sources have disc roles, filenames,
+sizes and hashes. Each derive names an output file with a size and SHA-256.
+Construction metadata describes program serializers, zero fill, literals and
+ISO file extents. It contains no derive output. Bounds and final hashes are
+checked before download links appear. Format 1 remains in synthetic engine
+tests only; its private bundles contain converted data and must not be shared.
+
+The six SDK boot/security blobs also remain DERIVE. The browser fetches their
+pinned reference files; the site package includes none of their bytes. Program
+literal coincidences found by the 16-byte scan become exact original-input,
+converter-output or serialized-table slices. Ownership proofs are deduplicated
+as metadata. They contain no converted bytes or residual correction values.

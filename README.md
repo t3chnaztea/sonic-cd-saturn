@@ -21,9 +21,9 @@ A native Sega Saturn port of Sonic CD (1993). The game logic is reimplemented in
 
 The current candidate is V0.082 (build label 2026-11-17). Its software regression finished on 2026-11-19: 215/215 checks, 347/347 matrix windows, and 70 art cases with zero misses. The tested game source is `49bfd89643b2a77962964a988e87b75a46e9b7a6`. I tested it on my Saturn with a SAROO on 2026-11-21, and it works. These counts do not establish a percentage of all paths through the game. See [V0.082 release notes](RELEASE-NOTES-V0.082.md) for the exact image hashes and evidence. Version history is in [CHANGELOG.md](CHANGELOG.md).
 
-There is no release download yet. A public patcher that takes all game data from your own discs comes first. Until then, the only way to get a playable image is to build it from source with your own discs (see [Building](#building)).
+The [Easy Patcher](https://t3chnaztea.github.io/sonic-cd-saturn/web/patcher/) builds the V0.082 image in desktop Chrome from your own Japanese disc, U.S. disc and U.S. Sega CD BIOS. Nothing is uploaded. The page checks every input, and it offers the BIN and CUE only when both match the accepted V0.082 hashes. A run takes about 45 minutes and needs about 4 GiB of memory. Each disc must match the dump layout the page names. You can also build from source (see [Building](#building)).
 
-[`web/patcher`](web/patcher/README.md) holds the browser patcher's code only. It has no payload. The bundle I test it with contains converted game data, so it stays private and is not in this repository.
+[`web/patcher`](web/patcher/README.md) holds the patcher's code and pinned browser runtimes. The patcher's recipe holds compiled program code, the MIT sound firmware and the disc's file structure. It holds no art, audio, level data or disc bytes: the browser rebuilds every data table from your files and from pinned public sources. No recipe, BIOS or disc image is committed here. [Verification record](web/patcher/IMPLEMENTATION.md).
 
 What works in the emulator:
 

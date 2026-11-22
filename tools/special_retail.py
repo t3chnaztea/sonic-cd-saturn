@@ -12,7 +12,12 @@ input is indexed by the special stage V-INT counter. Every emulated frame
 records the displayed pixels, VDP state and program variables named in the
 disassembly.
 """
-import ctypes as C,json,re,struct,sys,zlib
+import json,re,struct,sys,zlib
+from native import IS_BROWSER
+if IS_BROWSER:
+    import browser_ctypes as C
+else:
+    import ctypes as C
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 from scd_source import SRC
