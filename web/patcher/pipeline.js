@@ -158,9 +158,14 @@ const SonicPipeline = (() => {
     lap('mount inputs and initialize converters');
     for(let i=0;i<lock.commands.length;i++){
       const command=lock.commands[i];
-      progress(`Converting ${i+1} of ${lock.commands.length}: ${command.script.split('/').pop()}`,68+18*i/lock.commands.length);
+      const label=`Converting ${i+1} of ${lock.commands.length}: ${command.script.split('/').pop()}`;
+      progress(label,68+18*i/lock.commands.length);
       py.globals.set('_patcher_script',command.script);py.globals.set('_patcher_arguments',JSON.stringify(command.args));
-      py.runPython('convert(_patcher_script,json.loads(_patcher_arguments))');
+      py.globals.set('_patcher_progress',(detail,completed,total)=>{
+        if(!Number.isInteger(completed)||!Number.isInteger(total)||total<1||completed<0||completed>total)throw Error('Invalid conversion progress.');
+        progress(`${label}: ${Math.min(completed+1,total)}/${total} ${detail}`,68+18*(i+completed/total)/lock.commands.length);
+      });
+      py.runPython('convert(_patcher_script,json.loads(_patcher_arguments),_patcher_progress)');
       await new Promise(resolve=>setTimeout(resolve,0));
       lap(`convert ${i+1} ${command.script.split('/').pop()}`);
     }

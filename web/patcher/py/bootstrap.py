@@ -28,9 +28,13 @@ def initialize(backend,construction,core_sha):
     extract_us_iso(construction['us_iso'])
 
 
-def convert(script,arguments):
+def convert(script,arguments,progress=None):
     import native
-    code,stdout,stderr=native._python([script,*arguments],str(ROOT))
+    previous=native.set_progress_reporter(progress)
+    try:
+        code,stdout,stderr=native._python([script,*arguments],str(ROOT))
+    finally:
+        native.set_progress_reporter(previous)
     if code:raise RuntimeError(f'{script} failed ({code})\n{stdout[-2000:]}\n{stderr[-2000:]}')
     return stdout[-2000:]
 

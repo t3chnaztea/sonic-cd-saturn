@@ -17,6 +17,7 @@ tools/build.sh runs this before make.
 import subprocess
 import sys
 from pathlib import Path
+from native import report_progress
 
 ROOT = Path(__file__).resolve().parents[1]
 STEPS = [['tools/audit_source.py', '--source-only']]
@@ -63,10 +64,14 @@ def ir_inputs():
 def main():
     check = '--check' in sys.argv[1:]
     if '--terrain' in sys.argv[1:]:
-        for g in TERRAIN:
+        for index, g in enumerate(TERRAIN):
+            report_progress('Preparing ' + ('Tidal Tempest', 'Quartz Quadrant', 'Wacky Workbench', 'Metallic Madness')[index] + ' animated tiles', index, len(TERRAIN))
             subprocess.run([sys.executable, g], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
+        report_progress('Animated tiles ready', len(TERRAIN), len(TERRAIN))
         print('animated tile art regenerated')
         return
+    total = len(STEPS) + len(GENERATORS)
+    report_progress('Checking background source files', 0, total)
     retail_iso()
     (ROOT/'assets/generated').mkdir(parents=True, exist_ok=True)
     subprocess.run([sys.executable, *STEPS[0]], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
@@ -74,16 +79,24 @@ def main():
     # source, the extractors or an IR file changed (stamp over all of them).
     stamp = ROOT/'build/scroll-ir.stamp'
     if stamp.exists() and stamp.read_text() == ir_inputs():
+        report_progress('Reusing verified scroll tables', len(STEPS), total)
         print('scroll IR cache verified')
     else:
-        for step in STEPS[1:]:
+        zones = ('Collision Chaos', 'Tidal Tempest', 'Quartz Quadrant', 'Wacky Workbench', 'Stardust Speedway', 'Metallic Madness')
+        for index, step in enumerate(STEPS[1:], 1):
+            report_progress('Extracting ' + zones[index - 1] + ' scroll rules', index, total)
             subprocess.run([sys.executable, *step], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
         stamp.write_text(ir_inputs())
-    for g in GENERATORS:
+    labels = ('Collision Chaos scroll tables', 'Tidal Tempest scroll tables', 'Tidal Tempest palettes',
+              'Quartz Quadrant scroll tables', 'Wacky Workbench scroll tables', 'Wacky Workbench palettes',
+              'Stardust Speedway scroll tables', 'Stardust Speedway palettes', 'Metallic Madness palettes')
+    for index, g in enumerate(GENERATORS):
+        report_progress('Generating ' + labels[index], len(STEPS) + index, total)
         subprocess.run([sys.executable, g], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
     if check:
         for g in GENERATORS:
             subprocess.run([sys.executable, g, '--check'], cwd=ROOT, check=True)
+    report_progress('Background tables ready', total, total)
     print('background tables regenerated')
 
 
