@@ -84,6 +84,25 @@ async function main() {
   await assert.rejects(engine.inspect(bundle(duplicate),version2),/invalid file/);
   const roleInput={role:'us',file:source};
   await assert.rejects(engine.apply(bundle(recipe),[roleInput],version2,()=>{},pipeline),/Missing original/);
+  // The BIOS is matched by size and SHA-256 under any filename.
+  const biosBytes=Buffer.from('BIOS words 0123456789abc');
+  const biosFinal=Buffer.concat([biosBytes,Buffer.from(' plus native code')]);
+  const biosRelease={...release,binBytes:biosFinal.length,binSha256:sha(biosFinal)};
+  const biosHeader=structuredClone(header);
+  biosHeader.sources=[{name:'bios_CD_U.bin',role:'bios',bytes:biosBytes.length,sha256:sha(biosBytes)}];
+  biosHeader.target.bytes=biosFinal.length;biosHeader.target.sha256=sha(biosFinal);biosHeader.ops[0].length=biosBytes.length;
+  const biosRun=files=>engine.apply(bundle(biosHeader),files.map(file=>({role:'bios',file})),biosRelease);
+  for(const file of [new File([biosBytes],'bios_CD_U.bin'),new File([biosBytes],'Any Name (v2.00W).rom'),new File([Buffer.from(biosBytes).swap16()],'swapped.bin')]){
+    const built=await biosRun([file]);
+    assert.deepEqual(Buffer.from(await built.bin.arrayBuffer()),biosFinal,file.name);
+  }
+  const otherBios=Buffer.from(biosBytes);otherBios[0]^=0xff;
+  await assert.rejects(biosRun([new File([otherBios],'bios_CD_U.bin')]),/Checksum failed.*Model 1 \(v1\.10\) BIOS and other revisions are not supported/);
+  await assert.rejects(biosRun([new File(['short'],'bios_CD_U.bin')]),/Wrong size.*v2\.00W/);
+  await assert.rejects(biosRun([new File([biosBytes],'a.bin'),new File([biosBytes],'b.bin')]),/Select one BIOS file only/);
+  await assert.rejects(biosRun([]),/Missing original file: the U\.S\. Sega CD BIOS/);
+  await assert.rejects(engine.apply(bundle(biosHeader),[{role:'us',file:new File([biosBytes],'bios_CD_U.bin')}],biosRelease),/Missing original/);
+  console.log('PASS: BIOS input; renamed and byte-swapped copies accepted; other revisions, sizes and extra files rejected');
   console.log('PASS: recipe format 2; derived bytes, disc roles, hash checks and fail-closed pipeline');
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});

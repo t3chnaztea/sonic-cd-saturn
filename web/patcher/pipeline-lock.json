@@ -1183,8 +1183,8 @@
     },
     {
       "path": "tools/background_tables.py",
-      "bytes": 4310,
-      "sha256": "188a1e9e6d935429f828d05adb1bfd92645effdccd47ce826ebd12974849c207"
+      "bytes": 5519,
+      "sha256": "65acdaae6ab77c2c996f56330612adab0f9e6f5db45db5420cbe316be514e0fe"
     },
     {
       "path": "tools/benchmark_cc_scroll.py",
@@ -1788,8 +1788,8 @@
     },
     {
       "path": "tools/native.py",
-      "bytes": 8290,
-      "sha256": "2c07195d54f45268f60145839c9331300dac54c63500d9e9f213e49ef6af2626"
+      "bytes": 8693,
+      "sha256": "3356d2dbc864a5352c36114875fe5e080b8b8f011099500c38dda1dcae30f866"
     },
     {
       "path": "tools/object_layouts.py",
@@ -16584,7 +16584,7 @@
   },
   "bootstrap": {
     "path": "web/patcher/py/bootstrap.py",
-    "bytes": 1747,
-    "sha256": "1d8146be69030992198fe1d4ffa64af0b20e8c77b5344e86e128cfef225e7814"
+    "bytes": 1886,
+    "sha256": "772882eb6edd14bc67fe2e949fb5ca09a82c0c31e32ed9c5e2e5e665986036ce"
   }
 }

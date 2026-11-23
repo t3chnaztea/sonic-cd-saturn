@@ -42,6 +42,9 @@ jobs:
       - name: Browser patch engine contracts (synthetic data only)
         run: node tools/test-browser-patch.cjs
 
+      - name: Background conversion progress contracts (synthetic data only)
+        run: python3 tools/test_background_progress.py
+
       - name: No game data, disc images, BIOS or build output tracked
         run: |
           python3 - <<'EOF'

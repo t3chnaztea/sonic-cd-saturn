@@ -23,7 +23,8 @@ const sources = [cue,...[...fs.readFileSync(cue, 'utf8').matchAll(/FILE\s+"([^"]
 const usDir=process.env.PATCHER_US_DIR;
 const american=usDir?fs.readdirSync(usDir).filter(name=>/\.(bin|cue)$/i.test(name)).map(name=>path.join(usDir,name)):['sonic.bin','sonic.cue'].map(name=>path.join(root,'build/retail',name));
 const bios=path.join(root,'assets/private/bios_CD_U.bin');
-const requests=[],errors=[],unexpected=[];
+const requests=[],errors=[],unexpected=[],timings=[];
+const scratch=[];
 const server=http.createServer((req,res)=>{
  if(req.method!=='GET'){res.writeHead(405).end();return;}
  let pathname;try{pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);}catch{res.writeHead(400).end();return;}
@@ -39,6 +40,7 @@ async function fileSha(file) {
   for await (const chunk of fs.createReadStream(file)) hash.update(chunk);
   return hash.digest('hex');
 }
+let runLabel='setup';
 async function main() {
   if(!fileMode)await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve);});
   const origin=fileMode?pathToFileURL(site).href:`http://127.0.0.1:${server.address().port}`,url=origin+'/web/patcher/';
@@ -61,6 +63,11 @@ async function main() {
     const page=await context.newPage();
     page.on('request',r=>requests.push({url:r.url(),method:r.method(),has_body:!!r.postData()}));
     page.on('pageerror',e=>errors.push(e.message));
+    page.on('console',m=>{
+      const text=m.text();if(!text.startsWith('[patcher-timing] '))return;
+      const row={run:runLabel,...JSON.parse(text.slice(17))};timings.push(row);
+      fs.appendFileSync(path.join(out,'timing.log'),JSON.stringify(row)+'\n');
+    });
     await page.goto(url);
     assert.equal(await page.locator('#run').isDisabled(),true);
     assert.equal(await page.locator('h1').innerText(),'Sonic CD.\nMeet Saturn.');
@@ -74,7 +81,27 @@ async function main() {
     await page.waitForFunction(()=>document.querySelector('#status').dataset.error==='true');
     assert.match(await page.locator('#status').innerText(),/size|checksum|Missing/i);
     assert.equal(await page.locator('#results').isHidden(),true);
-    await page.locator('#bios').setInputFiles(bios);
+    assert.match(await page.locator('#bios-hint').innerText(),/Model 2 U\.S\. BIOS v2\.00W, 131,072 bytes, any filename/);
+    // A right-size file with other contents stands in for an unsupported revision.
+    const original=fs.readFileSync(bios),other=Buffer.from(original);other[0]^=0xff;
+    const wrong=path.join(out,'wrong-revision.bin');fs.writeFileSync(wrong,other);scratch.push(wrong);
+    await page.locator('#bios').setInputFiles(wrong);
+    await page.locator('#run').click();
+    await page.waitForFunction(()=>document.querySelector('#status').dataset.error==='true',null,{timeout:600000});
+    assert.match(await page.locator('#status').innerText(),/Checksum failed.*Model 1 \(v1\.10\) BIOS and other revisions are not supported/);
+    assert.equal(await page.locator('#results').isHidden(),true);
+    // A renamed copy must pass input verification and reach conversion.
+    const renamed=path.join(out,'Sega CD renamed copy.rom.bin');fs.writeFileSync(renamed,original);scratch.push(renamed);
+    const swapped=path.join(out,'swapped-copy.bin');fs.writeFileSync(swapped,Buffer.from(original).swap16());scratch.push(swapped);
+    runLabel='renamed BIOS, cancelled at conversion';
+    await page.locator('#bios').setInputFiles(renamed);
+    await page.locator('#run').click();
+    await page.waitForFunction(()=>/^Converting \d+ of/.test(document.querySelector('#status').textContent)||document.querySelector('#status').dataset.error==='true',null,{timeout:3600000});
+    assert.equal(await page.locator('#status').getAttribute('data-error'),'false',await page.locator('#status').innerText());
+    await page.locator('#cancel').click();
+    // The full run uses a byte-swapped copy. The accepted output hash proves the swap.
+    runLabel='byte-swapped BIOS, full run';
+    await page.locator('#bios').setInputFiles(swapped);
     await page.locator('#run').click();
     await page.locator('#cancel').click();
     assert.match(await page.locator('#status').innerText(),/Cancelled/);
@@ -115,10 +142,10 @@ async function main() {
     assert.deepEqual(unexpected,[]);
     assert.equal(requests.every(r=>(r.url.startsWith(origin+'/')||r.url.startsWith('blob:')||references.has(r.url))&&r.method==='GET'&&!r.has_body),true,'Unexpected network request');
     const report={status:'passed',tested_utc:new Date().toISOString(),browser:browser.version(),
-      checks:['bad BIOS rejected','cancel restores controls','actual worker patch','downloaded BIN SHA-256','downloaded CUE SHA-256','receipt','desktop layout','390px layout','stale links cleared','no upload requests','no page errors'],
-      bin_sha256:release.binSha256,cue_sha256:release.cueSha256,source_files:receipt.sources.length,requests:requests.length,transport:fileMode?'offline-file':'loopback-http',live_reference_fetch_tested:false,hardware_tested:false};
+      checks:['bad BIOS rejected','wrong BIOS revision rejected','renamed BIOS accepted','byte-swapped BIOS accepted','cancel restores controls','actual worker patch','downloaded BIN SHA-256','downloaded CUE SHA-256','receipt','desktop layout','390px layout','stale links cleared','no upload requests','no page errors'],
+      bin_sha256:release.binSha256,cue_sha256:release.cueSha256,source_files:receipt.sources.length,requests:requests.length,transport:fileMode?'offline-file':'loopback-http',live_reference_fetch_tested:false,hardware_tested:false,timings};
     fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');
     console.log('PASS: actual Chrome Easy Patcher; downloaded BIN/CUE match accepted V0.082; no uploads'+(fileMode?'; offline file mode':''));
-  } finally {cancelWatch();process.removeListener('SIGTERM',terminate);await browser.close();}
+  } finally {for(const file of scratch)try{fs.unlinkSync(file);}catch{}cancelWatch();process.removeListener('SIGTERM',terminate);await browser.close();}
 }
 main().catch(error=>{console.error(error);console.log('FAIL: actual Chrome Easy Patcher');process.exitCode=1;}).finally(()=>{if(server.listening)server.close();});

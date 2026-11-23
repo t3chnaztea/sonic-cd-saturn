@@ -16,6 +16,20 @@ import types
 IS_BROWSER = sys.platform == 'emscripten'
 _desktop_run = _subprocess.run
 _backend = None
+_progress_reporter = None
+
+
+def set_progress_reporter(reporter):
+    """Install an optional in-process callback; desktop builds remain silent."""
+    global _progress_reporter
+    previous = _progress_reporter
+    _progress_reporter = reporter
+    return previous
+
+
+def report_progress(label, completed, total):
+    if _progress_reporter is not None:
+        _progress_reporter(label, completed, total)
 
 
 def linked_symbols(root):

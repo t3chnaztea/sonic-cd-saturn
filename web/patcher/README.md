@@ -23,8 +23,12 @@ select the CUE and all 35 BIN tracks of the Redump "Sonic CD (USA)" dump. The
 page joins those tracks into the pinned single-BIN layout (sonic.bin and
 sonic.cue) before any check: it keeps track 1, drops the first 353,920 audio
 bytes (the track 2 pregap plus a 280-sample read offset) and appends 1,120 zero
-bytes. A matching single sonic.bin and sonic.cue are still accepted. Select
-bios_CD_U.bin. Filenames, lengths
+bytes. A matching single sonic.bin and sonic.cue are still accepted. Select the
+Sega CD Model 2 U.S. BIOS v2.00W (131,072 bytes, SHA-256
+b1c2036b79467514eaaa69c76e5ba83801621e821059caa53cb921a0b21e3af4) under any
+filename. The page matches the BIOS by length and SHA-256. A byte-swapped copy
+is swapped back in memory and must then match the same hash. The Model 1
+(v1.10) BIOS and other revisions are not supported. Disc filenames, lengths
 and SHA-256 values must match the recipe. CHD, ZIP, patched images and other
 revisions are unsupported. The original files are mounted read-only.
 
@@ -36,6 +40,17 @@ must match release.js before links appear. Save both files together in one
 SAROO/ISO folder. The receipt records software verification, not a console test.
 
 **Cancel** terminates the Worker. Changing an input clears old download links.
+Step 23 reports the current zone and task through 16 background-table substeps.
+Its progress bar advances after real substeps complete. A long substep can still
+take several minutes. Refreshing the page discards the conversion in progress.
+The page shows total elapsed time, time since the last progress message, and a
+timestamped running log. Step 23 has a 17-minute countdown based on the recorded
+M4 run. This is an estimate. Reaching zero does not cancel the conversion.
+The clock runs on the page while the conversion worker is busy. Only actual
+worker messages enter the log or advance the progress bar. Cancel and errors
+freeze the clocks. A new run clears the log. The log keeps the latest250 entries.
+The fast presentation check is `tools/test-patcher-activity-ui.cjs`; it uses
+simulated worker messages and does not convert game data.
 The page has no account, analytics, external fonts or upload endpoint. Reference
 requests contain only fixed public repository paths and commit IDs. A separate
 check on 2026-11-22 fetched all 1,591 pinned files from GitHub with the pinned
