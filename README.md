@@ -8,7 +8,16 @@
 ![V0.082: software regression passed](https://img.shields.io/badge/V0.082-software%20regression%20passed-2ea44f)
 ![Saturn console test: V0.082 works](https://img.shields.io/badge/Saturn%20console%20test-V0.082%20works-2ea44f)
 
-A native Sega Saturn port of Sonic CD (1993). The game logic is reimplemented in C and runs on the Saturn's SH-2 CPUs. There is no Sega CD emulation. It follows the 1993 Sega CD release, not the 2011 remaster.
+I'm a software developer by day. I make retro game projects on the side. You might know me from the Snatcher "uncensored" patcher. That was a quick side project; I've been working on this Sonic CD port for months.
+
+As a kid, I loved Sonic CD on the Sega CD and hoped for a sequel on the Saturn. This is my way of making that childhood wish happen: Sonic CD running as a native Saturn game. The game logic is rewritten in C for the Saturn's SH-2 CPUs. There is no Sega CD emulation. The port follows the 1993 game and keeps its original art.
+
+All seven zones are in, with all four eras, time travel, bosses, Metal Sonic, special stages and both endings. Classic is the default. The optional CD++ preset adds extra moves. It ran on my Saturn from a SAROO on 2026-11-21, CD++ included.
+
+<p align="center">
+  <a href="https://www.reddit.com/r/SegaSaturn/comments/1y2utdy/unofficial_native_sega_saturn_port_of_sonic_cd/"><img src="https://external-preview.redd.it/eDFqeHRheHA3NzNpMWeC7g9S3e_mt-DLPAZd6jtEFBHif26HZWpyiMlgQk6q.png?width=640&crop=smart&format=pjpg&auto=webp&s=f5f41a7411ed3c3faa75ef5a982944acf493ff2f" alt="Sonic CD running on a Sega Saturn with SAROO" width="640"></a><br>
+  <a href="https://www.reddit.com/r/SegaSaturn/comments/1y2utdy/unofficial_native_sega_saturn_port_of_sonic_cd/">Watch the Saturn/SAROO video</a>
+</p>
 
 > [!IMPORTANT]
 > This repository contains no SEGA art, audio, level data, program files, disc images or BIOS files, and no playable image will be distributed. The game logic is reimplemented in C; like the decompilation it follows, it keeps some of the original's numeric tables, and the test tools find code on your disc by short byte patterns. To build it you need your own U.S. and Japanese Sonic CD discs. Do not share the images you build. If you do not own the game, it is sold in [Sonic Origins](https://www.sega.com/games/sonic-origins).
@@ -19,45 +28,35 @@ A native Sega Saturn port of Sonic CD (1993). The game logic is reimplemented in
 
 ## Status
 
-V0.082 is the current version. The whole game is in, and it passes all of its automated tests in an emulator. It also runs on a real Saturn: I played it on mine from a SAROO on 2026-11-21. The tests can't cover every route through the game, so expect some bugs. Test numbers and file hashes are in the [V0.082 release notes](RELEASE-NOTES-V0.082.md). Older versions are in the [changelog](CHANGELOG.md).
+V0.082 is the current published version. Its software regression passed. I played it on my Saturn with SAROO on 2026-11-21, including CD++. Expect some bugs. Exact results and image hashes are in the [V0.082 release notes](RELEASE-NOTES-V0.082.md). Older versions are in the [changelog](CHANGELOG.md).
 
-The [Easy Patcher](https://t3chnaztea.github.io/sonic-cd-saturn/web/patcher/) builds V0.082 in desktop Chrome from your own Japanese disc, U.S. disc and U.S. Sega CD BIOS. Nothing is uploaded. It checks your files first, and you only get a download if the result matches the build I tested, byte for byte. A run takes about 45 minutes and about 4 GiB of memory. Each disc has to be in the dump layout the page asks for. You can also build from source (see [Building](#building)).
+V0.083 is an unpublished audio prerelease candidate. It changes the opening movie sound setup and lowers music by 20% relative to effects. Release checks are in progress. Its console test is pending.
 
-The patcher's code is in [`web/patcher`](web/patcher/README.md). The recipe it downloads contains compiled program code, the MIT-licensed sound driver and the disc's file layout. It has no art, audio, level data or disc bytes. Your browser rebuilds all of that from your files and from pinned public sources. No recipe, BIOS or disc image is in this repo. Test results are in the [verification record](web/patcher/IMPLEMENTATION.md).
+The [Easy Patcher](https://t3chnaztea.github.io/sonic-cd-saturn/web/patcher/) builds V0.082 in desktop Chrome from your own Japanese disc, U.S. disc and U.S. Sega CD BIOS. Nothing is uploaded. It checks your files first, and you only get a download if the result matches the build I tested, byte for byte. Allow about 45 minutes and at least 4 GiB of spare memory. The time depends on your computer. Each disc has to be in the dump layout the page asks for. You can also build from source (see [Building](#building)).
 
-What works in the emulator:
+**Step 23 is slow.** `background_tables.py` took about 15–17 minutes on my M4 Mac. Several minutes between updates can be normal. The patcher now shows substep progress, elapsed time, a running log and an estimated countdown for that step. The estimate can run past zero on slower machines. Keep the tab open and your computer awake. Refreshing starts the conversion over.
 
-- All 7 zones, each in 4 eras (Present, Past, Good Future, Bad Future), with time travel through time posts. 70 act/era variants in total.
+The patcher's code is in [`web/patcher`](web/patcher/README.md). The recipe it downloads contains compiled program code, the MIT-licensed sound driver and the disc's file layout. It has no art, audio, level data or disc bytes. Your browser rebuilds all of that from your files and from pinned public sources. The source tree on `main` contains no generated recipe. No BIOS or disc image is provided. Test results are in the [verification record](web/patcher/IMPLEMENTATION.md).
+
+Implemented game features:
+
+- All 7 zones: Palmtree Panic, Collision Chaos, Tidal Tempest, Quartz Quadrant, Wacky Workbench, Stardust Speedway and Metallic Madness. There are 70 act/era variants: Acts 1 and 2 in Present, Past, Good Future and Bad Future, plus Act 3 in both futures. Time posts let you travel between eras.
 - All seven bosses, Metal Sonic, Amy, and both endings.
 - Special stages 1 to 8, entered from the big ring.
 - Title screen, New Game, Continue, RAM Data and Time Attack.
 - D.A. Garden, with its track list and looping music.
 - Visual Mode: the opening, both endings and the pencil-test movie.
 - The staff roll, the end screens, the "Thank You" screen and the Special Stage 8 credits. Each one is checked against the original, picture by picture ([credits audit](docs/CREDITS-AUDIT.md)).
-- Backup RAM saves for progress, Time Stones and future flags. Saves are written so that a reset or power cut can't destroy the previous save, and a slot that can't be read is never overwritten (V0.080).
+- Backup RAM saves for progress, Time Stones and future flags. Save writes preserve the previous record until its replacement is complete. A slot that cannot be read is not overwritten.
 - The five secret sound-test pictures, from your disc (V0.080).
-- The Japanese soundtrack, copied from your disc as is.
+- The Japanese soundtrack. This choice is intentional. A U.S. soundtrack option is planned but is not in the patcher yet.
 - An optional CD++-style preset (see below). Classic is the default.
 
-On the console I didn't write down which zones, acts or modes I played, so no specific path is confirmed on hardware. The last console-tested build before V0.082 was V0.065 (2026-09-26): Palmtree Panic, Collision Chaos and Tidal Tempest.
-
-The zone table below is from the V0.080 full QA run.
-
-| Zone | Retail match | Saturn routes | Art | Time travel | Campaign | Real Saturn |
-| --- | --- | --- | --- | --- | --- | --- |
-| Palmtree Panic | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | V0.065 ok; V0.082 not itemized |
-| Collision Chaos | 10/10 | 10/10 | 10/10 | 10/10 | 5/5 | V0.065 ok; V0.082 not itemized |
-| Tidal Tempest | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | V0.065 ok; V0.082 not itemized |
-| Quartz Quadrant | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | V0.082 not itemized |
-| Wacky Workbench | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | V0.082 not itemized |
-| Stardust Speedway | 10/10 | 10/10 | 10/10 | 10/10 | 3/3 | V0.082 not itemized |
-| Metallic Madness | 10/10 | 10/10 | 12/12 | 10/10 | 3/3 | V0.082 not itemized |
-
-Each zone has 10 act/era variants: Acts 1 and 2 in four eras, plus Act 3 in both futures. "Retail match" plays the same recorded inputs on the original Sega CD game and on the port, then compares nine state values. "Campaign" plays from New Game to the Good Future. All results are from the V0.080 BIN (SHA-256 `7bbce369…5338`). Details are in [RELEASE-NOTES-V0.080.md](RELEASE-NOTES-V0.080.md) and [QA-PLAN.md](QA-PLAN.md).
+The video demonstrates console play. A full zone-by-zone hardware checklist remains open. Automated checks cover selected routes and states. They do not establish a percentage of every possible path through the game.
 
 ## CD++ preset
 
-An optional preset adds five moves from the 2009 Sonic CD++ hack: the Sonic 2 spin dash, no air speed cap, an air roll, a homing attack and the mini Sonic spin dash. Turn it on in RAM Data (MODE CLASSIC / CD++). The setting has its own save file, and Time Attack keeps separate CD++ records. I wrote the moves from scratch using public references. No CD++ code, patch data or sprites are used. Some values are my own choices, so it won't match the hack frame for frame. Details are in [docs/CDPP-PRESET-SPEC.md](docs/CDPP-PRESET-SPEC.md).
+An optional preset adds five moves inspired by the 2009 Sonic CD++ hack: the Sonic 2 spin dash, no air speed cap, an air roll, a homing attack and the mini Sonic spin dash. Turn it on in RAM Data (MODE CLASSIC / CD++). The setting has its own save file, and Time Attack keeps separate CD++ records. I wrote the moves from scratch using public references. No CD++ code, patch data or sprites are used. Some values are my own choices, so it won't match the hack frame for frame. Details are in [docs/CDPP-PRESET-SPEC.md](docs/CDPP-PRESET-SPEC.md).
 
 ## How this was checked
 
@@ -65,8 +64,8 @@ An optional preset adds five moves from the 2009 Sonic CD++ hack: the Sonic 2 sp
 - Retail match: I record a controller run on the original Sega CD game in an emulator, then play the same inputs on the Saturn build in Beetle Saturn. Nine state values have to match. Each zone has 10 of these runs.
 - Many objects, bosses, menus and movies are also compared with the original, picture by picture or state by state. Examples: the credits, D.A. Garden, Visual Mode and the special stages.
 - Player physics has its own test (`tools/test-player.sh`). Classic physics must stay identical when the CD++ code is built in.
-- The V0.080 full test run has 201 steps and takes about 3.5 hours. All 201 passed, including 42 special-stage and menu cases.
-- None of this replaces a console test. Only a run on my own Saturn counts as "works on hardware".
+- V0.082 passed 215/215 full-regression checks and 347/347 zone and special-stage matrix windows. The missing-art scan passed all 70 act/era cases. These are finite test inventories, not proof that every possible game path was tested.
+- Emulator evidence and console evidence are recorded separately. V0.082 ran on my Saturn/SAROO, including CD++. V0.083 still needs its own console test.
 
 ## Related project
 
@@ -74,6 +73,8 @@ orca_earth_md is making a separate Sonic CD port for the Saturn ([r/SegaSaturn p
 
 ## Known issues
 
+- V0.082: a player reported that the opening movie has no sound and can leave gameplay audio corrupted. The reporter said entering gameplay before the movie started avoided the fault. V0.083 has a startup repair under test. It has not yet been confirmed on a console.
+- V0.082: music can be too loud relative to effects. V0.083 reduces music by 20%. Console listening tests are pending.
 - Lost rings can bounce one update off from the original after a moment where the Sega CD would lag. The port doesn't copy Sega CD slowdown ([lag note](docs/LAG-MODEL-NOTE.md)).
 - Quartz Quadrant Act 1 Present: a timing difference on the era sign was reported in V0.078. I can't reproduce it on the current test runs. It stays open until I can reproduce it or rule it out.
 - Tidal Tempest Act 3 has no splash when you enter the water. It doesn't fit in sprite memory.
@@ -82,7 +83,7 @@ orca_earth_md is making a separate Sonic CD port for the Saturn ([r/SegaSaturn p
 
 ## Screenshots
 
-V0.078 in Beetle Saturn, scaled 2x. Console photos are still to come.
+These stills are V0.078 in Beetle Saturn, scaled 2x. They are emulator captures. V0.082 has since run on my Saturn with SAROO, including CD++.
 
 | | |
 | --- | --- |
@@ -94,8 +95,8 @@ V0.078 in Beetle Saturn, scaled 2x. Console photos are still to come.
 
 | Target | State |
 | --- | --- |
-| Beetle Saturn (libretro) | All automated tests run here. V0.082 passes. |
-| Real Saturn + [SAROO](https://github.com/tpunix/SAROO) | Main target. V0.082 works on my console (2026-11-21). V0.066 to V0.081 untested. |
+| Beetle Saturn (libretro) | Emulator checks run here. V0.082 passes its software regression. |
+| Real Saturn + [SAROO](https://github.com/tpunix/SAROO) | Main target. V0.082 ran on my console, including CD++ (2026-11-21). V0.083 console test pending. |
 | Mednafen | Used for manual play during development. |
 | Yaba Sanshiro, Kronos, SSF | Untested. |
 | Burned CD-R, other ODEs | Untested. |
@@ -151,7 +152,7 @@ Tests:
 
 ```sh
 python3 tools/qa-loop.py fast    # quick gates
-python3 tools/qa-loop.py full    # every step (201 in V0.080), about 3.5 hours on my Mac
+python3 tools/qa-loop.py full    # full regression; allow several hours
 bash tools/test-player.sh        # player physics trace comparison
 ```
 
@@ -178,7 +179,7 @@ Full notices are in [THIRD-PARTY.md](THIRD-PARTY.md).
 
 ## AI use
 
-I built this port with heavy use of Claude Code (Anthropic's coding agent). I set the goals, made the design decisions and run every console test. Each feature is checked against scddisasm with the trace and emulator tests in [QA-PLAN.md](QA-PLAN.md). Hardware results decide what counts as working.
+I used AI coding agents for code, research and automated tests. I set the goals, made the design decisions and tested the game on my Saturn. The source and test notes are in this repo. The game keeps the original art; I did not use generative AI artwork in it. The trace and emulator tests are described in [QA-PLAN.md](QA-PLAN.md). Hardware results decide console acceptance.
 
 ## Legal
 
