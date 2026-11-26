@@ -145,7 +145,7 @@ async function main() {
       checks:['bad BIOS rejected','wrong BIOS revision rejected','renamed BIOS accepted','byte-swapped BIOS accepted','cancel restores controls','actual worker patch','downloaded BIN SHA-256','downloaded CUE SHA-256','receipt','desktop layout','390px layout','stale links cleared','no upload requests','no page errors'],
       bin_sha256:release.binSha256,cue_sha256:release.cueSha256,source_files:receipt.sources.length,requests:requests.length,transport:fileMode?'offline-file':'loopback-http',live_reference_fetch_tested:false,hardware_tested:false,timings};
     fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');
-    console.log('PASS: actual Chrome Easy Patcher; downloaded BIN/CUE match accepted V0.082; no uploads'+(fileMode?'; offline file mode':''));
+    console.log('PASS: actual Chrome Easy Patcher; downloaded BIN/CUE match accepted '+release.version+'; no uploads'+(fileMode?'; offline file mode':''));
   } finally {for(const file of scratch)try{fs.unlinkSync(file);}catch{}cancelWatch();process.removeListener('SIGTERM',terminate);await browser.close();}
 }
 main().catch(error=>{console.error(error);console.log('FAIL: actual Chrome Easy Patcher');process.exitCode=1;}).finally(()=>{if(server.listening)server.close();});

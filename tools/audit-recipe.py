@@ -65,12 +65,12 @@ def audit(bundle,work):
         count=struct.unpack('<I',stream.read(4))[0]
         if not 0<count<=16*1024*1024:raise ValueError('Invalid header size')
         manifest=json.loads(stream.read(count));payload=stream.read()
-    if manifest.get('format')!=2 or manifest.get('version')!='V0.082':raise ValueError('Unsupported recipe')
+    if manifest.get('format')!=2 or manifest.get('version')!='V0.083':raise ValueError('Unsupported recipe')
     keys(manifest,'format version sources derivations ops target construction')
     target=manifest['target']
     keys(target,'bytes sha256 cue cue_sha256')
     if target['bytes']!=759063312:raise ValueError('Accepted image length differs')
-    if target['sha256']!='cb872d149ba3575d9929a1072bb006dd403b97e79dfdfa0a6b4782bf178a3e66' or target['cue_sha256']!='10f35a87674de372bc4b217a4e877f5321aa683afda91eab18df2df331d04337':raise ValueError('Accepted pins differ')
+    if target['sha256']!='8ef64ccd07739b3e6e00fd424409000b54d629c6470e1f5865cc3cec4d703d86' or target['cue_sha256']!='10f35a87674de372bc4b217a4e877f5321aa683afda91eab18df2df331d04337':raise ValueError('Accepted pins differ')
     if hashlib.sha256(target['cue'].encode()).hexdigest()!=target['cue_sha256']:raise ValueError('CUE bytes differ')
     construction=manifest['construction']
     fields='schema programs metadata tables iso iso_layout boot_blobs data_track firmware linked_symbols elf_sha256 us_iso payload_sha256 literal_ranges'

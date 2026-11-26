@@ -11,6 +11,7 @@
 /docs/INDEX.md export-ignore
 /docs/QA-CAMPAIGN-PLAN.md export-ignore
 /docs/QA-RESUME.md export-ignore
+/docs/V0.083-PLAN.md export-ignore
 
 # Hash-pinned runtimes must keep their exact upstream bytes on checkout.
 /web/patcher/vendor/** -text -whitespace

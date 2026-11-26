@@ -79,7 +79,7 @@ async function main(){
     await page.screenshot({path:path.join(out,'verified.png'),fullPage:true});
     const report={status:'PASS',browser:browser.version(),checked_utc:new Date().toISOString(),substeps,bin_sha256:release.binSha256,cue_sha256:release.cueSha256,errors,badRequests,live_reference_fetch_tested:false};
     fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');
-    console.log('PASS: Chrome step23 progress; 16 substeps visible before completion; exact V0.082 BIN/CUE; no uploads');
+    console.log('PASS: Chrome step23 progress; 16 substeps visible before completion; exact '+release.version+' BIN/CUE; no uploads');
   }finally{cancelWatch();process.removeListener('SIGTERM',terminate);await browser.close();}
 }
 main().catch(error=>{console.error(error);process.exitCode=1;}).finally(()=>server.close());

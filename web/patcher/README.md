@@ -3,15 +3,15 @@
 The page takes three groups of local files: the supported Japanese split-track
 BIN/CUE, the supported U.S. BIN/CUE, and the U.S. Sega CD BIOS. A Web Worker runs
 Python converters and local WebAssembly tools. Download links require the
-accepted V0.082 hashes:
+accepted V0.083 hashes:
 
-- BIN: cb872d149ba3575d9929a1072bb006dd403b97e79dfdfa0a6b4782bf178a3e66
+- BIN: 8ef64ccd07739b3e6e00fd424409000b54d629c6470e1f5865cc3cec4d703d86
 - CUE: 10f35a87674de372bc4b217a4e877f5321aa683afda91eab18df2df331d04337
 
 Implementation and verification gates are tracked in
 [IMPLEMENTATION.md](IMPLEMENTATION.md). A prepared site package requires a
 passing audit. Source files alone do not provide a recipe.scsp deployment file.
-No site package or release has been published by this work.
+V0.083 is a prerelease pending a console test. Publication remains gated by the release checks.
 
 ## Inputs and operation
 

@@ -29,6 +29,7 @@
      updatetrace FILE MAX      while a demo runs: per gameplay update (SCD2 trace record)
                                "seq sim accepted_buttons demo_frame x y"
      energy LABEL N            run N frames and print the summed |sample| of the audio output
+     capture LABEL N           also write LABEL.raw (stereo signed 16-bit native-endian)
      shot NAME                 write NAME.ppm
      fail_unless_magic MAGIC   stop with status 3 unless the trace shows MAGIC
    Every line prints "frame=<n> <command>" results to stdout. */
@@ -98,8 +99,16 @@ static void video(const void *data,unsigned width,unsigned height,size_t pitch){
 }
 /* Audio energy (sum of |sample|) for the "energy" command. */
 static uint64_t audio_energy;
-static void audio(int16_t l,int16_t r){audio_energy+=(uint64_t)abs(l)+(uint64_t)abs(r);}
-static size_t audio_batch(const int16_t *data,size_t frames){for(size_t i=0;i<frames*2;i++)audio_energy+=(uint64_t)abs(data[i]);return frames;}
+static FILE *audio_capture;
+static void audio(int16_t l,int16_t r){
+    audio_energy+=(uint64_t)abs(l)+(uint64_t)abs(r);
+    if(audio_capture){int16_t pair[2]={l,r};if(fwrite(pair,sizeof(pair),1,audio_capture)!=1){perror("audio capture");exit(2);}}
+}
+static size_t audio_batch(const int16_t *data,size_t frames){
+    for(size_t i=0;i<frames*2;i++)audio_energy+=(uint64_t)abs(data[i]);
+    if(audio_capture && fwrite(data,sizeof(int16_t)*2,frames,audio_capture)!=frames){perror("audio capture");exit(2);}
+    return frames;
+}
 static void input_poll(void){}
 static int16_t input_state(unsigned port,unsigned device,unsigned index,unsigned id){
     if(staff_raw_diagnostic() && staff_input_logs<64 && !port && device==RETRO_DEVICE_JOYPAD &&
@@ -356,8 +365,14 @@ int main(int argc,char **argv){
             }
             fclose(out);printf("frame=%u demotrace %s rows=%u\n",frame,a,rows);
         }
-        else if(!strcmp(cmd,"energy")){
+        else if(!strcmp(cmd,"energy") || !strcmp(cmd,"capture")){
+            if(!strcmp(cmd,"capture")){
+                if(!a[0] || strspn(a,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-")!=strlen(a))return 2;
+                char path[4096];snprintf(path,sizeof(path),"%s/%s.raw",output_dir,a);
+                audio_capture=fopen(path,"wb");if(!audio_capture){perror(path);return 2;}
+            }
             button_mask=0;audio_energy=0;for(unsigned n=strtoul(b,NULL,10);n;n--)step();
+            if(audio_capture){if(fclose(audio_capture)){perror("audio capture");return 2;}audio_capture=NULL;}
             printf("frame=%u energy %s %llu\n",frame,a,(unsigned long long)audio_energy);
         }
         else if(!strcmp(cmd,"fail_unless_magic")){

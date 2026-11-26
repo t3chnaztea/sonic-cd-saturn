@@ -5,12 +5,12 @@ from pathlib import Path
 import re
 
 ZONES = ('ppz', 'cc', 'tt', 'qq', 'ww', 'ss', 'mm')
-RELEASE_ZONES = {'0.076': ZONES[:5], '0.077': ZONES[:6], '0.078': ZONES, '0.079': ZONES, '0.080': ZONES, '0.081': ZONES, '0.082': ZONES}
+RELEASE_ZONES = {'0.076': ZONES[:5], '0.077': ZONES[:6], '0.078': ZONES, '0.079': ZONES, '0.080': ZONES, '0.081': ZONES, '0.082': ZONES, '0.083': ZONES}
 GATES = ('retail', 'routes', 'art', 'travel', 'campaign')
 # Special stages: the pseudo-zone 'sp' carries one gate, 'special', whose cases
 # tools/zone-gates.py runs from tests/special/gate-cases.json.
 SPECIAL, SPECIAL_GATE = 'sp', 'special'
-RELEASE_SPECIAL = {'0.078', '0.079', '0.080', '0.081', '0.082'}
+RELEASE_SPECIAL = {'0.078', '0.079', '0.080', '0.081', '0.082', '0.083'}
 SPECIAL_CASES = tuple([f'SP{n}-{kind}' for n in range(1, 9) for kind in ('win', 'timeout', 'hazard')]
                       + [f'BIGRING-{z.upper()}' for z in ZONES]
                       + ['SAVE-progression', 'ENDING-good', 'ENDING-bad', 'STONES-return']

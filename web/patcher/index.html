@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Sonic CD Saturn Easy Patcher. Build the verified V0.082 BIN/CUE from your Japanese disc, U.S. disc and U.S. Sega CD BIOS. No uploads.">
+  <meta name="description" content="Sonic CD Saturn Easy Patcher. Build the verified V0.083 BIN/CUE from your Japanese disc, U.S. disc and U.S. Sega CD BIOS. No uploads.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob:; connect-src 'self' https://raw.githubusercontent.com; script-src 'self' blob: 'wasm-unsafe-eval'; worker-src 'self' blob:; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
-  <title>Sonic CD Saturn Easy Patcher · V0.082</title>
+  <title>Sonic CD Saturn Easy Patcher · V0.083</title>
   <link rel="stylesheet" href="style.css">
   <script src="release.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
 <main>
-  <header class="masthead"><a class="wordmark" href="./">SONIC CD <span>SATURN</span></a><span class="edition">FAN PORT / V0.082</span></header>
+  <header class="masthead"><a class="wordmark" href="./">SONIC CD <span>SATURN</span></a><span class="edition">FAN PORT / V0.083</span></header>
   <section class="intro" aria-labelledby="title">
     <div><p class="eyebrow">A NEW HOME FOR LITTLE PLANET</p><h1>Sonic CD.<br>Meet Saturn.</h1><p class="lede">Your original disc files. A native Saturn port.<br>One verified BIN and CUE, ready for SAROO.</p></div>
     <div class="privacy"><span class="privacy-mark" aria-hidden="true">↳</span><div><strong>Your files stay here.</strong><p>No uploads. No account.<br>Everything runs in your browser.</p></div></div>
@@ -21,7 +21,7 @@
   <p class="duration-note"><strong>Step 23 is slow.</strong> Background tables took about 17 minutes on our M4 Mac. Other computers can take longer. Keep this tab open and your computer awake. Refreshing starts the conversion over.</p>
   <div class="workspace">
     <form class="patch-card" id="patch-form">
-      <div class="card-heading"><h2>Sonic CD Saturn Easy Patcher</h2><span class="tag">V0.082</span></div>
+      <div class="card-heading"><h2>Sonic CD Saturn Easy Patcher</h2><span class="tag">V0.083 prerelease</span></div>
       <div class="file-step"><span class="step-number" aria-hidden="true">01</span><div class="field"><label for="japanese">Japanese disc BIN and CUE files</label><p class="hint" id="japanese-hint">Select the CUE and all 35 BIN tracks from the supported Japanese dump. Keep the original filenames. CHD, ZIP and patched files are not supported.</p><input type="file" id="japanese" accept=".bin,.cue" multiple aria-describedby="japanese-hint" required></div></div>
       <div class="file-step"><span class="step-number" aria-hidden="true">02</span><div class="field"><label for="american">U.S. disc BIN and CUE files</label><p class="hint" id="american-hint">Select the CUE and all 35 BIN tracks from the Redump "Sonic CD (USA)" dump. Keep the original filenames.</p><input type="file" id="american" accept=".bin,.cue" multiple aria-describedby="american-hint" required></div></div>
       <div class="file-step"><span class="step-number" aria-hidden="true">03</span><div class="field"><label for="bios">U.S. Sega CD BIOS</label><p class="hint" id="bios-hint">Select the Sega CD Model 2 U.S. BIOS v2.00W, 131,072 bytes, any filename. The page checks its size and SHA-256 before use. The Model 1 (v1.10) BIOS and other revisions are not supported.</p><input type="file" id="bios" accept=".bin" aria-describedby="bios-hint" required></div></div>
@@ -36,10 +36,10 @@
       </section>
       <section id="results" tabindex="-1" hidden aria-labelledby="result-title"><h2 id="result-title">Your Saturn files are ready.</h2><p>Save both game files in one folder under SAROO/ISO. Open the CUE on your Saturn. Keep your originals.</p><div id="downloads"></div></section>
     </form>
-    <aside class="guide" aria-labelledby="guide-title"><p class="eyebrow">BEFORE YOU START</p><h2 id="guide-title">Keep your originals.</h2><p>The patcher reads your selected files. It creates new downloads. It never changes your disc files.</p><h3>Checks first. Downloads last.</h3><p>Every required source is checked. The finished BIN and CUE must match the accepted V0.082 release before you can save them.</p><div class="guide-rule"></div><h3>Desktop Chrome.</h3><p>The output is 724 MiB. Allow at least 4 GiB of spare memory. Keep this tab open until conversion finishes.</p><h3>Save both files.</h3><p>Put the BIN and CUE together in one SAROO/ISO folder. Keep the receipt with your console test notes.</p></aside>
+    <aside class="guide" aria-labelledby="guide-title"><p class="eyebrow">BEFORE YOU START</p><h2 id="guide-title">Keep your originals.</h2><p>The patcher reads your selected files. It creates new downloads. It never changes your disc files.</p><h3>Checks first. Downloads last.</h3><p>Every required source is checked. The finished BIN and CUE must match the accepted V0.083 release before you can save them.</p><div class="guide-rule"></div><p>V0.083 is a prerelease. Its console test is pending.</p><h3>Desktop Chrome.</h3><p>The output is 724 MiB. Allow at least 4 GiB of spare memory. Keep this tab open until conversion finishes.</p><h3>Save both files.</h3><p>Put the BIN and CUE together in one SAROO/ISO folder. Keep the receipt with your console test notes.</p></aside>
   </div>
   <details class="limits"><summary>What does the page download?</summary><div class="limits-body"><p>The page loads conversion tools from this site. It also fetches reference files from pinned GitHub revisions. Each file has a SHA-256 check. Your disc files and BIOS stay on your computer.</p><p>The site contains program code and an audited reconstruction recipe. The browser rebuilds art, music and level data from the checked inputs. The site has no analytics, remote fonts or upload endpoint.</p></div></details>
-  <footer><span>UNOFFICIAL FAN PROJECT · NOT AFFILIATED WITH SEGA</span><span>LOCAL PATCHING / VERIFIED OUTPUT / V0.082</span></footer>
+  <footer><span>UNOFFICIAL FAN PROJECT · NOT AFFILIATED WITH SEGA</span><span>LOCAL PATCHING / VERIFIED OUTPUT / V0.083</span></footer>
 </main>
 </body>
 </html>

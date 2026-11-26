@@ -41,6 +41,6 @@ async function main(){
  fs.writeFileSync(path.join(out,'report.json'),JSON.stringify({status:'PASS',recipe_sha256:await sha(bundle),
   fresh_commands:diagnostic?0:stages.length,diagnostic,cd_files:data.construction.iso_layout.files.length,cd_bytes:bytes,
   bin_sha256:release.binSha256,cue_sha256:release.cueSha256,hardware_tested:false},null,2)+'\n');
- console.log('PASS: Node recipe assembly; '+(diagnostic?'diagnostic Pyodide packaging':stages.length+' fresh Pyodide invocations')+'; exact accepted V0.082 BIN/CUE');
+ console.log('PASS: Node recipe assembly; '+(diagnostic?'diagnostic Pyodide packaging':stages.length+' fresh Pyodide invocations')+'; exact accepted '+release.version+' BIN/CUE');
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});

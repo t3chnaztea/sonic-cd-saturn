@@ -5,7 +5,7 @@
 # Sonic CD for Sega Saturn
 
 ![CI](https://github.com/t3chnaztea/sonic-cd-saturn/actions/workflows/ci.yml/badge.svg)
-![V0.082: software regression passed](https://img.shields.io/badge/V0.082-software%20regression%20passed-2ea44f)
+![V0.083: software regression passed](https://img.shields.io/badge/V0.083-software%20regression%20passed-2ea44f)
 ![Saturn console test: V0.082 works](https://img.shields.io/badge/Saturn%20console%20test-V0.082%20works-2ea44f)
 
 I'm a software developer by day. I make retro game projects on the side. You might know me from the Snatcher "uncensored" patcher. That was a quick side project; I've been working on this Sonic CD port for months.
@@ -28,11 +28,11 @@ All seven zones are in, with all four eras, time travel, bosses, Metal Sonic, sp
 
 ## Status
 
-V0.082 is the current published version. Its software regression passed. I played it on my Saturn with SAROO on 2026-11-21, including CD++. Expect some bugs. Exact results and image hashes are in the [V0.082 release notes](RELEASE-NOTES-V0.082.md). Older versions are in the [changelog](CHANGELOG.md).
+V0.083 is an audio prerelease. Its software regression passed: 171 fast checks, 215 full checks and 347 zone and special-stage matrix windows. Console testing is pending. Expect some bugs. Exact results and image hashes are in the [V0.083 release notes](RELEASE-NOTES-V0.083.md). Older versions are in the [changelog](CHANGELOG.md).
 
-V0.083 is an unpublished audio prerelease candidate. It changes the opening movie sound setup and lowers music by 20% relative to effects. Release checks are in progress. Its console test is pending.
+V0.083 changes the opening movie sound setup and lowers music by 20% relative to effects. The reported movie fault still needs confirmation on a console. V0.082 ran on my Saturn with SAROO on 2026-11-21, including CD++. That hardware result does not cover V0.083.
 
-The [Easy Patcher](https://t3chnaztea.github.io/sonic-cd-saturn/web/patcher/) builds V0.082 in desktop Chrome from your own Japanese disc, U.S. disc and U.S. Sega CD BIOS. Nothing is uploaded. It checks your files first, and you only get a download if the result matches the build I tested, byte for byte. Allow about 45 minutes and at least 4 GiB of spare memory. The time depends on your computer. Each disc has to be in the dump layout the page asks for. You can also build from source (see [Building](#building)).
+The [Easy Patcher](https://t3chnaztea.github.io/sonic-cd-saturn/web/patcher/) builds V0.083 in desktop Chrome from your own Japanese disc, U.S. disc and U.S. Sega CD BIOS. Nothing is uploaded. It checks your files first, and you only get a download if the result matches the build I tested, byte for byte. Allow about 45 minutes and at least 4 GiB of spare memory. The time depends on your computer. Each disc has to be in the dump layout the page asks for. You can also build from source (see [Building](#building)).
 
 **Step 23 is slow.** `background_tables.py` took about 15–17 minutes on my M4 Mac. Several minutes between updates can be normal. The patcher now shows substep progress, elapsed time, a running log and an estimated countdown for that step. The estimate can run past zero on slower machines. Keep the tab open and your computer awake. Refreshing starts the conversion over.
 
@@ -64,7 +64,7 @@ An optional preset adds five moves inspired by the 2009 Sonic CD++ hack: the Son
 - Retail match: I record a controller run on the original Sega CD game in an emulator, then play the same inputs on the Saturn build in Beetle Saturn. Nine state values have to match. Each zone has 10 of these runs.
 - Many objects, bosses, menus and movies are also compared with the original, picture by picture or state by state. Examples: the credits, D.A. Garden, Visual Mode and the special stages.
 - Player physics has its own test (`tools/test-player.sh`). Classic physics must stay identical when the CD++ code is built in.
-- V0.082 passed 215/215 full-regression checks and 347/347 zone and special-stage matrix windows. The missing-art scan passed all 70 act/era cases. These are finite test inventories, not proof that every possible game path was tested.
+- V0.083 passed 171/171 fast checks, 215/215 full-regression checks and 347/347 zone and special-stage matrix windows. The missing-art scan passed all 70 act/era cases. These are finite test inventories, not proof that every possible game path was tested.
 - Emulator evidence and console evidence are recorded separately. V0.082 ran on my Saturn/SAROO, including CD++. V0.083 still needs its own console test.
 
 ## Related project
@@ -73,7 +73,7 @@ orca_earth_md is making a separate Sonic CD port for the Saturn ([r/SegaSaturn p
 
 ## Known issues
 
-- V0.082: a player reported that the opening movie has no sound and can leave gameplay audio corrupted. The reporter said entering gameplay before the movie started avoided the fault. V0.083 has a startup repair under test. It has not yet been confirmed on a console.
+- V0.082: a player reported that the opening movie has no sound and can leave gameplay audio corrupted. The reporter said entering gameplay before the movie started avoided the fault. V0.083 has a startup repair that passes software checks. It has not yet been confirmed on a console.
 - V0.082: music can be too loud relative to effects. V0.083 reduces music by 20%. Console listening tests are pending.
 - Lost rings can bounce one update off from the original after a moment where the Sega CD would lag. The port doesn't copy Sega CD slowdown ([lag note](docs/LAG-MODEL-NOTE.md)).
 - Quartz Quadrant Act 1 Present: a timing difference on the era sign was reported in V0.078. I can't reproduce it on the current test runs. It stays open until I can reproduce it or rule it out.
@@ -95,7 +95,7 @@ These stills are V0.078 in Beetle Saturn, scaled 2x. They are emulator captures.
 
 | Target | State |
 | --- | --- |
-| Beetle Saturn (libretro) | Emulator checks run here. V0.082 passes its software regression. |
+| Beetle Saturn (libretro) | Emulator checks run here. V0.083 passes its software regression. |
 | Real Saturn + [SAROO](https://github.com/tpunix/SAROO) | Main target. V0.082 ran on my console, including CD++ (2026-11-21). V0.083 console test pending. |
 | Mednafen | Used for manual play during development. |
 | Yaba Sanshiro, Kronos, SSF | Untested. |

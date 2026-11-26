@@ -66,7 +66,7 @@ const SonicPatch = (() => {
     catch { fail('The patch header is damaged.'); }
     if (![1, 2].includes(data?.format) || data.version !== release.version || !Array.isArray(data.sources) || !data.sources.length || data.sources.length > 128 || !Array.isArray(data.ops) || !data.ops.length || data.ops.length > 400000) fail('The patch format or release is unsupported.');
     const target = data.target;
-    if (!target || target.bytes !== release.binBytes || target.sha256 !== release.binSha256 || target.cue_sha256 !== release.cueSha256 || typeof target.cue !== 'string' || target.cue.length > 16384) fail('This bundle does not produce the accepted V0.082 release.');
+    if (!target || target.bytes !== release.binBytes || target.sha256 !== release.binSha256 || target.cue_sha256 !== release.cueSha256 || typeof target.cue !== 'string' || target.cue.length > 16384) fail(`This bundle does not produce the accepted ${release.version} release.`);
     if (await sha256(new Blob([target.cue])) !== release.cueSha256) fail('The output CUE checksum failed.');
     const names = new Set();
     for (const source of data.sources) {
