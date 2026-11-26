@@ -4,7 +4,7 @@
     {
       "path": "Makefile",
       "bytes": 8260,
-      "sha256": "910b3c20b9cece5a30efc7dedfcd49f90f0f1131dab536f1d555a0a620bf362a"
+      "sha256": "3fa30d81808531c18c0eaf799aaed60e42f838090dd98eb02e765382de18053b"
     },
     {
       "path": "sources.lock.json",
@@ -188,8 +188,8 @@
     },
     {
       "path": "src/cdda_provider/cdda_envelope_shadow.c",
-      "bytes": 3960,
-      "sha256": "9823e7a334e66c7ff0fef34ccc26224321df3d233b9189f090249465692956c0"
+      "bytes": 4901,
+      "sha256": "0e806f64c5526b01bb23a5519031e85cc08b84a56044db24e27d061ac201e902"
     },
     {
       "path": "src/cdda_provider/cdda_envelope_shadow.h",
@@ -288,8 +288,8 @@
     },
     {
       "path": "src/fmv_saturn.c",
-      "bytes": 49433,
-      "sha256": "8057e3f93314717f3eb119e74f12860883dfdd14d39c2436b6fd4f0863cc3912"
+      "bytes": 49576,
+      "sha256": "da97a6fe53899be8eaf4f58545fcb489cde96794245ad33e4742ec302604e2be"
     },
     {
       "path": "src/fmv_saturn.h",
@@ -1129,7 +1129,7 @@
     {
       "path": "tools/audit-recipe.py",
       "bytes": 23919,
-      "sha256": "a45e488f192a788f5b8248545b47fc274997919f3eaa759e98bc963a4163a7e8"
+      "sha256": "12423005a84f1a237a83a0c2ab90c1fc0909703f8c6d3373a85737324459090b"
     },
     {
       "path": "tools/audit-relocation.py",
@@ -1764,7 +1764,7 @@
     {
       "path": "tools/make-recipe-bundle.py",
       "bytes": 10980,
-      "sha256": "746ea55dca75139f5c3485a7c7e0f7ee0c0d14395dedcf4b06d64741e886625c"
+      "sha256": "f7f1c654ec0a4e50565de6a2c94531151bd093897dee341eafea883d41800da3"
     },
     {
       "path": "tools/mm_host_objects.py",
@@ -2643,8 +2643,8 @@
     },
     {
       "path": "tools/zone_release_evidence.py",
-      "bytes": 10597,
-      "sha256": "7bb906803f38984ef806cadd56f9d5f953f8be0b02b948e8c99166d44aa036c9"
+      "bytes": 10622,
+      "sha256": "8b89bc804b1fafb6f6e51c779871df60a856629488e5daa993049428bce553e1"
     }
   ],
   "references": [

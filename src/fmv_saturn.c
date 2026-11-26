@@ -265,9 +265,10 @@ static void slot_start(void)
     slot[9] = 0;
     slot[10] = 0;
     slot[11] = 0xE000;    /* DISDL 7, centre */
-    uint16_t mvol = SCSP_REG(0x400);
-    if ((mvol & 15u) == 0)
-        SCSP_REG(0x400) = (uint16_t)(mvol | 15u);
+    /* MEM4MB, DAC18B and MVOL are write-only (SCSP manual, 4.2).
+     * A read/modify/write can clear MEM4MB and invalidate the live driver and
+     * PCM addresses. Keep 512 KB sound RAM, 16-bit DAC and full master gain. */
+    SCSP_REG(0x400) = 0x020Fu;
     st.frt_last = cpu_frt_count_get();
     st.frt_ext = 0;
     st.blocks = 0;

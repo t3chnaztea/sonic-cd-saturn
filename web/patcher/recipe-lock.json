@@ -1,16 +1,16 @@
 {
   "status": "PASS",
-  "sha256": "be99d13b435241f0b1ffd3affb32137bdc03d19d874107088cf2a77a4f901b5a",
-  "literal_bytes": 624378,
+  "sha256": "fd5c1d8f73f9b3a21ab242950551bff1bbb96a80edcdda2938b45203cd2c6273",
+  "literal_bytes": 624455,
   "literal_bytes_by_class": {
-    "program": 606617,
+    "program": 606694,
     "ISO-structure": 11408,
     "project-CD-text": 18,
     "PoneSound-program": 6335
   },
   "policy": "recipe-no-initialized-data-v5",
   "audit_sources": {
-    "audit-recipe.py": "a45e488f192a788f5b8248545b47fc274997919f3eaa759e98bc963a4163a7e8",
+    "audit-recipe.py": "12423005a84f1a237a83a0c2ab90c1fc0909703f8c6d3373a85737324459090b",
     "recipe_elf.py": "91724471421ddaba0f1a49798b8c535f7e26378fe9570bc3eafc118ce64a540e",
     "recipe_provenance.py": "e0502f09ca961185fe472109c7395c025015c9a28ef02073ea87b6e7473b6d48",
     "recipe_types.py": "8d4962ea99a9ef06d8c5cdc742e12a54d2724923bc8a773adc159c02c0931eec",

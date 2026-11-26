@@ -85,8 +85,9 @@
       else if (data.kind === 'error') { stop('Error'); clear(); message(data.message, true); }
       else if (data.kind === 'result') {
         const {bin, cue, receipt} = data.result;
+        const receiptName = `sonic-cd-saturn-${SONIC_RELEASE.version.toLowerCase().replace(/\./g, '')}-receipt.json`;
         for (const [name, blob] of [[SONIC_RELEASE.binName, bin], [SONIC_RELEASE.cueName, cue],
-          ['sonic-cd-saturn-v0082-receipt.json', new Blob([JSON.stringify(receipt, null, 2) + '\n'], {type: 'application/json'})]]) {
+          [receiptName, new Blob([JSON.stringify(receipt, null, 2) + '\n'], {type: 'application/json'})]]) {
           const link = document.createElement('a'), url = URL.createObjectURL(blob);
           urls.push(url); link.href = url; link.download = name; link.textContent = `Save ${name}`;
           $('downloads').append(link);

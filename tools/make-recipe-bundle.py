@@ -16,7 +16,7 @@ from recipe_tables import build as build_tables,materialize
 from recipe_iso import catalog,structure,boot_blobs,boot_tables
 
 ROOT=Path(__file__).resolve().parents[1]
-BIN_SHA='cb872d149ba3575d9929a1072bb006dd403b97e79dfdfa0a6b4782bf178a3e66'
+BIN_SHA='8ef64ccd07739b3e6e00fd424409000b54d629c6470e1f5865cc3cec4d703d86'
 CUE_SHA='10f35a87674de372bc4b217a4e877f5321aa683afda91eab18df2df331d04337'
 
 
@@ -150,7 +150,7 @@ def make(out,cache):
         iso_layout=layout,boot_blobs=boots,data_track=data_track,firmware=firmware,linked_symbols=symbols,elf_sha256=elf.sha256,
         us_iso=record(ROOT/'build/retail/sonic.iso'),
         payload_sha256=hashlib.sha256(payload.data).hexdigest(),literal_ranges=payload.ranges)
-    manifest=dict(format=2,version='V0.082',sources=sources,derivations=derived,ops=ops,
+    manifest=dict(format=2,version='V0.083',sources=sources,derivations=derived,ops=ops,
         target=dict(bytes=target.stat().st_size,sha256=BIN_SHA,cue=cue.read_text(),cue_sha256=CUE_SHA),construction=construction)
     header=json.dumps(manifest,separators=(',',':'),ensure_ascii=True).encode()
     if len(header)>16*1024*1024:raise ValueError('Header exceeds browser cap')

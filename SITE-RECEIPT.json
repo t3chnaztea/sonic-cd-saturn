@@ -1,7 +1,7 @@
 {
   "status": "prepared-local",
-  "recipe_sha256": "be99d13b435241f0b1ffd3affb32137bdc03d19d874107088cf2a77a4f901b5a",
+  "recipe_sha256": "fd5c1d8f73f9b3a21ab242950551bff1bbb96a80edcdda2938b45203cd2c6273",
   "files": 564,
-  "site_bytes": 63682682,
+  "site_bytes": 63685612,
   "published": false
 }
